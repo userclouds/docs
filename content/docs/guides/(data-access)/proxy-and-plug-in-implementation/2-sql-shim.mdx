@@ -1,0 +1,40 @@
+---
+title: "Quickstart Guide"
+slug: "sql-shim"
+excerpt: ""
+hidden: false
+createdAt: "Thu Jun 13 2024 13:53:04 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Sep 19 2024 19:09:40 GMT+0000 (Coordinated Universal Time)"
+---
+## In the UserClouds Console:
+
+1. **Create a Tenant**: Set up your tenant if you haven't already.
+2. **Create a Connection:**
+   - **For SQL Proxies**: Add a Database Connection in the Tenant Settings page, specifying your SQL database URI and credentials. Test the connection, and hit Save. You will see a proxy host name and a proxy port.
+   - **For NoSQL Proxies**: Add an Object Store under the User Data Storage section of the side navigation, specifying your store URI and credentials. Test the connection, and hit Save. You will see a proxy host name and a proxy port.
+   - **For API Proxies**: Add an API connection under the User Data Storage section of the side navigation, specifying your API keys or authentication as needed. Test the connection, and hit Save. You will see a proxy host name and a proxy port.
+
+## In Your Application Codebase:
+
+1. **Repoint Connection Strings**: 
+   - **For SQL Proxies**: Replace the existing database URI and port with the SQL proxy host name and proxy port.
+   - **For NoSQL Proxies**: Replace the NoSQL connection details with the NoSQL proxy host name and port.
+   - **For API Proxies**: Replace the API base URL with the UserClouds API proxy URL.
+
+## In Your Application:
+
+1. **Use the application**: Click through the application to trigger all its data store queries and API requests.
+
+## In the UserClouds Console:
+
+1. **Review Queries/Requests:**
+   - **For SQL Proxies:** Examine intercepted queries in the Accessors page under Access Methods. SQL proxy policies and data transformers can be applied to individual columns (e.g., SSN) or entire queries (e.g., retrieving a user profile).
+   - **For NoSQL Proxies**: Review intercepted requests and access logs. NoSQL proxy policies are applied at the object store level. However, the access policy can consider the file path as context, allowing you to make finer-grained access decisions (e.g., considering a user ID in the file path).
+   - **For API Proxies**: Review the intercepted API calls. API proxy policies and data transformers can be applied to individual endpoints to control access and transform sensitive data.
+2. **Apply a <Glossary>data transformer</Glossary> (SQL and API Proxies Only):**
+   - On any SQL query or API request, you may mask or tokenize outbound data using transformers. This can be done in the Columns table of the accessor details page for SQL queries or for API endpoints. For more info, see [Masking data in queries](/docs/guides/proxy-and-plug-in-implementation/5-unmasking-data-using-the-browser-plug-in).
+3. **Apply an <Glossary>access policy</Glossary>:**
+   - For SQL proxies, apply policies at the query or column level. For more info, see [Applying access policies to queries](/docs/guides/proxy-and-plug-in-implementation/3-applying-access-policies-to-queries).
+   - For NoSQL proxies, apply policies at the object store level, considering the file path as context where necessary.
+   - For API proxies, apply policies at the individual endpoint level. For more info, see Applying access policies to queries or Applying access policies to API calls.
+4. **Review Logs**: Monitor the logs for a detailed account of data access, transformations, and applied policies.

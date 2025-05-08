@@ -1,0 +1,24 @@
+---
+title: "Columns"
+slug: "columns-1"
+excerpt: ""
+hidden: false
+createdAt: "Fri Apr 05 2024 20:14:34 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Wed Jun 05 2024 16:34:06 GMT+0000 (Coordinated Universal Time)"
+---
+The UserClouds User Store structures user data in a table format, comprised of columns and populated with user records. Understanding the definitions and constraints of these columns is crucial for the effective management and utilization of user data. This documentation provides a detailed overview of column types, constraints, and their implications for data integrity and uniqueness.  
+
+## Column Definitions
+
+Columns in UserClouds are defined by several key attributes, each contributing to how data is stored, validated, and manipulated:
+
+- **Name**: The unique human-readable identifier for the column.
+- **Data Type**: Specifies the type of data the column holds, supporting both basic and composite data types. For more info, see our [Data Types Documentation](/docs/data-types-1)
+- **Array-ness**: Determines whether the column can hold multiple values for each record
+- **Unique Values For User (formerly UniqueRequired)**: Ensures all values in the column for a single user are unique.
+- **Unique IDs For User**: Available only for composite columns, this attribute means a unique ID will be generated for each value of the column unless provided by the customer
+- **Allow Partial Updates**: Available for array columns when either "Unique IDs for User" or "Unique Values for User" is true, allowing the client to pass incremental modifications to the array (vs a comprehensive set of values). To learn more about partial vs full updates on array columns, see [Executing a Mutator](/docs/execute-a-mutator).
+- **Immutable**: Indicates that once a value is set, it cannot be changed, although values can be added or removed. This is only applicable for `composite` columns with "Unique IDs for User" enabled. With this constraint, users can add or remove values but cannot modify the existing values. This is to ensure the immutability of data points associated with a unique ID.
+- **UniqueValuesWithinTenant**: Ensures that values in the column are unique across all users within the tenant. This constraint is available for data types with concrete type `string`, `int`, and `UUID`.
+
+This comprehensive system for defining columns allows UserClouds to cater to a wide range of data management requirements, ensuring data integrity, flexibility, and efficient access patterns.

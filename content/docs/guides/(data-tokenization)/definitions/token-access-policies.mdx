@@ -1,0 +1,42 @@
+---
+title: "Token Access Policies"
+slug: "token-access-policies"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 22:20:54 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 28 2024 22:26:13 GMT+0000 (Coordinated Universal Time)"
+---
+Token Access Policies control the circumstances in which a <Glossary>token</Glossary> can be <Glossary>resolve</Glossary>d. Practically, access policies are functions that receive <Glossary>context</Glossary> data and return true or false according to whether access is allowed or denied. The context can be sent from either the server or the client.
+
+Access policies allow you to govern token resolution centrally, even giving you the ability to modify contracts on data use after the data is shared.
+
+![Access policies give you central, fine-grained control and visibility over sensitive data access. Policies can evaluate purpose, identity, authorization, location, expiration timelines and more.](/assets/images/flow-chart.webp)
+
+
+Access policies can be as simple as "always allow resolution" to complex evaluations including locations, credentials and purpose. A well-formed access policy can receive <Glossary>context</Glossary> about who is requesting the raw data, when, where and for what purpose. It will evaluate this context against the user’s consents, local laws and the company’s security settings, to determine whether access is permitted. 
+
+## Examples
+
+Let’s look at four possible access policies applied to a phone number token, to see how they work.
+
+| Example Policy                                         | Use Case                                                                                                 |
+| :----------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| Only allow resolution for integrity purposes           | Marketing department cannot resolve phone number for SMS-based marketing                                 |
+| Only allow resolution by users with role = employee    | Contractor/third-party engineers cannot download phone number                                            |
+| Only allow resolution after 30 days for fraud purposes | Phone number is effectively deleted from all systems after 30 days, but retained for fraud investigation |
+| Only allow resolution on trusted IP addresses          | Phone number cannot be downloaded outside of company VPN                                                 |
+
+## What they are
+
+An access policy consists of a tuple of (ID, function, parameters)
+
+- `id` - as described above
+- `function` - a function with the signature `func(token Token, parameters Object, context Object)`, where context is passed in from the `ResolveToken()` call.
+- `parameters` - a static JSON object (not containing PII) that is available at runtime, allowing you to parameterize and reuse functions like "allow access only from IP range X-Y"
+
+## Managing access policies
+
+UserClouds has several built-in access policies for common use cases, like purpose-based and time-based expiration of data. However you can also create custom policies, in two ways:
+
+1. Call the `CreateAccessPolicy()` API - a convenience wrapper for in-lining a transformation policy
+2. Create policies in the UserClouds UI

@@ -1,0 +1,162 @@
+---
+title: "Migrate from Auth0"
+slug: "migrate-from-auth0"
+excerpt: "UserClouds allows you to set up an automatic sync with Auth0 in ~15 minutes."
+hidden: false
+createdAt: "Thu Aug 03 2023 22:50:04 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Jun 06 2024 17:05:49 GMT+0000 (Coordinated Universal Time)"
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+This article details how to use UserClouds to migrate off Auth0 in a few easy steps. It will show you how to migrate 100% of your usernames, profiles, passwords and other login factors off Auth0, without forcing any password resets.
+
+The process should take around 15 minutes to set up. You may then have to wait a few weeks for Auth0 to comply with your ticket request (see step 6). During this time, user profile data will be migrated over in bulk. Users will log in through UserClouds, with UserClouds using Auth0 as an identity provider. When users successfully log in, their credentials will be stored in the UserClouds User Store. As such, the two databases will converge for active users. After a few weeks, Auth0 will provide a static export of your hashed passwords for inactive users, which you can then upload to UserClouds. At this point, you will have successfully migrated all of your user data off Auth0.
+
+The article assumes you have already set up an account, organization, tenant and application in UserClouds. See here for more info.
+
+## Ready your Auth0 account
+
+<Steps>
+  <Step>
+    ### Create an M2M application in Auth0
+
+    First, you need to create an M2M application in Auth0, so that UserClouds's server can call the Auth0 server:
+
+    - Log into Auth0 & click Applications in the sidebar
+    - Click Create Application.
+    - Call your application something like UserClouds Management App
+    - Select M2M and hit Create
+
+    - You will be prompted to define permissions. For development purposes, select All and click Authorize. You will be able to narrow this feature set down later - the permissions you allow will depend on the UC feature set that you use.
+    </Step>
+
+    <Step>
+
+    ### Allow Password Grant Flow
+
+    Next, you need to allow the password grant flow in Auth0. This will let UserClouds capture passwords directly from your end users and verify those passwords with Auth0, rather than redirecting the users themselves to Auth0. This is required to capture any authentication changes for your active users, like new account creations and password resets.
+
+    - In Auth0, navigate to your new M2M app’s settings page
+    - Click the Settings sub-tab, scroll to the Advanced Settings card and click the Grant Types tab
+    - Enable the Password Grant Flow and click Save
+    </Step>
+    <Step>
+
+    ### Configure API Authorization in Auth0
+
+    These steps assume you use the default database in Auth0.
+
+    - Select Settings in the Auth0 Sidebar, and scroll to the API Authorization Settings Card
+    - Copy Username-Password-Authentication into the Default Directory field and click Save
+
+    </Step>
+</Steps>
+
+## Configure Auth0 as an Identity Provider in UserClouds
+
+<Steps>
+  <Step>
+  ### Create a new Identity Provider in UserClouds
+
+  - In a new tab, go to the UserClouds Console and select your tenant
+  - Navigate to the Authentication page and scroll down to Identity Platforms: Migrations & Back-Ups card
+  - Click Create Provider
+  </Step>
+  <Step>
+  ### Change your provider type to Auth0
+
+  - Select the provider you just created
+  - Rename the provider something like Auth0 App Connection
+    Change the type to Auth0
+  </Step>
+  <Step>
+  ### Copy over your Auth0 Provider Settings from Auth0
+
+  - Back in your Auth0 tab, open the App page for your M2M app (which you called something like UserClouds Management App)
+  - Navigate to the Settings sub-tab and copy across the Domain, Client ID and Client Secret into the equivalent fields in UserClouds
+  - On the same Auth0 page, navigate to the APIs sub-tab, click the Auth0 Management API, and scroll down to the General Settings section
+  - Copy the Identifier field and paste it into the Audience field in the Auth0 Provider Settings card in UserClouds
+  - Click Save
+  </Step>
+</Steps>
+
+## Import your Auth0 applications to UserClouds
+
+<Steps>
+  <Step>
+  ### Import your applications
+  - In the same UserClouds page, scroll to the bottom card Import from Auth0 and click Import from Auth0
+  - This will import your Auth0 app configurations (like Client ID/Secret and Login URIs) into UserClouds
+  - The sync may take a moment - so refresh your page if you don't see any feedback immediately
+  </Step>
+  <Step>
+  ### Review your application configurations
+
+  - Next, it's beneficial to check your Auth0 configurations have successfully replicated in UserClouds, since you may be using an advanced configuration setting that UserClouds does not support migration for yet.
+  - Navigate to each UserClouds Application's page (UserClouds > Authentication > Login Application) and review the settings
+  </Step>
+  <Step>
+  ## Make Auth0 your active provider
+
+  - In UserClouds, navigate to the Authentication Page
+  - Scroll to the Identity Platforms: Migrations & Back-Ups card
+  - Set Auth0 to active provider and click Save
+
+  At this point, UserClouds will begin syncing your user profiles from Auth0. You will see your users appear in the End Users page in UserClouds. Passwords will not sync at this point.
+  </Step>
+</Steps>
+
+## Begin authenticating your users via UserClouds
+
+Now you are ready to start authenticating your users via UserClouds. For more info on adding UserClouds to your software, see the previous article.
+
+UserClouds will now begin syncing passwords for active users. When a user is logged in, they will log in via a UserClouds page, which will send the login credentials to the active provider (Auth0). If the login succeeds, the credentials will be stored in the UserClouds User Store.
+
+## Gather non-active users / passwords from Auth0
+
+<Steps>
+  <Step>
+  ### Submit an Auth0 support ticket for salted / hashed passwords
+
+  - Go to the Auth0 support portal
+  - Submit a ticket requesting to export your hashed, salted passwords and MFA secrets for the relevant tenant, and requesting the hashing algorithms
+  - Respond to Auth0's support team confirming you want to export all hashed passwords and MFA secrets
+    Complete any other account verification steps
+  </Step>
+  <Step>
+  ### Wait for Auth0 customer service
+
+  Auth0 can be slow here, so this step may take up to a few weeks. After this period, Auth0 will share your login data, correct as of the date that they ran your export. UserClouds will capture any authentication changes after this time (like new users or password resets), via Step 5.
+
+  </Step>
+  <Step>
+  ### Import hashed password data to UserClouds
+
+  Once Auth0 has shared your customer password data, you can upload it to UserClouds.
+
+  The UserClouds User Store now has all the login data of your inactive users (whose credentials are unchanged since the Auth0 export) and your active users (whose credentials were captured in Step 5). You have successfully exported all your user data from Auth0, without forcing any users to reset their password.
+
+  </Step>
+</Steps>
+
+## Switch your active provider back to UserClouds
+
+The final step is to switch your active provider back to UserClouds. This must be done at the tenant- and app-level.
+
+<Steps>
+  <Step>
+  ### Switch your tenant's active provider to UserClouds
+
+  - In UserClouds, navigate to the Authentication Page
+  - Scroll to the Identity Platforms: Migrations & Back-Ups card
+  - Set Auth0 to active provider and click Save
+  </Step>
+  <Step>
+  ### Switch your apps' active providers to UserClouds
+
+  - In UserClouds, navigate to the Authentication Page
+  - For each app - Click the app to go into the Application page - In the General Settings card, open the Underlying Identity Provider Apps accordion section - Check the box for your tenant's UserClouds IDP - Click Save
+  </Step>
+</Steps>
+Hooray! You did it. You successfully migrated off Auth0.

@@ -1,0 +1,64 @@
+---
+title: "Hybrid Flow"
+slug: "hybrid-flow"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 10 2023 20:34:27 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Aug 10 2023 20:36:43 GMT+0000 (Coordinated Universal Time)"
+---
+The Hybrid Flow is an extension of the OAuth 2.0 framework that combines elements of the Authorization Code Flow and the Implicit Flow. It is designed to support scenarios where a web application requires both immediate access to certain user information and the ability to securely exchange an authorization code for tokens on the backend.
+
+## Flow Description
+
+1. **Client Registration**: The client application must be registered with the authorization server. During registration, the client is provided with a unique client ID.
+2. **Authorization Request**:
+   1. The client initiates the flow by redirecting the user's browser to the authorization server's authorize endpoint.
+   2. The request includes the following parameters in the query string:
+      1. `response_type`: Set to `code id_token` or `code token id_token` to specify the desired response types.
+      2. `client_id`: The client's unique identifier.
+      3. `redirect_uri`: The URI where the authorization server should redirect after processing the request.
+      4. `scope`: The requested scopes for the authorization, such as "openid," "profile," etc.
+      5. `state`: A random value used to maintain state between the request and the callback.
+      6. `nonce`: A random value used to associate a specific ID token with a user session.
+3. **User Authentication and Consent:**
+   1. The user is prompted to authenticate with the authorization server.
+   2. If necessary, the user is asked to consent to the requested scopes.
+   3. After successful authentication and consent, the authorization server generates an authorization code and an ID token.
+4. **Authorization Code Exchange:**
+   1. The client receives an authorization code through the redirection process.
+   2. The client sends an HTTP POST request to the authorization server's token endpoint.
+   3. The request includes the authorization code, client ID, client secret (if applicable), grant_type, and redirect_uri.
+   4. In response, the authorization server provides an access token and potentially a refresh token.
+5. **ID Token Validation:**
+   1. The client validates the received ID token by verifying its signature, issuer, audience, expiration, and nonce.
+
+## Request Example
+
+```http
+GET /oidc/authorize?response_type=code%20id_token&client_id=your_client_id&redirect_uri=https%3A%2F%2Fcontoso.com%2Fcallback&scope=openid%20profile&state=n9ftgCrrLNQ7sfxnnFmNcabEn8hFvAypP6Hu625WtBk&nonce=nonce123
+
+```
+
+## Response Example
+
+```http
+HTTP/1.1 302 Found
+Location: https://Host: sample.tenant.userclouds.com/callback?code=authorization_code&id_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+```
+
+## Security Considerations
+
+1. **Nonce Usage**: The nonce parameter is crucial to prevent replay attacks and ensure that the ID token is associated with the correct user session.
+2. **HTTPS Usage**: Use HTTPS throughout the process to secure communication between the client, user, and authorization server.
+3. **ID Token Validation**: Carefully validate the received ID token to prevent token tampering and unauthorized access.
+4. **Redirect URI Whitelisting**: Ensure that the redirect URI is whitelisted to prevent open redirect attacks.
+
+## Use Cases
+
+- Web applications requiring immediate access to user information.
+- Scenarios where the frontend and backend of the application are separate but need to communicate securely.
+
+## Summary
+
+The Hybrid Flow provides a versatile way to combine the benefits of the Authorization Code Flow and the Implicit Flow. It allows web applications to obtain both an authorization code and relevant tokens for various use cases while maintaining security and user privacy. Proper nonce management and thorough ID token validation are essential to ensure the integrity of the flow.

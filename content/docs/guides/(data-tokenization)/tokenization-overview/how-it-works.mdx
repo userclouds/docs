@@ -1,0 +1,34 @@
+---
+title: "How it works"
+slug: "how-it-works"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 21:59:14 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 21 2024 16:51:26 GMT+0000 (Coordinated Universal Time)"
+---
+
+### What Is Tokenization?
+
+When you tokenize a piece of sensitive data, you replace it with a secure reference <Glossary>token</Glossary>. The token can be intelligently generated to retain key characteristics of the data, such as the structure of an email address or the last 4 digits of a phone number. This allows the token to maintain compatibility with the systems that use it, so it can be used in place of the data throughout systems. The token is associated with an access policy which controls the circumstances in which the token can be exchanged for the original raw data. When an application or employee needs the original data, it requests to exchange token for the raw data. If the access policy is met, the raw data is returned.
+
+![(1) On creation, sensitive data is stored in the UserClouds vault or an owned-and-operated database. (2) Format preserving tokens propagate through system, in place of the data. (3) Each token is associated with a policy controlling raw data access. (4) If the access policy is met, the token can be exchanged for the raw data.](/assets/images/auth-flow.webp)
+
+### Tokens in UserClouds
+
+When you create a token in UserClouds, you specify four core elements:
+
+- **Data**: this is the raw sensitive data that you are tokenizing, e.g. an email, credit card number or address.
+- **A <Glossary>data transformer</Glossary>**: this transforms the data into the token, and controls what the token looks like, e.g. you might require a token for an email to look like an email, in order to prevent validation errors in your system. Functionally, a transformer is a JavaScript function that receives raw data and returns a token.
+- **An <Glossary>access policy</Glossary>**: this controls the conditions in which a token can be resolved, e.g. only allow resolution for fraud purposes, by an authenticated data scientist, on a trusted IP. Functionally, an access policy is a JavaScript function that receives a token and contextual data from the server & client - and returns a token.
+- **Attributes**: these allow for bulk operations on tokens, such as data deletion.
+
+### Illustrative Example
+
+Suppose your business takes national ID numbers (e.g. social security numbers in the US) before offering financing for your products. Here’s how you might use Tokenizer to secure the data, minimizing risk of misuse or data breach.
+
+1. **Receive the PII**: Your customer inputs their national ID number (SSN), 123-45-6789, through your credit application form.
+2. **Tokenize the PII**: You call our CreateToken API to generate a token. This stores the national ID number securely in your Token Vault and returns a <Glossary>token</Glossary>. You might apply a built-in transformer so the token retains the structure of an SSN (e.g. 987-65-4321). You can create multiple tokens with different characteristics for different purposes and systems.
+3. **Use the token without compromising PII**: The token flows into and is stored in your system without generating validation errors. Your team can safely download and use it without compromising security or compliance.
+4. **Set & update access policies**: You define an <Glossary>access policy</Glossary> governing the circumstances in which the token can be resolved. For example, you might only allow resolution by an authenticated data scientist, on a trusted IP, for a particular purpose. You can update the access policy at any time.
+5. **Resolve the token**: When you need the original SSN, you call the ResolveToken API, passing the relevant <Glossary>context</Glossary>. If the access policy is met, the API will return the original SSN. UserClouds records the token resolution for maximum security.
+6. **Automate data deletion requests**: Should the customer submit a deletion request (DSAR), you can serve it trivially by severing the link between the SSN and its token. The token can live on safely in your systems and databases. You may even choose to configure the <Glossary>access policy</Glossary> to retain the raw data temporarily, for fraud purposes only, in accordance with privacy regulation.

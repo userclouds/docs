@@ -1,0 +1,73 @@
+---
+title: "Key concepts"
+slug: "key-concepts-1"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 23:10:04 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Wed Aug 23 2023 21:23:58 GMT+0000 (Coordinated Universal Time)"
+---
+This article details the key concepts in UserClouds's graph-based authorization model. 
+
+## Permissions
+
+A permission gives a user a right to take a particular action on an object in your system. Examples of permissions are `view`, `edit`, and `manage-members`.
+
+## Permission Checks
+
+Permission checks are the cornerstone of Authorization. A permission check is a workflow that answers the question: does user X have permission Y on object Z? In UserClouds, permission checks are executed via the CheckAttribute API. You can learn how to call the API in UserClouds's API Docs.
+
+## Types and Instances
+
+In UserClouds, authorization is modeled and as a graph of objects and one-way edges reflecting real-world relationships between those objects. Each object and edge has exactly one “type”.
+
+Types define the structure of the authorization model. They determine which types of objects can be connected by which types of edge. And they are used to manage common properties of like edges.
+
+Individual objects and edges are referred to as instances. 
+
+## Objects
+
+Objects are the nodes of your graph. Broadly, objects represent one of three real-world concepts in your system:
+
+- **Users**: the employees of your company and the end users of your software.
+- **Groups**: collections of users, like families, companies, customer organizations, and project teams.
+- **Assets**: other objects in your system that a user might have a particular permission on, like files, folders, databases, policies or workspaces.
+
+## Organizations
+
+Organizations are a native object type in UserClouds with extra functionality specific to companies, for B2B use cases. The organization object type allows you to create customer-specific namespaces, control cross-organization data access and customize login flows by company (e.g. with branding, MFA and SSO). 
+
+## Edges
+
+Edges are one-way connections between the objects on your graph. They reflect the real-world relationships between objects in your systems. An edge give a source object a bundle of permissions on a target object.
+
+### Edge types
+
+An edge type is a possible relationship between two objects. Each edge has exactly one type.  Edge types specify:
+
+- A source object type
+- A target object type
+- A set / bundle of attributes (like `read`, `edit` or `manage-members`)
+
+### Edge instances
+
+A single edge represents one real-world one-way relationship between two objects. Edges of a given type can only link a source object and target object of the types specified by the edge type. Edges have all the attributes specified by their type. 
+
+## Attributes
+
+Each edge has a set of attributes. Attributes can be thought of as a piece of permission logic. Attributes give some objects **permissions** on other objects. Each attribute has a **name** and a **scope**.
+
+### Attribute names
+
+Attribute names describe the permission given by the attribute. Attribute names are modeled as strings. Examples of attribute names are `create`, `delete`, `read`, `edit`, `manage-members` and `manage-API-keys`.
+
+### Attribute scopes
+
+Attribute scopes describe which object gets the permission and which object the permission is given on. They allow you to traverse the graph, so you can incorporate arbitrarily deep hierarchy in your authorization logic. For example, they allow computations like friends of friends, indirect reports and sub-folders.
+
+There are three attribute scopes:
+
+- **Direct**: the source object gets the permission on the target object
+- **Inherit**: if the target object has the attribute on a third object, the source object ‘inherits’ that attribute on the third object
+- **Propagate**: if a third object has the attribute on the source object, the third object also gets the attribute on the target object
+
+For more information on attributes, see the next article.

@@ -1,0 +1,66 @@
+---
+title: "Data Lifecycle"
+slug: "data-lifecycle"
+excerpt: ""
+hidden: false
+metadata: 
+  image: []
+  robots: "index"
+createdAt: "Tue Aug 15 2023 20:17:32 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Aug 25 2023 21:26:25 GMT+0000 (Coordinated Universal Time)"
+---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+Purpose lifetimes and data deletion mechanisms play a crucial role in ensuring compliance with regulations like GDPR (General Data Protection Regulation). For example, a key principle of GDPR is storage limitation, which dictates that personal data must be kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data is processed.
+
+This articles explains the mechanisms and configurations related to data deletion in UserClouds, especially in the context of user-defined data processing purposes and purpose lifetimes. The article assumes you are familiar with:
+
+- How <Glossary>purpose</Glossary>s are used to track, enforce and audit user <Glossary>consent</Glossary> in User Store. Learn more [here](/docs/guides/definitions/purpose-and-consent).
+- How the User Store is built from <Glossary>column</Glossary>s and populated with user records. Learn more [here](/docs/manage-your-columns). 
+- How <Glossary>mutator</Glossary>s and <Glossary>accessor</Glossary>s are used to write data to, and retrieve data from, the store. Learn more [here](/docs/accessors-read-apis). 
+
+## Introduction
+
+Each piece of data in UserClouds is stored in an end user record and a column. It is also associated with a set of purposes, which describe the consents the end user has given for data processing. Data can exist in UserClouds in two lifecycle states: 
+
+- **Live data** is data that has not been deleted or marked for deletion
+- **Soft-deleted data** is data that has been marked for deletion but is retained in a recoverable state for a specified period and set of purposes (like fraud detection), before being permanently erased
+
+Data accessors must exclusively retrieve either live data _or_ soft-deleted data. No accessor can retrieve both. Only tenant admins can create and edit accessors for soft-deleted data. 
+
+When a live piece of data changes, the old value becomes soft-deleted for the associated purposes if they have a non-zero post-deletion retention duration. Similarly, if a purpose is removed for a live piece of data, the data and purpose are soft-deleted if the post-deletion retention duration is non-zero. In either case the old value (or old purpose) will no longer be retrievable via a pre-deletion accessor.
+
+## Configuring Purpose Lifetimes
+
+Purpose lifetimes are set at the purpose-column level. Developers can configure two distinct time-based settings for each purpose-column pair: 
+
+- **The Pre-deletion Retention Duration** determines how long a specific purpose associated with a piece of data will be retained. Once this duration elapses, the purpose for that data expires. Once all the purposes have expired for the data, the data is soft-deleted. The clock for the purpose is reset can be reset by re-writing the data to the store. This duration is most commonly used to reflect the Storage Limitation principle of legislation like GDPR. The default setting is indefinite, meaning the purpose will not expire and that the value will be accessible for that purpose, until the data is deleted or changed, or the purpose is removed.
+- **The Post-deletion Retention Duration** specifies the duration for which data should be retained in a "soft-deleted" state after a deletion event occurs. Once the Post-deletion Retention Duration elapses, the associated purpose expires. When all purposes are deleted for a specific piece of data, the data is no longer accessible by any means. This duration is most commonly used to enable account recovery and fraud/integrity investigations. The default setting is 0, meaning that old data is immediately hard-deleted when it is deleted or changed.
+
+Any changes to pre- or post-deletion retention durations for a purpose only apply to newly written data. Retention timeouts for existing data cannot be retroactively changed by changing the retention duration associated with that column or purpose. However, if a retention duration is updated, any newly written data after the fact will have a timeout based on the new retention duration.
+
+## Deletion Process Flow
+<Steps>
+  <Step>End user data is saved to the store with associated purposes.</Step>
+  <Step>Pre-deletion Retention Duration countdown begins for each associated purpose.</Step>
+  <Step>If data is updated with the same purpose before Pre-deletion Retention Duration elapses, the purpose retention clock is reset.</Step>
+  <Step>If the pre-deletion retention duration elapses, the data is no longer visible for that purpose as live, pre-delete data.</Step>
+  <Step>Deletion event occurs (e.g. a value update, a value deletion, a column deletion or a user deletion) triggering the Post-deletion Retention Duration.</Step>
+  <Step>Once Post-deletion Retention Duration elapses, the associated purpose is deleted.</Step>
+  <Step>When all purposes are deleted for a piece of data, the data is no longer accessible by any means.</Step>
+</Steps>
+
+## Example
+
+- Data: Email address
+- User Consents: 
+  - `Marketing` (Pre-deletion Retention: 6 months, Post-deletion Retention: 0 days)
+  - `FraudAndIntegrity` (Pre-deletion Retention: 1 year, Post-deletion Retention: 3 years)
+- If data is re-written with a new `Marketing` or `FraudAndIntegrity` consent within 1 year, the clock for that consent resets.
+- After 6 months (assuming no resets), the `Marketing` consent expires and the data is no longer visible for that purpose as pre-delete data
+- Once the pre-deletion retention duration for all consents expire (i.e. after 1 year, assuming no resets), the data is soft-deleted.
+- At this point, the data can no longer be accessed for marketing purposes.
+- The data is retained in a soft-deleted state for 3 years for `FraudAndIntegrity` purposes
+- During this time, it can only be accessed by accessors with the `FraudAndIntegrity` purpose, which are specifically configured by a tenant admin to access soft-deleted data
+- After 3 years, the `FraudAndIntegrity` consent is deleted. 
+- At this point, since this data has no consents for data processing attached to it, it is permanently and irrecoverably deleted from the store.

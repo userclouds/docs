@@ -1,0 +1,62 @@
+---
+title: "Introduction"
+slug: "proxy-introduction"
+excerpt: ""
+hidden: false
+createdAt: "Thu Sep 19 2024 17:50:53 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Sep 19 2024 19:48:15 GMT+0000 (Coordinated Universal Time)"
+---
+
+The proxy approach is just one of several ways to apply the safety layer in your tech stack.
+
+## What Does It Do?
+
+The UserClouds proxy sits between any data source and your application. It intercepts queries to:
+
+- **Minimize outbound data** (e.g., convert `steve@apple.com` to `s****@*****.com`, for SQL and API proxies only)
+- **Control access** (e.g., enforcing rate limiting, checking for open tickets or enforcing data residency).
+- **Log the who, when, why and how of data access**.
+
+The only required code change is to replace the data store or API URI in your application with a UserClouds URI.
+
+## Why Use It?
+
+Together with the UserClouds Data Decoder plug-in, the proxy enables you to minimize, control, and log data access in an application with minimal code changes. For SQL databases and APIs, this includes data transformation (e.g., masking). For NoSQL databases, it focuses on access control and logging.
+
+By simply changing the data store or API URI to UserClouds and applying off-the-shelf functionality in the UserClouds console, key functionalities are enabled. Advanced capabilities, such as user-specific rate limiting, can be unlocked by passing additional context (e.g., user tokens) in queries or API requests.
+
+## How It Works
+
+The Proxy has four core functions:
+
+- **Query/Request Interception**: Intercepts queries and requests to apply additional security and privacy controls.
+- **Access Policies**: Enforce access policies such as rate limiting or data residency rules without requiring application code changes.. By adding comments to your application, additional context like user roles can be considered. For more info, see [Access Policy Definition](/docs/guides/definitions/access-policies).
+- **Data Minimization** (SQL and API Proxies Only): Reduces the amount of sensitive data exposed by transforming or masking data elements (e.g., converting email addresses to partially masked formats). For more info, see [Transformer Definition](/docs/guides/definitions/transformers).
+- **Logging**: Maintains a comprehensive log of all intercepted queries and API requests, including details of the transformations and policies applied, to ensure transparency and auditability.
+
+## Types of Proxies
+
+UserClouds offers three broad types of proxies, each of which can be used to control access and apply policies to your data:
+
+1. **SQL Proxies** – Applied to structured databases like RDS, these proxies intercept SQL queries, allowing you to enforce access policies, mask or tokenize sensitive data, and log query activity.
+2. **NoSQL Proxies** – Used with NoSQL databases like S3, MongoDB or DynamoDB, these proxies manage unstructured or semi-structured data, applying access policies and logging access, without transforming the data.
+3. **API Proxies** – Used for REST or GraphQL APIs, these proxies sit between the application and external services or microservices, controlling and logging data access, and applying policies to API calls.
+
+Each of these proxies sits between the application and data source, intercepting requests to ensure secure, controlled access, with minimal code changes required
+
+## Functionality by Type
+
+| Functionality                                      | SQL Proxy             | NoSQL Proxy                                      | API Proxy |
+| :------------------------------------------------- | :-------------------- | :----------------------------------------------- | :-------- |
+| Granularity                                        | Global, Column, Query | Object Store _(file path considered in context)_ | Endpoint  |
+| Masking                                            | ✅                    | :x: _ (coming soon!)_                            | ✅        |
+| Tokenization                                       | ✅                    | ❌ _ (coming soon!)_                             | ❌        |
+| Access Policies                                    | ✅                    | ✅                                               | ✅        |
+| Access Policies that consider data in the response | ✅                    | ❌                                               | ❌        |
+| Logging                                            | ✅                    | ✅                                               | ✅        |
+
+## High-level architecture
+
+The below diagram describes the high-level architecture for the proxy and browser plug-in implementation model. In this model, the browser plug-in is entirely optional. Its primary purpose is to enable enforcement of access policies and zero trust at the data level, via a single central control plane, without code changes in the application or changes to the user experience for trusted employees.
+
+![The proxy sits between data store and application, intercepting queries/requests, enforcing policies, transforming data and logging access, per the configuration of the control plane. (2) Masked or tokenized data is passed to the web app. (3) Optionally, the browser plug-in can be used to gather additional context from the user for de-tokenization (e.g. MFA codes, break glass reasons) without code changes to the application.](/assets/images/auth-flow.webp)

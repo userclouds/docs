@@ -1,0 +1,12 @@
+{
+    "title": "Reference",
+    "text": "Reference",
+    "icon": "FileCode",
+    "url": "/docs/reference",
+    "description": "API reference",
+    "root": true,
+    "pages": [
+        "(API-fundamentals)",
+        "...(generated)"
+    ]
+}

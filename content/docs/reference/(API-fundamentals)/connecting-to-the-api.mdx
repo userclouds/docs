@@ -1,0 +1,23 @@
+---
+title: "Connecting to the API"
+slug: "api-authorization"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 10 2023 20:33:24 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Aug 10 2023 20:52:37 GMT+0000 (Coordinated Universal Time)"
+---
+Connecting your app to UserClouds APIs is a breeze. Currently, UserClouds supports OAuth2 and OpenID Connect (OIDC) authentication methods. These methods cater to user and service account authentication needs in various scenarios, including web, mobile and server-side machine-to-machine (M2M) interactions.
+
+### For Users and Service Accounts:
+
+Authentication involves initiating an authentication "flow," which consists of steps that establish the identity of a user or service account. Successfully completing the flow results in tokens (we use JWTs) that validate identity and, if applicable, permissions. The choice of flow depends on your application's structure, trust model, and requirements. ID Tokens confirm identity, while Access Tokens verify permissions for an application. While similar, ID Tokens and Access Tokens are not interchangeable for security reasons.
+
+### User Authentication Flows:
+
+1. [Authorization Code Flow ](/docs/reference/authorization-code-flow)(with or without PKCE): The most common and recommended way for client applications (web, mobile) to allow users to log in. If the application can be trusted to hold a secret, the standard flow can be used. If not, and particularly if access tokens are needed, the application should utilize the Proof Key Code Exchange to prevent token hijacking.
+2. [Hybrid Flow](/docs/reference/hybrid-flow): Finding the middle ground between flexibility and a smooth user experience, this flow accommodates scenarios where a balanced approach is needed, ensuring a secure and user-friendly authentication process.
+3. [Implicit Flow](/docs/reference/implicit-flow): Emphasizing simplicity, this flow is ideal for scenarios where user experience matters most. Although it provides ease of implementation, it's important to consider where the resulting tokens will be used due to potential security implications.
+
+### M2M Flows:
+
+Applications with the ability to securely store secrets can leverage the [Client Credentials Flow](/docs/reference/client-credentials-flow). This flow is tailored for services and M2M interactions, offering a straightforward and efficient authentication process.

@@ -1,0 +1,71 @@
+---
+title: "Explore the Tokenizer UI"
+slug: "explore-the-tokenizer-ui"
+excerpt: ""
+hidden: false
+metadata: 
+  image: []
+  robots: "index"
+createdAt: "Thu Aug 03 2023 22:10:44 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Aug 04 2023 18:31:55 GMT+0000 (Coordinated Universal Time)"
+---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+This optional tutorial walks you through the fundamentals of the Tokenizer UI. You'll learn how to edit, test and save an 'Email to ID' transformer.
+<Steps>
+<Step>
+### Open the Policies Page
+
+Select a tenant in the top nav and then click Policies in the left hand nav to open the Policies page. Here, you will see a list of every <Glossary>access policy</Glossary> and <Glossary>data transformer</Glossary> in this tenant.
+</Step>
+<Step>
+### Open the Email to ID Transformer
+
+In the Transformers card, open the Email to ID policy. You will land on the function editing page. Here you will see several pre-filled inputs, defining the Email to ID Policy:
+
+- **Function**: Practically, transformers are parametrizable JavaScript functions. This field is the bulk of your policy. It defines the logic of the policy and the default parameter format.
+- **Parameters**: Parameters are used to customize your transformer to different use cases without creating duplicate code. They help to keep your codebase streamlined and minimize the costs of updates to common policies.
+- **Test data**: This input is not part of your transformer. It is just used to test the transformer through the UI on this page.
+
+In this example, we won’t edit the function directly. We’ll just change the parameters.
+</Step>
+<Step>
+### Edit Your Parameters
+
+Replace the pre-fill parameters with this code block.
+
+```javascript
+[{  
+    "PreserveValue": false,  
+    "PreserveChars": 1,  
+    "FinalLength": 10  
+}, {  
+    "PreserveValue": false,  
+    "PreserveCommonValue": true,  
+    "PreserveChars": 1,  
+    "FinalLength": 6  
+}, {  
+    "PreserveValue": true  
+}]
+```
+
+Here, we are changing two parameters:
+
+- We’ve increased PreserveChars to 1, meaning that the first character will be preserved by the generation policy.
+- We’ve changed PreserveCommonValue to true, meaning that common email domains like “gmail.com” will be preserved during tokenization.
+</Step>
+<Step>
+### Test Your Function
+
+You can test your function by copying an email address into the test data field and clicking run test. The test output field will display your result. Now try testing your function with two different email addresses:
+
+- [stevejobs@gmail.com](mailto:stevejobs@gmail.com) will generate a random string, starting with an s and ending with “@gmail.com”  
+  [stevejobs@userclouds.com](mailto:stevejobs@userclouds.com) will generate a random string, starting with an s, featuring an “@” ending with “.com”
+- You can validate your functions by testing them this way in the user interface, or by testing them programmatically using the Tokenizer SDK. 
+</Step>
+<Step>
+### Save Your Transformer
+
+To save your function, change the name and click Save As. Nice work! You've completed this tutorial and are ready to implement Tokenizer in your application!
+</Step>
+</Steps>

@@ -1,0 +1,66 @@
+---
+title: "Implicit Flow"
+slug: "implicit-flow"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 10 2023 20:35:05 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Aug 10 2023 20:36:43 GMT+0000 (Coordinated Universal Time)"
+---
+>🚧 Use of this flow is strongly discouraged
+> 
+> The Implicit Flow has been deprecated and is considered non-standard in modern OAuth 2.0 implementations due to security concerns, such as the risk of token leakage through browser history and lack of refresh tokens for access token renewal. Use of this flow is strongly discouraged. We recommend using more secure flows like the Authorization Code Flow with PKCE or the Hybrid Flow for current applications. We include it here for completeness only.
+
+## Overview
+
+The Implicit Flow is an OAuth 2.0 authentication flow designed for client-side applications, such as single-page applications (SPAs), that run entirely in the user's browser. It enables these applications to obtain access tokens directly from the authorization server without the need for a backend component. Use of this flow is strongly discouraged.
+
+## Flow Description
+
+1. **Client Registration**: The client application must be registered with the authorization server. During registration, the client is provided with a unique client ID.
+2. **Authorization Request**:
+   1. The client initiates the flow by redirecting the user's browser to the authorization server's authorize endpoint.
+   2. The request includes the following parameters in the query string:
+      1. `response_type`: Set to `token` or `id_token token` to specify the desired response type(s).
+      2. `client_id`: The client's unique identifier.
+      4. `scope`: The requested scopes for the authorization, such as "openid," "profile," etc.
+      3. `redirect_uri`: The URI where the authorization server should redirect after processing the request.
+      5. `state`: A random value used to maintain state between the request and the callback.
+      6. `nonce`: A random value used to associate a specific ID token with a user session.
+3. **User Authentication and Consent:**
+   1. The user is prompted to authenticate with the authorization server.
+   2. If necessary, the user is asked to consent to the requested scopes.
+   3. After successful authentication and consent, the authorization server generates an authorization code and an ID token.
+4. **Response Handling:**
+   1. The authorization server redirects the user's browser back to the client's redirect URI.
+   2. The response includes the access token and potentially the ID token in the fragment of the URL.
+   3. The client extracts the tokens from the fragment and can use them to access protected resources.
+
+## Request Example
+
+```bash
+GET /oidc/authorize?response_type=token&client_id=your_client_id&redirect_uri=https%3A%2F%2Fcontoso.com%2Fcallback&scope=openid%20profile&state=n9ftgCrrLNQ7sfxnnFmNcabEn8hFvAypP6Hu625WtBk&nonce=nonce123
+```
+
+## Response Example
+
+```json
+HTTP/1.1 302 Found
+Location: https://sample.tenant.userclouds.com/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+```
+
+## Security Considerations
+
+1. **Nonce Usage**: The nonce parameter is essential to prevent replay attacks and ensure the ID token is associated with the correct user session.
+2. **Token Fragment**: Access tokens and ID tokens are included in the URL fragment, which is not sent to the server in requests. This helps mitigate potential security risks.
+3. **HTTPS Usage**: Use HTTPS for communication to ensure token security during transmission.
+4. **CORS**: Configure Cross-Origin Resource Sharing (CORS) to restrict which origins are allowed to make requests.
+
+## Use Cases
+
+- **Single-Page Applications (SPAs)**: Ideal for applications running entirely in the browser.
+- **Limited Backend Resources**: Suitable when the client application lacks the capability to securely store sensitive information.
+
+## Summary
+
+The Implicit Flow has historically been used for client-side applications that operate within a user's browser. It provides a streamlined process for obtaining access tokens directly from the authorization server, enabling secure access to protected resources without the need for a backend component.

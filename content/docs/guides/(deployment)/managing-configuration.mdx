@@ -1,0 +1,200 @@
+---
+title: "Managing configuration"
+slug: "managing-configuration"
+excerpt: ""
+hidden: false
+createdAt: "Tue Jul 30 2024 18:57:50 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Jul 30 2024 19:06:01 GMT+0000 (Coordinated Universal Time)"
+---
+
+## Overview
+
+`ucconfig` (UserClouds Config) enables declarative configuration of UserClouds resources. It is implemented as a usability layer on top of Terraform. While `ucconfig` is not as powerful or flexible as Terraform, it avoids many common frustrations such as manually writing configurations or managing Terraform state. Since `ucconfig` generates Terraform configuration and state, you can "eject" from `ucconfig` and manage UserClouds resources directly with Terraform at any point.
+
+## Getting Started
+
+There are two easy ways to run `ucconfig`:
+
+- **Download a Pre-packaged Binary:**
+    - Download from the Releases page. Note: On macOS, you will likely need to grant an exception to allow the binary to run.
+- **Run with Docker:**
+    - `docker run userclouds/ucconfig [ucconfig args described below...]`
+    - Note: `docker run` may require additional flags to share environment variables or files with the container. See example commands in the Usage section.
+
+For all commands, ucconfig requires `USERCLOUDS_TENANT_URL`, `USERCLOUDS_CLIENT_ID`, and `USERCLOUDS_CLIENT_SECRET` environment variables to be set. You can get these values from the UserClouds console by navigating to the Authentication page, selecting the Default App, and copying values from the Application Settings.
+
+## Core Ideas
+
+With `ucconfig`, you write a manifest that describes the complete set of desired UserClouds resources. For example, if you want to have a User Store with three columns, two accessors, and one access policy, you would write a manifest describing the properties of those six resources. When you apply that manifest:
+
+- If a resource described in the manifest does not exist in your live UserClouds tenant, it will be created.
+- If a resource exists in your live UserClouds tenant but does not appear in the manifest, it will be deleted.
+- If a resource exists in both the live tenant and in your manifest, but its properties differ, the resource will be updated to match what is specified in the manifest.
+
+## Example Manifest
+
+Here is a minimal manifest describing a single User Store column for storing emails:
+
+```
+resources:
+- uc_terraform_type: userstore_column
+  manifest_id: email_col
+  resource_uuids:
+    \_\_DEFAULT: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16
+    mycompany-mytenant: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16
+  attributes:
+    name: email
+    type: email
+    index_type: none
+    is_array: false
+```
+
+### Breakdown of the Manifest Entry
+
+- `uc_terraform_type`: Specifies the Terraform resource type to use. Refer to our Terraform provider documentation for a list of available resource types. In this case, it is userstore_column.
+- `manifest_id`: An arbitrary Terraform identifier that allows you to reference this resource elsewhere in the manifest. For example, if you want to create an accessor that includes this column, you would specify `columns: ['@UC_MANIFEST_ID("email_col").id']` for that accessor.
+- `resource_uuids`: Specifies the id attribute for each tenant that this configuration might apply to. Since resource IDs might differ across environments you want to manage with `ucconfig`, this allows `ucconfig` to determine which resource to modify when attributes are changed. `__DEFAULT` specifies the resource ID that will be used when creating this resource in a new tenant.
+- `attributes`: Specifies the properties of the resource. These are passed directly to Terraform. Refer to the provider documentation for detailed information about these values.
+
+## Usage
+
+Remember to set the `USERCLOUDS_*` environment variables when running `ucconfig`, as described above.
+
+### Generating a Manifest
+
+Rather than needing to write your configuration by hand, the `ucconfig` gen-manifest subcommand can generate a manifest file based on the existing resources in a tenant.
+
+```
+ucconfig gen-manifest <manifest-path>
+```
+
+- JSON and YAML formats are supported.
+
+#### Example:
+
+```
+# Binary:
+
+ucconfig gen-manifest output.yaml
+
+# Docker:
+
+docker run --rm -v "$PWD:$PWD" -w "$PWD" -i -e "USERCLOUDS_TENANT_URL=$USERCLOUDS_TENANT_URL"
+    -e "USERCLOUDS_CLIENT_ID=$USERCLOUDS_CLIENT_ID" -e "USERCLOUDS_CLIENT_SECRET=$USERCLOUDS_CLIENT_SECRET"
+    userclouds/ucconfig gen-manifest output.yaml
+```
+
+### Applying a Manifest
+
+A manifest is a complete description of a tenant's resources. You can use the `apply` subcommand to create new resources described by a manifest, delete resources that don't appear in the manifest, and update existing resources whose properties differ from what the manifest describes.
+
+```
+ucconfig apply <manifest-path>
+```
+
+#### Example:
+
+```
+# Binary:
+
+ucconfig apply manifest.yaml
+
+# Docker:
+
+docker run --rm -v "$PWD:$PWD" -w "$PWD" -i -e "USERCLOUDS_TENANT_URL=$USERCLOUDS_TENANT_URL"
+    -e "USERCLOUDS_CLIENT_ID=$USERCLOUDS_CLIENT_ID" -e "USERCLOUDS_CLIENT_SECRET=$USERCLOUDS_CLIENT_SECRET"
+    userclouds/ucconfig apply output.yaml
+```
+
+### Manifest IDs
+
+Manifest IDs are arbitrary strings that identify an entry in the manifest. Manifest IDs must be valid Terraform identifiers, i.e., they may only contain letters, digits, underscores, and hyphens.
+
+Manifest IDs allow you to reference resources from elsewhere in the manifest using the `@UC_MANIFEST_ID` function. For example:
+
+```
+resources:
+  # Define a column
+  - uc_terraform_type: userstore_column
+    manifest_id: email_col
+    resource_uuids:
+      # omitted for sample...
+    attributes:
+      # omitted for sample...
+  # Define an accessor that accesses that column
+  - uc_terraform_type: userstore_accessor
+    manifest_id: demo_accessor
+    resource_uuids:
+      # omitted for sample...
+    attributes:
+      name: DemoAccessor
+      columns:
+        # Reference the above "email" column
+        - column: '@UC_MANIFEST_ID("email_col").id'
+        transformer: '@UC_SYSTEM_OBJECT("transformer", "PassthroughUnchangedData")'
+      access_policy: '@UC_SYSTEM_OBJECT("access_policy", "AllowAll")'
+      purposes:
+        - '@UC_SYSTEM_OBJECT("userstore_purpose", "operational")'
+      selector_config:
+        where_clause: '{id} = ANY(?)'
+```
+
+### Resource IDs
+
+A `ucconfig` manifest entry can specify the resource UUIDs for each tenant that you intend to apply the manifest against:
+
+```
+resources:
+  - uc_terraform_type: userstore_column
+    manifest_id: email_col
+    resource_uuids:
+      __DEFAULT: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16
+      mycompany-dev: 59217a15-b63e-45e3-8a23-e1ea966cc42d
+      mycompany-staging: bb5aa960-85cd-44b7-af81-5df432bdc8c6
+      mycompany-prod: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16
+
+```
+
+- If a resource has the same UUID in all of your tenants (e.g., you used `ucconfig` to create all resources in all your tenants), then specifying **`__DEFAULT` is sufficient, and you do not need to specify the ID for every tenant. `ucconfig` will use the **`__DEFAULT` key to match live tenant resources to manifest entries.
+- However, if a resource exists with different UUIDs in different tenants (e.g., you already manually created an email column in your staging and production tenants, so they ended up with different IDs), you should list each ID here to ensure that `ucconfig` will match the correct live resources.
+
+When creating a new resource, `ucconfig` will create it with the`__DEFAULT` UUID.
+
+### Functions
+
+`ucconfig` supports a limited set of functions in manifests:
+
+- `@UC_MANIFEST_ID(manifest_id)`: References another resource by manifest ID.
+- `@UC_MANIFEST_ID(manifest_id).id` (note the .id suffix) will retrieve the ID of the referenced resource.
+
+#### Example:
+
+```
+resources:
+  # Define a column
+  - uc_terraform_type: userstore_column
+    manifest_id: email_col
+    # omitted for sample...
+  # Define an accessor that accesses that column
+  - uc_terraform_type: userstore_accessor
+    # ...
+    attributes:
+      columns:
+        # Reference the above "email" column
+        - column: '@UC_MANIFEST_ID("email_col").id'
+      # ...
+
+```
+
+- `@UC_SYSTEM_OBJECT(resource_type, object_name)`: Retrieves the ID of a system object by name. For example, an accessor might use the built-in AllowAll access policy:
+
+#### Example:
+
+```
+resources:
+  - uc_terraform_type: userstore_accessor
+    # ...
+    attributes:
+      access_policy: '@UC_SYSTEM_OBJECT("access_policy", "AllowAll")'
+      # ...
+```

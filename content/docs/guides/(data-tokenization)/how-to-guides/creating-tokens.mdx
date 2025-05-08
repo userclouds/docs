@@ -1,0 +1,25 @@
+---
+title: "Create a token"
+slug: "creating-tokens"
+excerpt: ""
+hidden: false
+metadata:
+  image: []
+  robots: "index"
+createdAt: "Thu Aug 03 2023 22:13:21 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Aug 25 2023 21:53:40 GMT+0000 (Coordinated Universal Time)"
+---
+
+Tokens are created using the CreateToken and LookupToken APIs. Both of these APIs receive a piece of raw data, an <Glossary>access policy</Glossary>, a <Glossary>data transformer</Glossary> and a set of attributes.
+
+## Create Token API
+
+Create Token stores the raw data in your Token Vault, then creates and returns a token. CreateToken will always generate a unique token for the data. If you want to reuse a token that was already generated, you can use LookupToken. For more details, see the API reference for [Create Token](/docs/reference/tokenizer/tokens/post).
+
+## Lookup Token API
+
+Lookup Token simplifies re-use of existing tokens. It checks the Token Vault for an existing token with the same raw data, <Glossary>data transformer</Glossary> and <Glossary>access policy</Glossary>. If such a token exists, it returns that token. If not, it creates and returns a new token. For more details, see the API reference for [Lookup Token](/docs/reference/tokenizer/tokens/post-actions-lookup).
+
+## Attributes
+
+At token creation, you also have the option to specify additional attributes for that token. These allow for bulk operations on tokens, such as data deletion.

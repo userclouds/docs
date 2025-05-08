@@ -1,0 +1,10 @@
+{
+    "title": "API Fundamentals",
+    "pages": [
+        "connecting-to-the-api",
+        "authorization-code-flow",
+        "hybrid-flow",
+        "implicit-flow",
+        "client-credentials-flow"
+    ]
+}

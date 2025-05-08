@@ -1,0 +1,45 @@
+---
+title: "Connect to a third party store"
+slug: "connect-to-a-third-party-store"
+excerpt: ""
+hidden: false
+createdAt: "Fri Apr 05 2024 22:45:56 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Jul 30 2024 20:17:38 GMT+0000 (Coordinated Universal Time)"
+---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+## Overview
+
+This guide explains how to connect UserClouds to a third-party database, allowing you to leverage its capabilities to minimize data exposure, control access, and log data access seamlessly.
+
+## Quickstart Guide
+<Steps>
+  <Step>
+  **Create a Tenant**
+
+  - Sign in to the UserClouds Console.
+  - Create a new tenant if you haven't already by providing necessary details such as tenant name etc.
+  </Step>
+  <Step>
+  **Go to Tenant Settings**
+
+  - Select the newly created tenant from the dropdown in the top nav.
+  - Navigate to the Tenant Settings page in the side bar.
+  </Step>
+
+  <Step>  
+  **Add a Database**
+
+  - Scroll to the Database Connections section.
+  - Click on "Add Database".
+  - Enter the database details:
+    - Database Location: Provide the URI of the third-party database.
+    - Credentials: Enter the username and password required to access the database.
+  - Save the configuration. You will see a proxy host name and a proxy port.
+  </Step>
+  <Step>
+  **Test the Connection**
+
+  - Use the "Test Connection" button to verify that the credentials and URI are correct.
+  </Step>
+</Steps>

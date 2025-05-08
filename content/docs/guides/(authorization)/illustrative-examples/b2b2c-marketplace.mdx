@@ -1,0 +1,92 @@
+---
+title: "Hybrid C2C / B2C Marketplace"
+slug: "b2b2c-marketplace"
+excerpt: ""
+hidden: false
+createdAt: "Wed Nov 22 2023 20:16:42 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Wed Jun 19 2024 16:57:24 GMT+0000 (Coordinated Universal Time)"
+---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+This article explains how to design a graph-based authorization model for a B2B2C marketplace. The article assumes you are familiar with our [Key Concepts](/docs/guides/overview/key-concepts) and [Attribute Scopes](/docs/guides/overview/modelling-hierarchy-with-attribute-types).
+
+There are four steps to design a model:
+
+<Steps>
+  <Step> list the design requirements for the <Glossary>permission</Glossary>s system</Step>
+  <Step> define the types of <Glossary>object</Glossary>s that the authorization logic will consider</Step>
+  <Step> define the types of relationships between those types of objects. Since relationships are reflected by <Glossary>edge</Glossary>s in the graph, we call this “defining the <Glossary>edge type</Glossary>s”</Step>
+  <Step> attach these <Glossary>permission</Glossary>s to these relationships using attributes</Step>
+</Steps>
+In general, model design is an iterative process. While this article is presented linearly, you might expect to loop through these steps until you’ve hit on the cleanest model structure. 
+
+## 1. List Design Requirements
+
+Suppose you are an ecommerce marketplace company. Buyers and sellers transact via Orders, which are associated with a shipping address at checkout time. You might want to define permissions such that:
+
+- Sellers can be (a) shops (groups of users) or (b) individual users 
+- Buyers can only be individual users
+- Users can be a "shop owner" or a "shop member"
+- Buyers can view and edit their own orders
+- Individual sellers can view, edit and refund orders that they sell
+- Shop owners can edit their shop's settings (e.g. name and payout details) and manage their shop's members
+- Both shop owners and shop members can view, edit and refund their shop's orders
+
+With GBAC, this system becomes simple to implement. GBAC can natively reflect the relationships between the users, shops and orders. This extra level of native abstraction saves you from creating shop-specific roles.
+
+## 2. Define the types of objects to consider
+
+First, we define our <Glossary>object type</Glossary>s. Every <Glossary>object</Glossary> in the system must have exactly one object type. This means we should not define separate object types for shop owners, shop members and buyers.
+
+Together, the following types make an effective, mutually exclusive representation of the core elements of our real-world system:
+
+- Users
+- Shops
+- Orders (transactions)
+
+## 3. Define the edge types
+
+Next, we define the <Glossary>edge type</Glossary>s. We will reference design requirements that are satisfied solely by the existence of each edge type. Each edge type represents a possible one-way relationship between two object types. Every edge must have a type, so our list of edge types should be comprehensive: any type of relationship that we use in our authorization logic should be reflected here.
+
+Here is a good set of edge types for our use case:
+
+| Source/Target Relationship | Edge Type Name         | Description                                      | Design Requirements |
+| :------------------------- | :--------------------- | :----------------------------------------------- | :------------------ |
+| User → Shop                | `owner-of-shop`        | User (source) can be an owner of a Shop (target) | DR3, DR5, DR6, DR7  |
+| User → Shop                | `member-of-shop`       | User (source) can be a member of a Shop (target) | DR3, DR5, DR7       |
+| Shop → Order               | `shop-seller-of-order` | Shop (source) can sell an Order (target)         | DR1(a), DR5         |
+| User → Order               | `user-seller-of-order` | User (source) can sell an Order (target)         | DR1(b), DR5         |
+| User → Order               | `buyer-of-order`       | User (source) can buy an Order (target)          | DR2, DR4            |
+
+Note that, since edges are strongly typed, we require different edge types to represent a shop selling an order and a user selling an order. 
+
+![Marketplace flow chart](/assets/images/marketplace.webp)
+
+
+## 4. Add permissions to each of our relationships.
+
+To add attributes, we'll go through our design requirements, one-by-one. DR1-DR3 define relationships and roles, so are already established by our edge types. DR4-DR6 are all satisfied by direct attributes, which give an edge's source object the <Glossary>permission</Glossary>s on the edge's target object. For example:
+
+**DR4: Buyers can view and edit their own orders**
+
+We add two attributes, `view-order:direct` and `edit-order:direct`, to the `buyer-of-order` edge type. 
+
+**DR5: Individual sellers can view, edit and refund orders that they sell**
+
+We add three attributes, `view-order:direct`, `edit-order:direct` and`refund-order:direct` to the `user-seller-of-order` edge type.
+
+**DR6: Shop owners can edit their shop's settings (e.g. name and payout details) and manage their shop's members**
+
+We add two attributes, `edit-shop-settings:direct` and `manage-shop-members:direct`, to the `owner-of-shop` edge type.
+
+**DR7: Both shop owners and shop members can view, edit and refund their Shop's Orders**
+
+Firstly, we add an attribute, `view-order:inherit`, to the edge types `member-of-shop` and `owner-of-shop`. The inherit attribute here means that, if a shop has a `view-order` permission on an order, owners and members of that shop will inherit that permission too.
+
+Next, we add an attribute `view-order:direct`, to the `shop-seller-of-order` edge type. This gives the shop the view-order permission on its orders. 
+
+We repeat this approach for editing and refunding orders. 
+
+## Wrap
+
+Our graph's structure now reflects the real-world relationships that determine our permissions. Once we populate the graph with instances of <Glossary>object</Glossary>s and <Glossary>edge</Glossary>s, we have all the data we need to run our permission system. When a user tries to view a shipping address associated with a transaction, our client can call `CheckAttribute` to ask: _does User X have Permission Y on Resource Z?_

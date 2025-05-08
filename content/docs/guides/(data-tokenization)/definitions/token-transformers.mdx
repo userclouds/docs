@@ -1,0 +1,44 @@
+---
+title: "Token Transformers"
+slug: "token-transformers"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 22:24:46 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 28 2024 22:52:17 GMT+0000 (Coordinated Universal Time)"
+---
+
+Transformers control how a token is generated and what it looks like. Practically, <Glossary>data transformer</Glossary>s are parametrizable JavaScript functions that receive raw data and return a <Glossary>token</Glossary>.
+
+They allow you to retain select structure and information from the raw data for different use cases, like sorting alphabetically, common domain analysis or simply allowing tokens to flow through your systems without triggering validation errors.
+
+![Transformers can be arbitrarily smart about how they preserve and obscure the information and structure of the data they encode. Noise can be removed, granularity can be reduced and categories can be created and mapped.](/assets/images/user-data.webp)
+
+Transformers range from the simplest UUID function that replaces any given data with a unique identifier, to custom-written Javascript that runs in a carefully-controlled sandbox. A well-formed transformer retains the minimum viable information to complete the intended data use case for the token, and no more. For example, it might retain the final 4 digits of a phone number for identity verification, but obfuscate the other digits.
+
+![One simple transformer receives raw data, and creates a UUID token.](/assets/images/uuid-input.webp)
+
+## Examples of Transformers
+
+Let’s look at four possible transformers, to see how transformers work.
+
+| Function                                                          | Example Data                                      | Example Token                                           |
+| :---------------------------------------------------------------- | :------------------------------------------------ | :------------------------------------------------------ |
+| Replace with UUID                                                 | [stevejobs@apple.com](mailto:stevejobs@apple.com) | 6ac33e45-1117-457f-b610-b49afd0bd551                    |
+| Retain email structure, first three letters & common domain names | [stevejobs@apple.com](mailto:stevejobs@apple.com) | [ste56789eidj@apple.com](mailto:ste56789eidj@apple.com) |
+| Show year of birth                                                | 7/31/1999                                         | 1999                                                    |
+| Show country                                                      | \+44 7899 123456                                  | United Kingdom                                          |
+
+## What they are
+
+A transformer consists of a tuple of (ID, function, parameters)
+
+- `id` - a unique transformer identifier, which can be used as a reference when creating tokens
+- `function` - a transform function with the signature `func(data Object, parameters Object) (Token | error)`
+- `parameters` - a static JSON object (not containing un-encoded PII) that is available at runtime, allowing you to parameterize and reuse functions like "obfuscate all but the first X letters of these emails"
+
+## Managing transformers
+
+UserClouds has several built-in transformers for common use cases, like masking emails, national ID numbers and credit card details. However you can also create custom functions, in two ways:
+
+1. Call the [CreateTransformer() API](/docs/reference/tokenizer/policies/transformation/post) - a convenience wrapper for in-lining a transformer
+2. Create functions in the UserClouds UI

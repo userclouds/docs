@@ -1,0 +1,67 @@
+---
+title: "Create a transformer"
+slug: "create-a-transformer"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 19:57:13 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Dec 21 2023 12:26:53 GMT+0000 (Coordinated Universal Time)"
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+Transformers are re-usable JavaScript functions that manipulate data in UserClouds. They allow you to minimize the data that you pass or store for each use case. Transformers allow you to retain select structure and information from the raw data for different use cases, like sorting alphabetically, common domain analysis or simply flowing through your systems without triggering validation errors.
+
+Transformers can be managed in the User Data Masking page of the UserClouds Console, or via the UserClouds API.
+
+## How Transformers Work
+
+When data is passed to a transformer, three steps happen in sequence:
+
+1. **Validation**: First, we make sure the data matches the expected type for the transformer. For example, if the transformer is supposed to work with dates, we check to see if the data has type date.
+2. **Normalization**: After confirming the data type, we convert the data into a string. This makes it easier to work with because strings are universal and aren't specific to any one programming language.
+3. **Transformation**: The transformer then receives the string and carries out its task. Since it gets the data as a string, this function can be written in JavaScript or _(coming soon!)_ any other programming language.
+
+## Expected String Formats
+
+For the transformers that work with specific data types, you should expect to receive and work with the following string formats:
+
+- **Date Types**: For Birthdate and Date types, expect a `YYYY-MM-DD` format.
+- **Time Types**: Timestamps come in a `YYYY-MM-DDTHH:mm:ss.sssZ` format.
+- **UUID Types**: UUIDs follow the standard format of `00000000-0000-0000-0000-000000000000`.
+
+Remember to convert these strings into the JavaScript objects or primitives that you need before working with them in your transformer.
+
+## Creating a transformer in UserClouds Console
+
+To create a transformer in UserClouds, go to the Policies page, accessible from the sidebar in Console, and click Create Transformer.
+
+<Steps>
+    <Step>
+    **Name and Describe the Transformer**
+
+    Specify a name and description for the transformer, to help your team find and use it later.
+    </Step>
+    <Step>
+    **Define how the transformer will change the data**
+
+    Define how the transformer will work by stating:
+
+    - **An input data type** for the transformer (string, timestamp etc)
+    - **An output data type** for the transformer (string, timestamp etc)
+    - **A transform type** - for more info on these, see
+    - **A transform function**, which will receive raw data _as a string_ and return the transformed data
+    - _(Optional)_ **A set of parameters** for that function, which allows you to rapidly create transformers with parallel logic
+
+    Transformers should be written to act on a single piece of data. UserClouds natively handles the case where the associated column is an array column, calling the specified transformer on each array element and recombining the results into an array.
+    </Step>
+    <Step>
+    **Test and save your transformer**
+
+    Finally, test your transformer by adding raw data to the "Data" field and clicking "Run Test". Once you are happy with the test results, click "Save Transformer" to finish.
+    </Step>
+
+</Steps>
+
+## Creating a transformer via the API
+
+To learn how to create a transformer via the UserClouds API, see our [API Reference](/docs/reference/tokenizer/policies/transformation/post).
