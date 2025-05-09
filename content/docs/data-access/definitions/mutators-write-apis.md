@@ -1,0 +1,44 @@
+---
+title: "Mutators (write paths)"
+slug: "mutators-write-apis"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 19:32:03 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Sep 10 2024 16:09:35 GMT+0000 (Coordinated Universal Time)"
+---
+## Introduction
+
+Mutators are configurable APIs that allow a client to write data to the User Store. Mutators (setters) can be thought of as the complement to <<glossary:accessor>>s (getters). Mutators serve two functions: 
+
+- Storing sensitive user data in the store
+- Storing user <<glossary:consent>>s to data processing <<glossary:purpose>>s alongside that data
+
+## How Mutators Work
+
+Writing data and consents through mutators involves several key steps:
+
+1. The initiating application or client sends a request to write data. This request includes: 
+   1. An array of <<glossary:SelectorValues>>, to be evaluated by the mutator's <<glossary:selector>> 
+   2. Client context data to be evaluated by the mutator's <<glossary:access policy>>
+   3. User data 
+   4. User consents
+2. Utilizing the provided <<glossary:SelectorValues>>, the mutator's selector identifies the relevant user records to be updated. For a detailed explanation, visit our [selector documentation](https://docs.userclouds.com/docs/selectors).
+3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies)) and the mutator's own <<glossary:access policy>> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record. 
+4. For those records that pass the access policy check, the mutator proceeds to validate and transform the incoming data to ensure it meets the required standards
+5. Finally, the processed data, along with the associated user consents, are securely stored in the User Store
+
+## Structure of a Mutator
+
+At creation time, each mutator is associated with a user record <<glossary:selector>>, a set of <<glossary:column>>s, a set of <<glossary:data transformer>>s and an <<glossary:access policy>>.
+
+- The record selector is a SQL-like clause that specifies which records the mutator should edit data for, based on an array of values that are passed at execution time.
+- The columns indicate which data field the mutator will edit.
+- Each column is associated with a transformer which validates and normalizes the format of the data
+- The access policy determines the circumstances in which the write is allowed. Access policies run on each user record and prevent writes to user records which fail the access policy.
+
+## Learn More
+
+For more info on mutators, see:
+
+- [Creating a mutator](https://docs.userclouds.com/docs/create-a-mutator)
+- [Executing a mutator](https://docs.userclouds.com/docs/execute-a-mutator)

@@ -1,0 +1,79 @@
+---
+title: "Browser Plug-in"
+slug: "userclouds-browser-plug-in-documentation"
+excerpt: ""
+hidden: false
+createdAt: "Thu Jun 13 2024 13:49:30 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 28 2024 22:21:26 GMT+0000 (Coordinated Universal Time)"
+---
+## Overview
+
+### What Does It Do?
+
+The UserClouds Browser Plug-in is designed to help you minimize, control, and log data access within web applications. It can be deployed in 15 minutes with no code changes, so is particularly useful in scenarios where:
+
+- You don't control or own the code (e.g., third-party software like Zendesk).
+- You want to minimize code changes, implementation costs or time-to-value
+
+Since the plug-in is installed locally, it is primarily aimed at internal data access for employees or contractors, rather than end-users.
+
+### Why Use It?
+
+In combination with the UserClouds Proxy, the UserClouds Browser Plug-in allows you to:
+
+- Tokenize and de-tokenize data in web applications without changing the application code. 
+- Control data access with fully expressive, context-aware access policies
+- Log the who, when, why and how of data access
+
+This can be achieved with minimal code changes or disruption to your development team or colleagues. 
+
+The approach helps:
+
+- Eliminate the risk of vendor breaches.
+- Reduce the probability and severity of account takeovers by masking data and improving time-to-detection.
+
+## How It Works
+
+The plug-in performs four core functions:
+
+- **Authentication**: Authenticates employees using your preferred method (e.g., Okta SSO).
+- **Token Detection**: Detects tokens on the web page.
+- **Access Policy Identification**: Identifies access policies associated with the tokens, determining the context required to resolve tokens into raw data.
+- **Data Resolution**: Allows employees to resolve secure tokens back into raw data either automatically on page load or manually.
+
+## Architecture
+
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/acce163-Frame_1005.png",
+        "",
+        "(1) The SQL proxy sits between any database and application, intercepting queries to enforce access policies, log access and mask or tokenize data. (2) With no code changes, the application runs entirely on secure tokens, not sensitive data. (3) The browser plug-in resolves tokens for trusted employees, enforcing access policies and zero trust at the data level, via a single central control plane."
+      ],
+      "align": "center",
+      "caption": "(1) The proxy sits between any database and application, intercepting queries to enforce access policies, log access and mask or tokenize data. (2) With no code changes, the application runs entirely on secure tokens, not sensitive data. (3) The browser plug-in resolves tokens for trusted employees, enforcing access policies and zero trust at the data level, via a single central control plane."
+    }
+  ]
+}
+[/block]
+
+
+## Quickstart Guide
+
+### In the UserClouds Console:
+
+1. **Create a Tenant**: Set up your tenant if you haven't already.
+2. **Add an Allowed Redirect URL**: Add the redirect URL of the browser plug-in as an allowed redirect URL in User Authentication > Login Apps > Default App > Allowed Redirect URLs.
+3. **_(Optional)_ Connect Employee Authentication Service**: Link the plug-in with your internal authentication service (e.g., Okta SSO).
+4. **Download the Plug-in**: Download the plug-in from the Chrome app store.
+5. **Create a Token**: Generate a token for resolution by the plug-in. Use the off-the-shelf `AllowAll` access policy.
+
+### In Google Chrome:
+
+1. **Create an Account and Log In**: Set up and access your account.
+2. **Load a Webpage with a Token**: Open a webpage containing the token you generated in step 5 above. A hyperlink labeled “resolve” will appear next to the token.
+3. **Resolve the Token**: Click resolve to access the raw data. The plug-in will resolve the token and replace it with the raw data.
+
+For more information on unmasking data, see [Unmasking data with the Browser Plug-in](https://docs.userclouds.com/docs/unmasking-data-using-the-browser-plug-in).

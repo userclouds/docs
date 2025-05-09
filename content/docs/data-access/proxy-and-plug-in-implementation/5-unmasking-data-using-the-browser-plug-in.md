@@ -1,0 +1,25 @@
+---
+title: "Unmasking tokenized data"
+slug: "unmasking-data-using-the-browser-plug-in"
+excerpt: ""
+hidden: false
+createdAt: "Thu Jun 13 2024 13:55:34 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Sep 19 2024 19:23:54 GMT+0000 (Coordinated Universal Time)"
+---
+If you mask data using a tokenizing transformer, your employees and contractors can use the UserClouds browser plug-in to unmask the data inline in the web application. See the UserClouds Browser Plug-in Documentation for instructions on configuring the plug-in.
+
+Each token is associated with an access policy, governing the circumstances under which the token can be resolved into the raw data. Access policies can evaluate context passed in the resolution request. The structure of the required context is specified in the metadata of the access policy at creation time.
+
+### How It Works:
+
+The Browser Plug-in:
+
+- **Token Detection**: Detects tokens on the page.
+- **Access Policy Identification**: Identifies the access policies associated with the tokens and the required context for token resolution.
+- **Data Resolution**: Allows employees to resolve secure tokens back into raw data, in one of two ways:
+  - **Automatic Resolution**: Automatically replacing tokens on the page with raw data on page load.
+  - **Manual Resolution**: Amending the DOM to show “Resolve” links inline next to tokens.
+
+If the access policy associated with a token requires additional context, such as claims in a user token or user input, the browser will gather this and pass it in the resolution request. Additional context may be gathered by prompting the user to log in, or by showing a prompt dialog to the user (e.g., to provide an MFA code or a reason for access).
+
+By following these steps, employees and contractors can securely and efficiently access necessary data without compromising security or compliance.

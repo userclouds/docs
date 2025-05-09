@@ -1,0 +1,22 @@
+---
+title: "Edit user data & consents"
+slug: "edit-existing-user-data"
+excerpt: ""
+hidden: false
+createdAt: "Fri Feb 09 2024 20:08:41 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Feb 27 2024 01:42:13 GMT+0000 (Coordinated Universal Time)"
+---
+UserClouds stores two types of information for every user: 
+
+- **User data** such as their name, email or phone number
+- **User consents**: for each column, UserClouds also stores a set of user <<glossary:consent>>s, indicating which data processing purposes a user has consented to for that column of data
+
+You can update both data and consents using <<glossary:mutator>>s. Mutators are advanced write APIs. They  enforce access policies, receive inbound data, normalize it, and save it to the specified record(s) and column(s) in the User Store.
+
+UserClouds automatically code-generates an SDK so that calling mutators is as simple as calling any other function in your codebase. 
+
+To learn more, see:
+
+- [How to create a mutator](https://docs.userclouds.com/docs/create-a-mutator)
+- [How to use your code-generated SDK](https://docs.userclouds.com/docs/use-your-custom-sdk)
+- [How to execute a mutator](https://docs.userclouds.com/docs/execute-a-mutator)

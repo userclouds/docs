@@ -1,0 +1,19 @@
+---
+title: "Read user data"
+slug: "edit-user-data-copy"
+excerpt: ""
+hidden: false
+createdAt: "Fri Feb 09 2024 20:29:21 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Apr 18 2024 18:12:09 GMT+0000 (Coordinated Universal Time)"
+---
+Accessors serve as the gateway to accessing user data within UserClouds. They are advanced read APIs. They are engineered with the following capabilities:
+
+- **Enforcement of Access Policies and User Consents**: Accessors automatically adhere to established access policies and respect user consents, ensuring that data is accessed and processed in compliance with user preferences and regulatory requirements.
+- **Data Transformation and Minimization**: To cater to specific use cases, accessors can transform or minimize the data being retrieved. This means that only the necessary data for a particular operation is extracted, enhancing privacy and reducing data exposure.
+- **Ease of Use**: UserClouds generates an SDK automatically, integrating accessors seamlessly into your codebase. This makes calling accessors as straightforward as invoking any other function, significantly simplifying the development process. 
+
+To learn more, see:
+
+- [How to configure an accessor](https://docs.userclouds.com/docs/create-an-accessor)
+- [How to use your code-generated SDK](https://docs.userclouds.com/docs/use-your-custom-sdk)
+- [How to execute an accessor](https://docs.userclouds.com/docs/execute-an-accessor)

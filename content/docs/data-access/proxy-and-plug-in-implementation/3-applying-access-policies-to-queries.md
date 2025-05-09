@@ -1,0 +1,70 @@
+---
+title: "Applying access policies"
+slug: "applying-access-policies-to-queries"
+excerpt: ""
+hidden: false
+createdAt: "Thu Jun 13 2024 14:00:09 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Sep 19 2024 19:23:05 GMT+0000 (Coordinated Universal Time)"
+---
+Once you have re-pointed your application’s database queries, object store requests, or API calls to the UserClouds proxy, you can begin intercepting these requests and enforcing access policies. Access policies can evaluate context and data such as:
+
+- **Context Passed by the Client**, such as claims in the user’s authentication token, an MFA code, or a reason for access.
+- **Data Returned by the Query**, such as a target user’s date of birth or an organization’s home country.
+- **External Data Sources**, such as an ACL, a list of permitted IP addresses, or a list of open support tickets.
+
+Access policies are evaluated per row of returned data from the database. Therefore, if an access policy evaluates row-specific data returned from the database (such as a target user’s date of birth), it may return a subset of records.
+
+### To Apply an Access Policy to a Particular Query:
+
+1. **Trigger the Query, Request, or API Call**: Trigger the action in the application if you haven’t already (e.g., by loading a table of data, requesting an object from storage, or calling an API endpoint).
+2. **Select and Edit the Query, Blob Store, or API Call:** 
+   1. **For SQL Proxies:** In the UserClouds Console, go to Accessors (under Access Methods), find the relevant query in your list of data accessors, and click "Edit".
+   2. **For NoSQL Proxies:** In the UserClouds Console, navigate to Object Stores under User Data Storage in the side navigation, select the object store, and click "Edit".
+   3. **For API Proxies:** In the UserClouds Console, navigate to API connections under User Data Storage in the side navigation, select the API connection, and click "Edit".
+3. **Add Access Policies**: Scroll down to the access policy section and add one or more access policies.
+   1. **For SQL Proxies: **Apply policies at the query level.
+   2. **For NoSQL Proxies: **Apply policies at the object store level, but you can also consider the file path as context (e.g., a user ID in the file path) for finer-grained access control.
+   3. **For API Proxies**: Apply policies at the individual endpoint level.
+4. **Define Policy Logic**: If adding two or more access policies, define whether all policies or one policy must be true for the overall policy to pass, by ANDing or ORing the policies together.
+5. **Save**: Click "Save".
+
+Now, UserClouds will intercept queries of that type and apply the access policy to them, filtering out records for which access is denied. You can test this in your application UI.
+
+### Applying Context-Aware Access Policies to Queries
+
+Access policies can evaluate context passed in the request. Context can be included in comments immediately after queries. The fastest way to add context to your application is by using a simple middleware layer such as [Google’s SQL commenter](https://google.github.io/sqlcommenter/#:~:text=sqlcommenter%20is%20a%20suite,code%20that%20caused%20its%20execution.).
+
+#### Example Query
+
+This example shows how context is added to a query using comments:
+
+```
+SELECT name, email, phone FROM users WHERE id = 1234 /*geo=’uk’ user=’albus-dumbledore’*/
+```
+
+- **Explanation:** The comment `/*geo=’uk’,user=’albus-dumbledore’*/` passes the geographical location (`geo`) and the user (`user`) context to the query.
+
+#### Example Policy
+
+This example shows how an access policy might use the context to enforce access control:
+
+```
+function policy(context, params) {  
+    // Allow access only if the calling user's geo is 'uk'  
+    return context.client.geo === 'uk';  
+}
+```
+
+- **Explanation**: This policy function checks the client context for the geo attribute and allows access only if the value is 'uk'.
+
+#### Special Variables
+
+- `token` if you pass, e.g., `token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImJjZTYyYWQ0ZTg3YWQ3YjEiLCJ0eXAiOiJKV1QifQ` (with the `access_token` from your auth session), UserClouds will automatically make the claims from your JWT available in `context.server` within your access policy templates
+
+### Applying Data-Aware Access Policies
+
+Access policies can also evaluate data returned from the database on a per-row basis. This allows for more granular control over data access. _Documentation coming soon! For immediate assistance, reach out to [info@userclouds.com](mailto:info@userclouds.com)._
+
+### Applying Access Policies that consider external sources
+
+For more information on applying access policies that consider external sources, review the Built-in Functions section of the [Access Policy Documentation](https://docs.userclouds.com/docs/access-policies-1#built-in-functions.).

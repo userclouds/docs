@@ -1,0 +1,30 @@
+---
+title: "Proxy and Plug-In Implementation"
+slug: "proxy-and-plug-in-implementation"
+excerpt: ""
+hidden: false
+createdAt: "Thu Jun 13 2024 13:44:48 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Sep 19 2024 18:00:41 GMT+0000 (Coordinated Universal Time)"
+---
+This section contains guidance on how to implement UserClouds using the proxy approach, alongside the optional browser plug-in. This approach enables you to minimize, control, and log data access in an application with minimal code changes.
+
+The proxy approach is just one of several ways to apply the safety layer in your tech stack. If you are unsure which implementation model is best for you, please email us at [info@userclouds.com](mailto:info@userclouds.com) .
+
+## Types of Proxies
+
+UserClouds offers three broad types of proxies, each of which can be used to control access and apply policies to your data:
+
+1. **SQL Proxies** – Applied to structured databases like RDS, these proxies intercept SQL queries, allowing you to enforce access policies, mask or tokenize sensitive data, and log query activity.
+2. **NoSQL Proxies** – Used with NoSQL databases like S3, MongoDB or DynamoDB, these proxies manage unstructured or semi-structured data, applying access policies and logging access, without transforming the data.
+3. **API Proxies** – Used for REST or GraphQL APIs, these proxies sit between the application and external services or microservices, controlling and logging data access, and applying policies to API calls.
+
+Each of these proxies sits between the application and data source, intercepting requests to ensure secure, controlled access, with minimal code changes required.
+
+## Section contents:
+
+- [Introduction to the Proxy](https://docs.userclouds.com/docs/proxy-introduction)
+- [Quickstart Guide](https://docs.userclouds.com/docs/sql-shim)
+- [Introduction to the Browser Plug-In](https://docs.userclouds.com/docs/userclouds-browser-plug-in-documentation)
+- [Masking Data in database queries](https://docs.userclouds.com/docs/masking-data-using-the-sql-shim)
+- [Unmasking data with the Browser Plug-In](https://docs.userclouds.com/docs/unmasking-data-using-the-browser-plug-in)
+- [Applying access policies to queries](https://docs.userclouds.com/docs/applying-access-policies-to-queries)

@@ -1,0 +1,33 @@
+---
+title: "Principles for use"
+slug: "principles-for-use"
+excerpt: ""
+hidden: true
+createdAt: "Thu Aug 03 2023 18:41:15 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Sep 10 2024 18:33:44 GMT+0000 (Coordinated Universal Time)"
+---
+Following a few key principles will help you get the most out of User Store.
+
+### 1. Avoid storing raw PII outside of the Safety Layer, unless necessary
+
+The key benefits of Safety Layer come from the ability to draw a protective boundary around your data. This boundary governs access control and minimizes or <<glossary:tokenize>>s outbound data. If data is stored outside the store, it does not receive these protective benefits. When applications or employees need raw data to complete a task, they should hold the data for the minimum time frame required to complete the task.
+
+### 2. When PII must be stored outside of the Safety Layer, tokenize or mask it wherever possible
+
+Of course, sometimes, data does need to be stored outside of the Safety Layer, e.g. for offline data analysis. In these cases, use a <<glossary:data transformer>> to obscure the data as much as possible. For example, use a tokenizing function that replaces the data with a random UUID. Attach this <<glossary:token>> to an access policy that only allows the token to be resolved in specific circumstances, such as by an authenticated employee, with the role of engineer, on the company VPN.
+
+### 3. Use transformers to minimize the information carried by a piece of data for a given task
+
+When you are passing data out of the store for a specified use case, minimize the information as much as possible for the specified task. For example, if you want to conduct analysis assessing the differences in behavior between children and adults, do not pull raw Dates of Birth from the store. Instead, use a <<glossary:data transformer>> to pass a string indicating `child` or `adult`. By minimizing outbound data, you reduce your surface area from attack, enable better enforcement of least privilege and better align with the GDPR principle of data minimization. 
+
+### 4. Create different accessors and mutators for different use cases
+
+User Store makes creating a new <<glossary:accessor>> (read API) as simple as writing a database query. This is because accessors are intended to be use-case specific. For example, you should configure one accessor `GetPhoneAndNameForMarketing`, and another `GetPhoneForMFA`. Configuring one accessor per use case makes accidental misuse of the system less likely. It lets you enforce different purpose-based access policies for different use cases, automatically create an audit log of data access and turn off individual data streams in case of emergency. It is essential for automatically generating DPIAs and other documentation about data use practices.
+
+### 5. Re-use access policies, transformers and validators to keep your code [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself)
+
+Unlike accessors, each <<glossary:access policy>>, <<glossary:data transformer>> and validator can be re-used to maximize auditability, reduce update costs and prevent errors. Access policies can be easily built from parametrizable <<glossary:access policy template>>s. This allows you to update a set of access policies with parallel logic just by updating the template. Similarly, complex access policies can be composed of other policies to maximize re-use.
+
+### 6. Adopt a naming practice for accessors and mutators that describes what they do and why
+
+Accessor and mutator names are used in your codebase (to call the API), in code review (to identify accidental misuse) and in your audit log (to understand whether data usage aligns with user consents). Use the names to describe what the API does and why it exists. A good approach to naming describes the transformed data and the purpose, e.g. `GetAgeGroupForDataScience`, `SetPhoneNumberForMarketing` or `GetLastFourOfPhoneForCustomerService`.
