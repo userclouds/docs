@@ -18,7 +18,6 @@ Access policies and templates are managed under the Access Rules element in the 
 
 ![Policies and templates can be managed from the Policies page, accessible from the sidebar of UserClouds Console.](https://files.readme.io/184bfbc-image_4.png)
 
-
 ## Creating Policy Templates in the UI
 
 Policy templates are parametrizable functions that can be parametrized to create access policies. To create a policy template, go to the Policies page and click Create Policy Template. 
@@ -35,7 +34,6 @@ Specify a name, a description and a javascript function for your policy. The jav
 Use the "Test Your Draft" card at the bottom of the page to test your policy template. You can add test parameters to simulate turning the policy template into an access policy, and then test that access policy with test context. The interface will show the result of your test as "Access Allowed" or "Access Denied".
 
 ![The "Test Your Draft" card allows you to parametrize your draft template (creating an access policy) and then test that access policy with test context.](https://files.readme.io/ef73d2e-spaces_66DzLwptb2SejhKV7Bhn_uploads_oGa62N4DTjIR8mFABEN5_image.webp)
-
 
 ## Creating Access Policies in the UI
 
@@ -83,7 +81,7 @@ The checkAttribute function runs a permission check against the UserClouds autho
 
 **Use Case: Does the calling user have view permission on the target user?**
 
-```
+```javascript
 function policy(context) {  
     const callingUserId = context.user.id;  
     const targetUserId = context.params.targetUserId;  
@@ -103,7 +101,7 @@ Parametrizable templates let you create flexible policies by adjusting parameter
 
 ### Example: User is N Years Old
 
-```
+```javascript
 function getAge(DOB) {  
     const today = new Date();  
     const birthDate = new Date(DOB);  

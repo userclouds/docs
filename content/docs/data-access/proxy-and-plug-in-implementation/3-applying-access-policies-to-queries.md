@@ -14,16 +14,16 @@ Once you have re-pointed your application’s database queries, object store req
 
 Access policies are evaluated per row of returned data from the database. Therefore, if an access policy evaluates row-specific data returned from the database (such as a target user’s date of birth), it may return a subset of records.
 
-### To Apply an Access Policy to a Particular Query:
+### To Apply an Access Policy to a Particular Query
 
 1. **Trigger the Query, Request, or API Call**: Trigger the action in the application if you haven’t already (e.g., by loading a table of data, requesting an object from storage, or calling an API endpoint).
-2. **Select and Edit the Query, Blob Store, or API Call:** 
+2. **Select and Edit the Query, Blob Store, or API Call:**
    1. **For SQL Proxies:** In the UserClouds Console, go to Accessors (under Access Methods), find the relevant query in your list of data accessors, and click "Edit".
    2. **For NoSQL Proxies:** In the UserClouds Console, navigate to Object Stores under User Data Storage in the side navigation, select the object store, and click "Edit".
    3. **For API Proxies:** In the UserClouds Console, navigate to API connections under User Data Storage in the side navigation, select the API connection, and click "Edit".
 3. **Add Access Policies**: Scroll down to the access policy section and add one or more access policies.
-   1. **For SQL Proxies: **Apply policies at the query level.
-   2. **For NoSQL Proxies: **Apply policies at the object store level, but you can also consider the file path as context (e.g., a user ID in the file path) for finer-grained access control.
+   1. **For SQL Proxies:** Apply policies at the query level.
+   2. **For NoSQL Proxies:** Apply policies at the object store level, but you can also consider the file path as context (e.g., a user ID in the file path) for finer-grained access control.
    3. **For API Proxies**: Apply policies at the individual endpoint level.
 4. **Define Policy Logic**: If adding two or more access policies, define whether all policies or one policy must be true for the overall policy to pass, by ANDing or ORing the policies together.
 5. **Save**: Click "Save".
@@ -38,7 +38,7 @@ Access policies can evaluate context passed in the request. Context can be inclu
 
 This example shows how context is added to a query using comments:
 
-```
+```sql
 SELECT name, email, phone FROM users WHERE id = 1234 /*geo=’uk’ user=’albus-dumbledore’*/
 ```
 
@@ -48,7 +48,7 @@ SELECT name, email, phone FROM users WHERE id = 1234 /*geo=’uk’ user=’albu
 
 This example shows how an access policy might use the context to enforce access control:
 
-```
+```javascript
 function policy(context, params) {  
     // Allow access only if the calling user's geo is 'uk'  
     return context.client.geo === 'uk';  

@@ -23,7 +23,7 @@ In addition, two special types of access policies are available:
 
 Access policies provide central, fine-grained control over sensitive data access. They can evaluate purpose, identity, authorization, location, , and more. They can range from simple "always allow resolution" policies to complex evaluations.
 
-![Access policies give you central, fine-grained control over sensitive data access. Policies can evaluate purpose, identity, permissions, location, expiration timelines, rate limits and more.](/assets/images/what-userclouds-does.webp)
+![Access policies give you central, fine-grained control over sensitive data access. Policies can evaluate purpose, identity, permissions, location, expiration timelines, rate limits and more.](/assets/images/flow-chart.webp)
 
 ## Example Use Cases
 
@@ -58,7 +58,7 @@ Access Policies are composed from Access Policy Templates. Templates are paramet
 
 ### Template function
 
-```
+```javascript
 function getAge(DOB) {  
     const today = new Date();  
     const birthDate = new Date(DOB);  
@@ -77,7 +77,7 @@ function policy(context, params) {
 
 ### Parameters to instantiate a policy
 
-```
+```javascript
 // Example Policy Parameters (not specified in the template function)
 const params = { expected_years_old: 16, column_name: "birthdate" };
 ```
@@ -88,7 +88,7 @@ Here is an example of how you can create a policy to check if the country claim 
 
 ### Template function
 
-```
+```javascript
 function policy(context, params) {  
     const country = context.server.claims.country;  
     const specifiedCountry = params.specified_country;  
@@ -98,7 +98,7 @@ function policy(context, params) {
 
 ### Parameters to instantiate a policy
 
-```
+```javascript
 // Example Policy Parameters (not specified in the template function)
 const params = { specified_country: "USA" };
 ```
@@ -109,7 +109,7 @@ If the country information is not in the JWT but in the client context, the poli
 
 ### Template function
 
-```
+```javascript
 function policy(context, params) {  
     const country = context.client.country;  
     const specifiedCountry = params.specified_country;  
@@ -119,7 +119,7 @@ function policy(context, params) {
 
 ### Parameters to instantiate a policy
 
-```
+```javascript
 // Example Policy Parameters (not specified in the template function)
 const params = { specified_country: "USA" };
 ```
@@ -136,11 +136,11 @@ We provide a number of built-in functions available as global variables in your 
 
 The built-in `networkRequest` function allows you to reach external services via HTTPS requests. You can pass headers in the network request, allowing you to authorize into third-party services, such as Zendesk via Basic Auth. This feature is useful for scenarios where your policy needs to check external data, e.g. for verifying if an employee has been assigned an open ticket for the user whose data they are trying to access.
 
-### Example:
+### Example
 
 This example shows how to make a network request to verify the user's country based on their IP address. Note that the interface for `networkRequest` is synchronous, as in the example below:
 
-```
+```javascript
 function policy(context, params) {  
   let countryCode = null;  
   const resp = networkRequest({url: `https://api.iplocation.net/?ip=${context.server.ip_address}`, method: 'GET' });  
@@ -151,13 +151,13 @@ function policy(context, params) {
 }
 ```
 
-### Example:
+### Example
 
-This example shows how to verify an employee is active in a private employee directory, using Basic Auth. 
+This example shows how to verify an employee is active in a private employee directory, using Basic Auth.
 
-#### Template Function:
+#### Template Function
 
-```
+```javascript
 function policy(context, params) {  
   let isActiveEmployee = false;
 
@@ -181,7 +181,7 @@ function policy(context, params) {
 
 #### Parameters to instantiate a policy
 
-```
+```javascript
 // Example Policy Parameters (not specified in the template function)
 const params = {};  // No specific parameters needed for this example
 ```
@@ -192,11 +192,11 @@ const params = {};  // No specific parameters needed for this example
 
 The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](https://docs.userclouds.com/reference/get_authz-checkattribute).
 
-### Example:
+### Example
 
 **Use Case: Does the calling user have view permission on the target user?**
 
-```
+```javascript
 function policy(context) {
     const callingUserId = context.user.id;
     const targetUserId = context.params.targetUserId;
@@ -217,7 +217,7 @@ function policy(context) {
 - `country_name`: the ISO 3166 country name, as defined [here](https://github.com/OpenStars/phonenumber/blob/8ad15782bef1/iso3166.go) ; and
 - `country_code`: the numeric telephone country code
 
-### Example:
+### Example
 
 ```javascript
 function policy(context, params) {  

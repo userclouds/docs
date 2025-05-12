@@ -20,7 +20,7 @@ UserClouds applies rate limits to a given user based on the `sub` (subject) clai
 
 The `AccessPolicyThresholds` structure defines the parameters for rate limiting:
 
-```
+```javascript
 type AccessPolicyThresholds = {  
   announce_max_execution_failure: boolean;  
   announce_max_result_failure: boolean;  
@@ -39,7 +39,7 @@ Execution limits control how often an action can be performed within a specific 
 
 Execution limits execute specially when a paginated accessor is called. The initial call is treated as one execution. Paging forward or backward from that initial call is not counted as another execution.
 
-### Behavior:
+### Behavior
 
 - If `announce_max_execution_failure` is true, a 429 (Too Many Requests) error is returned when the limit is exceeded for accessors and mutators. Failures for token resolution are always silent (i.e., the token is not resolved).
 - If `announce_max_execution_failure` is false, the request does not fail, but no actions will occur. That is, no results are returned (for accessors), modifications are not applied (for mutators), or tokens are not resolved (for token resolution).
@@ -50,13 +50,13 @@ Result limits control the number of results that can be returned or affected by 
 
 - `max_results_per_execution`: Maximum number of results affected by a single execution. If this is 0, the limit is turned off.
 
-### Limit definition:
+### Limit definition
 
 - For accessors, this limit applies to the total number of results that could be returned, across all pages (if paginated). For example, an accessor that could return 6 different pages of 100 records each would exceed a 500 result limit, even though each individual page size is within the limit.
 - For mutators, it applies to the number of records modified.
 - For token resolution, it applies to the number of tokens resolved.
 
-### Behavior:
+### Behavior
 
 - If `announce_max_result_failure` is true, a 400 (Bad Request) error is returned when the limit is exceeded.
 - If `announce_max_result_failure` is false, the request does not fail, but no actions will occur. That is, no results are returned (for accessors), no modifications are applied (for mutators), or no tokens are resolved (for token resolution).
@@ -65,7 +65,7 @@ Result limits control the number of results that can be returned or affected by 
 
 Rate limiting is enabled by associating an access policy with rate limits to a mutator, accessor, or token. For tokens, the access policy is specified at token creation time (e.g. via the token resolution policy on an accessor returning the token).
 
-### Token Resolution Note:
+### Token Resolution Note
 
 Failures are always silent (no error code is returned), as token resolution requests may involve multiple access policies, some of which may have rate limits and some may not.
 
@@ -73,7 +73,7 @@ Failures are always silent (no error code is returned), as token resolution requ
 
 To set rate limits for an access policy, configure the `AccessPolicyThresholds`:
 
-```
+```javascript
 const accessPolicy: AccessPolicy = {  
   thresholds: {  
     announce_max_execution_failure: true,  
@@ -86,7 +86,7 @@ const accessPolicy: AccessPolicy = {
 };
 ```
 
-The rate limit thresholds for an access policy may be changed after the access policy is created. 
+The rate limit thresholds for an access policy may be changed after the access policy is created.
 
 Note that we only consider the thresholds for the top level access policy for the accessor / mutator / token resolution. Since an access policy can be composed of multiple access policies, a sub-policy may have usage thresholds. Those thresholds would be ignored.
 

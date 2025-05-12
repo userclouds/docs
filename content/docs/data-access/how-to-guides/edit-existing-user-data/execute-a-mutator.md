@@ -6,14 +6,14 @@ hidden: false
 createdAt: "Fri Feb 09 2024 20:18:55 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Jul 30 2024 18:09:50 GMT+0000 (Coordinated Universal Time)"
 ---
-Once you have configured a <<glossary:mutator>>, you are ready to edit the user data and consents in your store. This can be done by executing the mutator. 
+Once you have configured a <<glossary:mutator>>, you are ready to edit the user data and consents in your store. This can be done by executing the mutator.
 
 ## How to execute a mutator
 
-There are two ways to execute a mutator: 
+There are two ways to execute a mutator:
 
 - Download and deploy your tenant's code-generated UserClouds SDK, and call the mutator indirectly using its SDK function name
-- Call the [ExecuteMutator API](https://docs.userclouds.com/reference/post_userstore-api-mutators) 
+- Call the [ExecuteMutator API](https://docs.userclouds.com/reference/post_userstore-api-mutators)
 
 When calling the ExecuteMutator API directly you pass:
 
@@ -34,7 +34,7 @@ When you execute a mutator, the following steps happen in sequence:
 
 1. The mutator validates and normalizes the inbound data for each column associated with the mutator, using the configured <<glossary:data normalizer>> for that column.
 2. The mutator finds candidate user records to update based on the mutator <<glossary:selector>> clause and the passed in <<glossary:SelectorValues>>.
-3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies)) and the mutator's own <<glossary:access policy>> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record. 
+3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies)) and the mutator's own <<glossary:access policy>> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record.
 4. If the access policy passes for the user, the mutator reconciles the normalized changes for each mutator column against existing user data, utilizing full mutation or partial mutation rules according to the column's configuration (see below for more detail).
 5. Any resulting changes to the user's data and associated consents are saved to the store.
 
@@ -65,7 +65,7 @@ For this example, assume we are updating a column configured to be an array of s
 
 1. **insert value with operational and marketing consents**
 
-   ```
+   ```plaintext
    ValueAndPurposes = {  
    	Value: [“foo”, “bar”],  
    	PurposeAdditions: [“operational”, “marketing”],  
@@ -76,6 +76,7 @@ For this example, assume we are updating a column configured to be an array of s
    	("bar", ["operational", "marketing"]),  
    ]
    ```
+   
 2. **add data_science and remove marketing consents for existing values**
 
    ```
@@ -90,6 +91,7 @@ For this example, assume we are updating a column configured to be an array of s
    	("bar", ["operational", "data_science"]),  
    ]
    ```
+
 3. **update values, adding fraud_prevention consent**
 
    ```
@@ -103,6 +105,7 @@ For this example, assume we are updating a column configured to be an array of s
    	("baz", ["operational", “data_science”, "fraud_prevention"]),  
    ]
    ```
+   
 4. **delete all values**
 
    ```
