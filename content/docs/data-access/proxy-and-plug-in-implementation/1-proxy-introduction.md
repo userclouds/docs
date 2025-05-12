@@ -12,7 +12,7 @@ The proxy approach is just one of several ways to apply the safety layer in your
 
 The UserClouds proxy sits between any data source and your application. It intercepts queries to:
 
-- **Minimize outbound data **(e.g., convert `steve@apple.com` to `s****@*****.com`, for SQL and API proxies only)
+- **Minimize outbound data** (e.g., convert `steve@apple.com` to `s****@*****.com`, for SQL and API proxies only)
 - **Control access** (e.g., enforcing rate limiting, checking for open tickets or enforcing data residency).
 - **Log the who, when, why and how of data access**.
 
@@ -28,7 +28,7 @@ By simply changing the data store or API URI to UserClouds and applying off-the-
 
 The Proxy has four core functions:
 
-- **Query/Request Interception**: Intercepts queries and requests to apply additional security and privacy controls. 
+- **Query/Request Interception**: Intercepts queries and requests to apply additional security and privacy controls.
 - **Access Policies**: Enforce access policies such as rate limiting or data residency rules without requiring application code changes.. By adding comments to your application, additional context like user roles can be considered. For more info, see [Access Policy Definition](https://docs.userclouds.com/docs/access-policies-1).
 - **Data Minimization**  (SQL and API Proxies Only): Reduces the amount of sensitive data exposed by transforming or masking data elements (e.g., converting email addresses to partially masked formats). For more info, see [Transformer Definition](https://docs.userclouds.com/docs/transformers-1).
 - **Logging**: Maintains a comprehensive log of all intercepted queries and API requests, including details of the transformations and policies applied, to ensure transparency and auditability.
@@ -60,18 +60,4 @@ Each of these proxies sits between the application and data source, intercepting
 
 The below diagram describes the high-level architecture for the proxy and browser plug-in implementation model. In this model, the browser plug-in is entirely optional. Its primary purpose is to enable enforcement of access policies and zero trust at the data level, via a single central control plane, without code changes in the application or changes to the user experience for trusted employees.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/4a8118b-Frame_1005.png",
-        "",
-        "(1) The proxy sits between any database and application, intercepting queries to enforce access policies, log access and mask or tokenize data. (2) With no code changes, the application runs entirely on secure tokens, not sensitive data (3) The browser plug-in resolves tokens for trusted employees, enforcing access policies and zero trust at the data level, via a single central control plane"
-      ],
-      "align": "center",
-      "caption": "(1) The proxy sits between data store and application, intercepting queries/requests, enforcing policies, transforming data and logging access, per the configuration of the control plane. (2) Masked or tokenized data is passed to the web app. (3) Optionally, the browser plug-in can be used to gather additional context from the user for de-tokenization (e.g. MFA codes, break glass reasons) without code changes to the application. "
-    }
-  ]
-}
-[/block]
+![The proxy sits between data store and application, intercepting queries/requests, enforcing policies, transforming data and logging access, per the configuration of the control plane. (2) Masked or tokenized data is passed to the web app. (3) Optionally, the browser plug-in can be used to gather additional context from the user for de-tokenization (e.g. MFA codes, break glass reasons) without code changes to the application.](/assets/images/auth-flow.webp)

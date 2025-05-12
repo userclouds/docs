@@ -43,21 +43,7 @@ The plug-in performs four core functions:
 
 ## Architecture
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/acce163-Frame_1005.png",
-        "",
-        "(1) The SQL proxy sits between any database and application, intercepting queries to enforce access policies, log access and mask or tokenize data. (2) With no code changes, the application runs entirely on secure tokens, not sensitive data. (3) The browser plug-in resolves tokens for trusted employees, enforcing access policies and zero trust at the data level, via a single central control plane."
-      ],
-      "align": "center",
-      "caption": "(1) The proxy sits between any database and application, intercepting queries to enforce access policies, log access and mask or tokenize data. (2) With no code changes, the application runs entirely on secure tokens, not sensitive data. (3) The browser plug-in resolves tokens for trusted employees, enforcing access policies and zero trust at the data level, via a single central control plane."
-    }
-  ]
-}
-[/block]
+![The proxy sits between any database and application, intercepting queries to enforce access policies, log access and mask or tokenize data. (2) With no code changes, the application runs entirely on secure tokens, not sensitive data. (3) The browser plug-in resolves tokens for trusted employees, enforcing access policies and zero trust at the data level, via a single central control plane.](/assets/images/data-flow.webp)
 
 
 ## Quickstart Guide

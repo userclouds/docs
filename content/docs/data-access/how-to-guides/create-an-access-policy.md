@@ -16,21 +16,7 @@ New access policies can be created by writing a new policy or template from scra
 
 Access policies and templates are managed under the Access Rules element in the UserClouds Console sidebar.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/184bfbc-image_4.png",
-        null,
-        "Policies and templates can be managed from the Policies page, accessible from the sidebar of UserClouds Console."
-      ],
-      "align": "center",
-      "caption": "Policies and templates can be managed from the Policies page, accessible from the sidebar of UserClouds Console."
-    }
-  ]
-}
-[/block]
+![Policies and templates can be managed from the Policies page, accessible from the sidebar of UserClouds Console.](https://files.readme.io/184bfbc-image_4.png)
 
 
 ## Creating Policy Templates in the UI
@@ -41,42 +27,14 @@ Policy templates are parametrizable functions that can be parametrized to create
 
 Specify a name, a description and a javascript function for your policy. The javascript function may optionally accept parameters, which you can test below. 
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/085e410-image_5.png",
-        null,
-        "The Create Policy Template page."
-      ],
-      "align": "center",
-      "caption": "The Create Policy Template page."
-    }
-  ]
-}
-[/block]
+![The Create Policy Template page.](https://files.readme.io/085e410-image_5.png)
 
 
 **2 Test and save your policy template**
 
 Use the "Test Your Draft" card at the bottom of the page to test your policy template. You can add test parameters to simulate turning the policy template into an access policy, and then test that access policy with test context. The interface will show the result of your test as "Access Allowed" or "Access Denied".
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/ef73d2e-spaces_66DzLwptb2SejhKV7Bhn_uploads_oGa62N4DTjIR8mFABEN5_image.webp",
-        null,
-        "The \"Test Your Draft\" card allows you to parametrize your draft template (creating an access policy) and then test that access policy with test context."
-      ],
-      "align": "center",
-      "caption": "The \"Test Your Draft\" card allows you to parametrize your draft template (creating an access policy) and then test that access policy with test context."
-    }
-  ]
-}
-[/block]
+![The "Test Your Draft" card allows you to parametrize your draft template (creating an access policy) and then test that access policy with test context.](https://files.readme.io/ef73d2e-spaces_66DzLwptb2SejhKV7Bhn_uploads_oGa62N4DTjIR8mFABEN5_image.webp)
 
 
 ## Creating Access Policies in the UI
@@ -87,42 +45,14 @@ To create a new access policy, click "Create Policy" from the Policies page, acc
 
 **2 Set your <<glossary:access policy>> name and description**
 
-Next, add a name and a description for your policy. 
+Next, add a name and a description for your policy.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/e0bf498-image_6.png",
-        null,
-        "The Create Access Policy page in UserClouds Console."
-      ],
-      "align": "center",
-      "caption": "The Create Access Policy page in UserClouds Console."
-    }
-  ]
-}
-[/block]
+![The Create Access Policy page in UserClouds Console.](https://files.readme.io/e0bf498-image_6.png)
 
 
 **3 Compose your policy**
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/1249f6f-image_7.png",
-        null,
-        "The Compose Policy Card"
-      ],
-      "align": "center",
-      "caption": "The Compose Policy Card"
-    }
-  ]
-}
-[/block]
+![The Compose Policy Card](https://files.readme.io/1249f6f-image_7.png)
 
 
 Next, compose the policy from one or more policies and templates in the "Compose Policy" card.
@@ -149,7 +79,7 @@ Nice job! You created an access policy.
 
 The checkAttribute function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. You can read more about this in the Authorization Documentation.
 
-### Example:
+### Example
 
 **Use Case: Does the calling user have view permission on the target user?**
 

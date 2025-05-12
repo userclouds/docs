@@ -10,22 +10,7 @@ updatedAt: "Tue Sep 10 2024 18:37:33 GMT+0000 (Coordinated Universal Time)"
 
 Transformers are re-usable functions that manipulate data in UserClouds. They allow you to minimize the data that you pass or store for each use case. This is key for complying with the data minimization principles in regulations like GDPR.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/6d22973-Frame_1006.png",
-        "",
-        "Transformers can be arbitrarily smart about how they obfuscate data."
-      ],
-      "align": "center",
-      "sizing": "400px",
-      "caption": "Transformers can be arbitrarily smart about how they obfuscate data."
-    }
-  ]
-}
-[/block]
+![Transformers can be arbitrarily smart about how they obfuscate data.](/assets/images/user-data.webp)
 
 
 Transformers allow you to retain select structure and information from the raw data for different use cases, like sorting alphabetically, zip code analysis or simply flowing through your systems without triggering validation errors.  For example, if you want to conduct analysis assessing the differences in behavior between children and adults, you may use a data transformer to pass a string indicating `child` or `adult`, instead of pulling raw Date of Birth from the store.
@@ -45,22 +30,7 @@ In addition, column default transformers provide a way to consistently apply tra
 
 Transformers range from the simplest UUID function that replaces any given data with a unique identifier, to custom-written Javascript that runs in a carefully-controlled sandbox. 
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/22f49cc-spaces_66DzLwptb2SejhKV7Bhn_uploads_QrLi9YP9CtHG5gAgEQrd_image.webp",
-        null,
-        "One simple transformer receives raw data, and creates a UUID token."
-      ],
-      "align": "center",
-      "caption": "One simple transformer receives raw data, and creates a UUID token."
-    }
-  ]
-}
-[/block]
-
+![One simple transformer receives raw data, and creates a UUID token.](https://files.readme.io/22f49cc-spaces_66DzLwptb2SejhKV7Bhn_uploads_QrLi9YP9CtHG5gAgEQrd_image.webp)
 
 Let’s look at four possible transformers, to see how transformers work.
 
@@ -93,22 +63,7 @@ A transformer consists of:
 - `Transform Function` - a transform function with the signature `func(data Object, parameters Object) (Token | error)`
 - `Transform Parameters` - a static JSON object (not containing un-encoded PII) that is available at runtime, allowing you to parameterize and reuse functions like "obfuscate all but the first X letters of these emails"
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/f14e1c2-image_1.png",
-        null,
-        "The PreserveCommonValue parameter allows you to optionally preserve common email domains (like gmail.com). Rare domains, like userclouds.com, will be obscured."
-      ],
-      "align": "center",
-      "caption": "The PreserveCommonValue parameter allows you to optionally preserve common email domains (like gmail.com). Rare domains, like userclouds.com, will be obscured."
-    }
-  ]
-}
-[/block]
-
+![The PreserveCommonValue parameter allows you to optionally preserve common email domains (like gmail.com). Rare domains, like userclouds.com, will be obscured.](https://files.readme.io/f14e1c2-image_1.png)
 
 ## Managing Transformers
 

@@ -12,21 +12,7 @@ Transformers are re-usable JavaScript functions that manipulate data in UserClou
 
 Transformers can be managed in the User Store page of the UserClouds Console, or via the UserClouds API.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/d78d5ab-image_8.png",
-        null,
-        "Transformers can be managed from the Policies page in the UserClouds Console"
-      ],
-      "align": "center",
-      "caption": "Transformers can be managed from the Policies page in the UserClouds Console"
-    }
-  ]
-}
-[/block]
+![Transformers can be managed from the Policies page in the UserClouds Console](https://files.readme.io/d78d5ab-image_8.png)
 
 
 ## How Transformers Work
@@ -49,7 +35,7 @@ Remember to convert these strings into the JavaScript objects or primitives that
 
 ## Creating a transformer in UserClouds Console
 
-To create a transformer in UserClouds, go to the Policies page, accessible from the sidebar in Console, and click Create Transformer. 
+To create a transformer in UserClouds, go to the Policies page, accessible from the sidebar in Console, and click Create Transformer.
 
 **1 Name and Describe the Transformer**
 
@@ -71,21 +57,7 @@ Transformers should be written to act on a single piece of data. UserClouds nati
 
 Finally, test your transformer by adding raw data to the "Data" field and clicking "Run Test". Once you are happy with the test results, click "Save Transformer" to finish. 
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/bee6a69-image_9.png",
-        null,
-        "The Create Transformer Page"
-      ],
-      "align": "center",
-      "caption": "The Create Transformer Page"
-    }
-  ]
-}
-[/block]
+![The Create Transformer Page](https://files.readme.io/bee6a69-image_9.png)
 
 
 ## Creating a transformer via the API

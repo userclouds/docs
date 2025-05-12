@@ -37,21 +37,7 @@ When creating a user via the `CreateUserWithMutator` API, you should use the sel
 
 Add columns by selecting from the dropdown and clicking "Add Column".
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/b410a49-image.png",
-        null,
-        "Select which columns the mutator will write data to, then select a normalizer defining if / how data should be manipulated before being saved. "
-      ],
-      "align": "center",
-      "caption": "Select which columns the mutator will write data to, then select a normalizer defining if / how data should be manipulated before being saved. "
-    }
-  ]
-}
-[/block]
+![Select which columns the mutator will write data to, then select a normalizer defining if / how data should be manipulated before being saved. ](https://files.readme.io/b410a49-image.png)
 
 
 ### 3. Define how the mutator should normalize inbound data
@@ -77,21 +63,7 @@ Finally, select an <<glossary:access policy>> for the mutator. The access policy
 
 For more information on what access policies do, see [Access Policies](https://docs.userclouds.com/docs/access-policies-1). For more information on creating access policies, see our [How To Guide on Creating Access Policies](https://docs.userclouds.com/docs/create-an-access-policy).
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/8cb3a7a-spaces_66DzLwptb2SejhKV7Bhn_uploads_CroH4gBpzCJ5B5zSLyq5_image.webp",
-        null,
-        "The access policy controls whether the whether a given write is allowed."
-      ],
-      "align": "center",
-      "caption": "The access policy controls whether the whether a given write is allowed."
-    }
-  ]
-}
-[/block]
+![The access policy controls whether the whether a given write is allowed.](https://files.readme.io/8cb3a7a-spaces_66DzLwptb2SejhKV7Bhn_uploads_CroH4gBpzCJ5B5zSLyq5_image.webp)
 
 
 Nice job! You can now click Save to create your mutator. You can learn how to invoke this mutator in the next article.

@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       ],
     },
   };
-  console.log(options);
+
   return (
     <DocsLayout {...options}>
       {children}

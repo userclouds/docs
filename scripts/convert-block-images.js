@@ -2,14 +2,9 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { glob } from 'glob';
 
-// Get current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to convert [block:image] to HTML/MDX format
+// Function to convert [block:image] to Markdown format
 function convertBlockImages(content) {
   // Regex to match [block:image] blocks
   const blockImageRegex = /\[block:image\]\s*(\{[\s\S]*?\})\s*\[\/block\]/g;
@@ -26,14 +21,10 @@ function convertBlockImages(content) {
       const image = blockData.images[0];
       const imageUrl = image.image[0];
       const alt = image.image[2] || '';
-      const caption = image.caption || '';
-      const hasBorder = image.border === true;
+      const caption = image.caption || alt.replace(/"/g, '&quot;');
 
-      // Create HTML with center alignment
-      return `<div align="center">
-  <img src="${imageUrl}" alt="${alt.replace(/"/g, '&quot;')}"${hasBorder ? ' border="1"' : ''} />
-  <p><em>${caption}</em></p>
-</div>`;
+      // Create Markdown image
+      return `![${caption}](${imageUrl})`;
     } catch (error) {
       console.error('Error processing JSON:', error);
       return match; // Return original on error
@@ -41,15 +32,16 @@ function convertBlockImages(content) {
   });
 }
 
-// Find all MDX files in the content directory
-const contentDir = path.join(path.resolve(), 'src', 'content', 'docs');
-const mdxFiles = await glob(`${contentDir}/**/*.mdx`);
+// Find all MD files in the content directory
+const contentDir = path.join(path.resolve(), 'content', 'docs');
+const mdFiles = await glob(`${contentDir}/**/*.md`);
 
+console.log(`Found ${mdFiles.length} MD files in ${contentDir}`);
 let convertedCount = 0;
 let errorCount = 0;
 
 // Process each file
-for (const filePath of mdxFiles) {
+for (const filePath of mdFiles) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
 

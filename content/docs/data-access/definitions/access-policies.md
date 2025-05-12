@@ -12,34 +12,18 @@ Access Policies control the circumstances under which data can be retrieved or e
 
 Access Policies are executed in three places in UserClouds:
 
-- Every <<glossary:accessor>> (read path) is associated with an access policy that controls access for each target user record and filters the records in the response accordingly.
-- Every <<glossary:mutator>> (write path) is associated with an access policy that governs whether the write is allowed.
-- Every <<glossary:token>> is associated with an access policy that governs the circumstances in which the token can be exchanged for the original data ("resolved").
+- Every <glossary>accessor</glossary> (read path) is associated with an access policy that controls access for each target user record and filters the records in the response accordingly.
+- Every <glossary>mutator</glossary> (write path) is associated with an access policy that governs whether the write is allowed.
+- Every <glossary>token</glossary> is associated with an access policy that governs the circumstances in which the token can be exchanged for the original data ("resolved").
 
 In addition, two special types of access policies are available:
 
-- **Column Default Access Policies**: These policies are associated with specific columns and are applied by default to all reads that extract data from those columns. They ensure consistent application of access rules for sensitive data, such as automatically applying a role check to the SSN column. They can be overridden for individual accessors. Learn more [here](https://docs.userclouds.com/docs/protect-a-column-with-defaults). 
-- **Global Baseline Access Policies**: These policies are applied by default to all reads, providing a consistent security baseline. For example, a global policy might always require a valid token or restrict access to trusted IP addresses. They cannot be overridden. Learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies). 
+- **Column Default Access Policies**: These policies are associated with specific columns and are applied by default to all reads that extract data from those columns. They ensure consistent application of access rules for sensitive data, such as automatically applying a role check to the SSN column. They can be overridden for individual accessors. Learn more [here](https://docs.userclouds.com/docs/protect-a-column-with-defaults).
+- **Global Baseline Access Policies**: These policies are applied by default to all reads, providing a consistent security baseline. For example, a global policy might always require a valid token or restrict access to trusted IP addresses. They cannot be overridden. Learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies).
 
 Access policies provide central, fine-grained control over sensitive data access. They can evaluate purpose, identity, authorization, location, , and more. They can range from simple "always allow resolution" policies to complex evaluations.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/0f48153-Diagram_showing_an_access_policy.png",
-        "",
-        "Access policies give you central, fine-grained control over sensitive data access. Policies can evaluate purpose, identity, permissions, location, expiration timelines, rate limits and more."
-      ],
-      "align": "center",
-      "sizing": "400px",
-      "caption": "Access policies give you central, fine-grained control over sensitive data access. Policies can evaluate purpose, identity, permissions, location, expiration timelines, rate limits and more."
-    }
-  ]
-}
-[/block]
-
+![Access policies give you central, fine-grained control over sensitive data access. Policies can evaluate purpose, identity, permissions, location, expiration timelines, rate limits and more.](/assets/images/what-userclouds-does.webp)
 
 ## Example Use Cases
 

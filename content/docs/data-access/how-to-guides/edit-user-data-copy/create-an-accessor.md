@@ -28,22 +28,7 @@ To create an accessor, go the User Store page (accessible from the sidebar in Us
 
 Accessor names are used in your codebase (to call the API) and in your audit log (to understand whether data usage aligns with user consents). Use the names to describe what the API does and why it exists. A good go-to structure describes the transformed data and the purpose, e.g. GetAgeGroupForDataScience, GetPhoneNumberForMarketing or GetLast4OfPhoneForCustomerService.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/d6c32fb-image.png",
-        null,
-        "The Create Accessor page."
-      ],
-      "align": "center",
-      "caption": "The Create Accessor page."
-    }
-  ]
-}
-[/block]
-
+![The Create Accessor page.](https://files.readme.io/d6c32fb-image.png)
 
 <br />
 
@@ -59,22 +44,7 @@ Next, pick the user records and columns the accessor will return data for. Speci
 
 Add <<glossary:column>>s by selecting from the dropdown and clicking "Add Column".
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/a426b05-image.png",
-        null,
-        "Together the Columns, Transformers and User Record Selector define what data the accessor returns."
-      ],
-      "align": "center",
-      "caption": "Together the Columns, Transformers and User Record Selector define what data the accessor returns."
-    }
-  ]
-}
-[/block]
-
+![Together the Columns, Transformers and User Record Selector define what data the accessor returns.](https://files.readme.io/a426b05-image.png)
 
 <br />
 
