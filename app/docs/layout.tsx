@@ -7,12 +7,6 @@ export default function Layout({ children }: { children: ReactNode }) {
   const options = {
     ...baseOptions,
     tree: source.pageTree,
-    links: [
-      {
-        text: 'Welcome to the UserCloud docs!',
-        url: '/docs',
-      },
-    ],
     sidebar: {
       tabs: [
         {
