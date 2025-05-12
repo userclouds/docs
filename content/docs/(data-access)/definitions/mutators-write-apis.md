@@ -8,7 +8,7 @@ updatedAt: "Tue Sep 10 2024 16:09:35 GMT+0000 (Coordinated Universal Time)"
 ---
 ## Introduction
 
-Mutators are configurable APIs that allow a client to write data to the User Store. Mutators (setters) can be thought of as the complement to <<glossary:accessor>>s (getters). Mutators serve two functions: 
+Mutators are configurable APIs that allow a client to write data to the User Store. Mutators (setters) can be thought of as the complement to <glossary:accessor>s (getters). Mutators serve two functions: 
 
 - Storing sensitive user data in the store
 - Storing user <<glossary:consent>>s to data processing <<glossary:purpose>>s alongside that data

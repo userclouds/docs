@@ -8,16 +8,16 @@ updatedAt: "Fri Mar 01 2024 17:20:02 GMT+0000 (Coordinated Universal Time)"
 ---
 # Introduction
 
-Selectors are SQL-like clauses that specify which records an <<glossary:accessor>> or <<glossary:mutator>> should act on. Each accessor/mutator is associated with exactly one selector. The selector is specified at accessor/mutator creation time, either as a free text input in the UI, or as a string through the API.
+Selectors are SQL-like clauses that specify which records an <Glossary>accessor</Glossary> or <Glossary>mutator</Glossary> should act on. Each accessor/mutator is associated with exactly one selector. The selector is specified at accessor/mutator creation time, either as a free text input in the UI, or as a string through the API.
 
-A Selector may refer to configured Columns, specified as `{ColumnName}`, where ColumnName is the defined name of the Column. Note that non-<<glossary:system column>>s used in selectors are subject to <<glossary:purpose check>>s: each accessor's response will filter out users who have not consented to the accessor's purpose for all columns being retrieved, and all non-system columns used in the selector.
+A Selector may refer to configured Columns, specified as `{ColumnName}`, where ColumnName is the defined name of the Column. Note that non-<Glossary>system column</Glossary>s used in selectors are subject to <Glossary>purpose check</Glossary>s: each accessor's response will filter out users who have not consented to the accessor's purpose for all columns being retrieved, and all non-system columns used in the selector.
 
-A Selector may also specify a collection of variables, each of which is represented by a `?`, allowing the Selector to be parameterized for each individual accessor or mutator invocation. The `SelectorValues` array that is specified when executing an Accessor or Mutator is used to parameterize the associated Selector. Each of the values in <<glossary:SelectorValues>> must be a concrete value (i.e., contain no variables), and the number of values in SelectorValues must exactly match the number of variables in the Selector. The variables in a Selector are replaced sequentially by the values in SelectorValues at invocation time - the first value in SelectorValues replaces the first variable in the Selector, and so on. The type of each value must match the expected type of the value placeholder.
+A Selector may also specify a collection of variables, each of which is represented by a `?`, allowing the Selector to be parameterized for each individual accessor or mutator invocation. The `SelectorValues` array that is specified when executing an Accessor or Mutator is used to parameterize the associated Selector. Each of the values in <Glossary>SelectorValues</Glossary> must be a concrete value (i.e., contain no variables), and the number of values in SelectorValues must exactly match the number of variables in the Selector. The variables in a Selector are replaced sequentially by the values in SelectorValues at invocation time - the first value in SelectorValues replaces the first variable in the Selector, and so on. The type of each value must match the expected type of the value placeholder.
 
 Examples of selectors include:
 
 - `{FirstName} LIKE ?`
-- `{Address}->>’country’ = ‘USA’`
+- `{Address}-</Glossary>’country’ = ‘USA’`
 - `{BoolColumn} = TRUE OR {IntColumn} = ?`
 
 See below for a longer list of examples.
@@ -84,8 +84,8 @@ ARRAY_ELEMENTS must either be a VALUE or a comma-separated list of VALUEs. Each 
 
 ### COLUMN_IDENTIFIERs
 
-- {column_name} - The selector query will replace the column identifier with the column value for the specific column_name for a given user
-- {column_name}->>’field_name’ - If column_name refers to a column that has a data type of address or composite, a valid subfield specified by field_name can be referenced in the column identifier.
+- `{column_name}` - The selector query will replace the column identifier with the column value for the specific column_name for a given user
+- `{column_name}` - ’field_name’ - If column_name refers to a column that has a data type of address or composite, a valid subfield specified by field_name can be referenced in the column identifier.
 
 ### INT_VALUEs
 
@@ -198,9 +198,9 @@ The following are all examples of valid selector queries:
 | `{IntColumn} = ANY ARRAY[3, 4::INT, ?]`                | return users where the IntColumn value is either 3, 4, or the parameterized value                                            |
 | `ABS(MOD({IntColumn},3)) = ?`                          | return users where the absolute value of IntColumn value mod 3 equals parameterized value                                    |
 | `DIV({IntColumn}, ?) = ?`                              | return users where the quotient of dividing the IntColumn value by a parameterized value equals a second parameterized value |
-| `{AddressColumn}->>’country’ IS NULL`                  | return users where the country field of AddressColumn is not set                                                             |
-| `{AddressColumn}->>’country’ = ?`                      | return users where the country field of AddressColumn equals the parameterized value                                         |
-| `{AddressColumn}->>’country’ = ‘USA’`                  | return users where the country field AddressColumn is ‘USA’                                                                  |
+| `{AddressColumn}-</Glossary>’country’ IS NULL`                  | return users where the country field of AddressColumn is not set                                                             |
+| `{AddressColumn}-</Glossary>’country’ = ?`                      | return users where the country field of AddressColumn equals the parameterized value                                         |
+| `{AddressColumn}-</Glossary>’country’ = ‘USA’`                  | return users where the country field AddressColumn is ‘USA’                                                                  |
 | `{StringColumn} LIKE ?`                                | return users that have a StringColumn value that matches the parameterized pattern                                           |
 | `{StringColumn} LIKE ‘%foo%’`                          | return users that have a StringColumn value that contains the string ‘foo’                                                   |
 | `lower({StringColumn}) = ANY ARRAY[‘foo’,’bar’,’baz’]` | return users that have a StringColumn value that when lower-cased equals either ‘foo’, ‘bar’, or ‘baz’                       |

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Popover from './Popover';
 import { glossaryDefinitions } from './glossary-definitions';
@@ -8,11 +10,10 @@ type GlossaryProps = {
 
 const Glossary = ({ children }: GlossaryProps) => {
   const term = children.trim();
-  console.log(term);
   const definition = glossaryDefinitions[term] || 'No definition found.';
   return (
     <Popover content={definition}>
-      <span style={{ textDecoration: 'underline dotted', cursor: 'help' }}>{term}</span>
+      <span style={{ textDecoration: 'underline dotted', cursor: 'help' }} className={definition ? '' : 'border border-red-500'}>{term}</span>
     </Popover>
   );
 };
