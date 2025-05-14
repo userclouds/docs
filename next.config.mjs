@@ -7,6 +7,7 @@ const isDev = process.env.NODE_ENV === 'development';
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  output: 'export',
   images: {
     unoptimized: isDev,
     remotePatterns: [
