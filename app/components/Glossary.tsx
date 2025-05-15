@@ -2,18 +2,20 @@
 
 import React from 'react';
 import Popover from './Popover';
-import { glossaryDefinitions } from './glossary-definitions';
+import { glossaryDefinitions } from '@/content/glossary-definitions';
 
 type GlossaryProps = {
   children: string;
+  term?: string
 };
 
-const Glossary = ({ children }: GlossaryProps) => {
-  const term = children.trim();
-  const definition = glossaryDefinitions[term] || 'No definition found.';
+const Glossary = ({ children, term }: GlossaryProps) => {
+  term = term || children.trim();
+  const definition = glossaryDefinitions[term];
+  const definitionString = definition || 'No definition found.';
   return (
-    <Popover content={definition}>
-      <span style={{ textDecoration: 'underline dotted', cursor: 'help' }} className={definition ? '' : 'border border-red-500'}>{term}</span>
+    <Popover content={definitionString}>
+      <span style={{ textDecoration: 'underline dotted', cursor: 'help' }} className={definition ? '' : 'border-2 border-red-500'}>{term}</span>
     </Popover>
   );
 };
