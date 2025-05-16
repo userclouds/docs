@@ -8,7 +8,7 @@ updatedAt: "Fri Jun 28 2024 22:49:35 GMT+0000 (Coordinated Universal Time)"
 ---
 ## Introduction
 
-Mutators are configurable APIs that allow a client to update data in the User Store. Mutators (write APIs) can be thought of as the complement to <<glossary:accessor>>s (read APIs). Mutators are intended to capture and store a user's consented <<glossary:purpose>>s alongside their sensitive data. Purposes are passed in context at execution time. 
+Mutators are configurable APIs that allow a client to update data in the User Store. Mutators (write APIs) can be thought of as the complement to <Glossary>accessor</Glossary>s (read APIs). Mutators are intended to capture and store a user's consented <Glossary>purpose</Glossary>s alongside their sensitive data. Purposes are passed in context at execution time. 
 
 Mutators do not create users: they only add or edit values associated with existing users. You can create a user via the [CreateUserWithMutator](https://docs.userclouds.com/reference/post_userstore-api-users)  call. 
 
@@ -31,7 +31,7 @@ Mutator names are used in your codebase (to call the API) and in your audit log 
 
 ### 2. Choose which records and columns the mutator will write data to
 
-Next, pick the user records and <<glossary:column>>s the mutator will return data for. Specify the user records by writing a <<glossary:selector>>, a SQL-like clause, like `{id} = ANY(?) OR {Email} LIKE ?`. In selectors, each ? represents a parameter that is passed in an array, at execution time. This parameter can be a single value, or an array of possible values. For more info on selectors, see [Selectors](https://docs.userclouds.com/docs/selectors).
+Next, pick the user records and <Glossary>column</Glossary>s the mutator will return data for. Specify the user records by writing a <Glossary>selector</Glossary>, a SQL-like clause, like `{id} = ANY(?) OR {Email} LIKE ?`. In selectors, each ? represents a parameter that is passed in an array, at execution time. This parameter can be a single value, or an array of possible values. For more info on selectors, see [Selectors](https://docs.userclouds.com/docs/selectors).
 
 When creating a user via the `CreateUserWithMutator` API, you should use the selector `{id} = ?`. For more info on creating users in User Store, see Create a User. 
 
@@ -42,7 +42,7 @@ Add columns by selecting from the dropdown and clicking "Add Column".
 
 ### 3. Define how the mutator should normalize inbound data
 
-Next, you must define how the mutator will normalize each column's data on the way into the store. Choose one <<glossary:data normalizer>> per column, using the dropdowns in each row of the columns table (see picture above). Any transformer of type PassThrough or Transform may be used as a normalizer, but tokenizing transformers cannot be used as normalizers. If no normalization is desired or required, a PassThrough normalizer should be used.
+Next, you must define how the mutator will normalize each column's data on the way into the store. Choose one <Glossary>data normalizer</Glossary> per column, using the dropdowns in each row of the columns table (see picture above). Any transformer of type PassThrough or Transform may be used as a normalizer, but tokenizing transformers cannot be used as normalizers. If no normalization is desired or required, a PassThrough normalizer should be used.
 
 Only normalizers with an output type that exactly matches the column's data type may be used. For example: 
 
@@ -54,10 +54,10 @@ For more information on transformers, see [Transformers](https://docs.userclouds
 
 ### 4. Define the circumstances in which the mutator can be used
 
-Finally, select an <<glossary:access policy>> for the mutator. The access policy controls whether the whether a given write attempt (execute mutator call) is allowed. The simplest access policy always returns true (write permitted). It is possible to create much more fine-grained policies. In this interface, you can:
+Finally, select an <Glossary>access policy</Glossary> for the mutator. The access policy controls whether the whether a given write attempt (execute mutator call) is allowed. The simplest access policy always returns true (write permitted). It is possible to create much more fine-grained policies. In this interface, you can:
 
 - Choose a single, pre-existing policy
-- Choose and parametrize a pre-existing <<glossary:access policy template>>
+- Choose and parametrize a pre-existing <Glossary>access policy template</Glossary>
 - Write and parametrize a new policy template
 - Compose a new policy by taking any of the above actions multiple times and combining those policies with AND or OR logic
 

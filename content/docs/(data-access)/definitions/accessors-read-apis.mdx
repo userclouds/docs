@@ -20,23 +20,23 @@ Accessors can be configured to access either live or soft-deleted data. Soft-del
 
 ## How Accessors Work
 
-1. Data, <<glossary:consent>>s and <<glossary:purpose>>s are stored inside the safety layer boundary (either in UserClouds User Store or an owned-and-operated database like RDS)
-2. Data consumers request access by sending context, like purpose or identity, to a use-case specific <<glossary:accessor>> API
-3. Several access policies are evaluated for each user record, using the data passed in <<glossary:context>> and data in the user object:
+1. Data, <Glossary>consent</Glossary>s and <Glossary>purpose</Glossary>s are stored inside the safety layer boundary (either in UserClouds User Store or an owned-and-operated database like RDS)
+2. Data consumers request access by sending context, like purpose or identity, to a use-case specific <Glossary>accessor</Glossary> API
+3. Several access policies are evaluated for each user record, using the data passed in <Glossary>context</Glossary> and data in the user object:
    1. **Global baseline policy for accessors**: Applied to ensure baseline security. Learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies).
    2. **Column-default access policies**: Column default policies for all columns accessed by the accessor are applied, unless overridden. Learn more [here](https://docs.userclouds.com/docs/protect-a-column-with-defaults).
    3. **Accessor-specific access policy composition**: Applied in addition to the above policies.
 4. User data is further filtered according to whether the users have consented to the accessor's data processing purpose.
-5. For records where access is granted, the accessor's <<glossary:data transformer>>s transform each column of the outbound data, minimizing the data for the given use case. If no transformer is specified for a given column, the column's default transformer is used. Learn more [here](https://docs.userclouds.com/docs/protect-a-column-with-defaults). 
+5. For records where access is granted, the accessor's <Glossary>data transformer</Glossary>s transform each column of the outbound data, minimizing the data for the given use case. If no transformer is specified for a given column, the column's default transformer is used. Learn more [here](https://docs.userclouds.com/docs/protect-a-column-with-defaults). 
 
 ## Structure of an Accessor
 
-At creation time, each accessor is associated with a user record <<glossary:selector>>, a set of <<glossary:column>>s, a set of <<glossary:data transformer>>s, a <<glossary:purpose>> and an <<glossary:access policy>>.
+At creation time, each accessor is associated with a user record <Glossary>selector</Glossary>, a set of <Glossary>column</Glossary>s, a set of <Glossary>data transformer</Glossary>s, a <Glossary>purpose</Glossary> and an <Glossary>access policy</Glossary>.
 
-- The user record <<glossary:selector>> is a SQL-like clause that specifies which records the accessor should return data for, based on an array of values that are passed at execution time. The accessor's response will only include users that have consented to the accessor's purpose for all non-<<glossary:system column>>s used in the selector. Since UserClouds does not store consents for <<glossary:system column>>s, they can be referenced in the selector regardless of accessor purpose / user consents.
+- The user record <Glossary>selector</Glossary> is a SQL-like clause that specifies which records the accessor should return data for, based on an array of values that are passed at execution time. The accessor's response will only include users that have consented to the accessor's purpose for all non-<Glossary>system column</Glossary>s used in the selector. Since UserClouds does not store consents for <Glossary>system column</Glossary>s, they can be referenced in the selector regardless of accessor purpose / user consents.
 - The columns indicate which data fields the accessor will retrieve.
 - Each column is associated with a transformer, which tokenizes, minimizes or otherwise obscures the outbound data from that column.
-- The purpose is selected from your company's list of data processing purposes. This indicates what the accessor will be used for, e.g. marketing. The accessor will run a <<glossary:purpose check>>, filtering out user records and data for which the user has not consented to the specified purpose across all columns. The accessor's response will only include users that have consented to the accessor's purpose for all columns being retrieved, and all non-system columns used in the selector. Learn more [here](https://docs.userclouds.com/docs/purpose-and-consent).
+- The purpose is selected from your company's list of data processing purposes. This indicates what the accessor will be used for, e.g. marketing. The accessor will run a <Glossary>purpose check</Glossary>, filtering out user records and data for which the user has not consented to the specified purpose across all columns. The accessor's response will only include users that have consented to the accessor's purpose for all columns being retrieved, and all non-system columns used in the selector. Learn more [here](https://docs.userclouds.com/docs/purpose-and-consent).
 - The access policy determines the circumstances in which the data can be retrieved. Access policies run on each user record and filter out user records which fail the access policy.
 
 ## Learn More
