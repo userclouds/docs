@@ -56,36 +56,3 @@
   background-repeat: no-repeat;
 }
 
-/* Popover styles */
-.popover-container {
-  position: relative;
-  display: inline-block;
-}
-
-.popover-trigger {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  text-decoration: underline dotted;
-}
-
-.popover-content {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 10px;
-  background-color: var(--color-fd-popover, white);
-  color: var(--color-fd-popover-foreground, black);
-  border: 1px solid var(--color-fd-border, #ccc);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 15px;
-  z-index: 1000;
-  white-space: normal;
-  min-width: 200px;
-  max-width: 320px;
-}
