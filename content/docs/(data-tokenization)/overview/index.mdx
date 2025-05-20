@@ -1,0 +1,33 @@
+---
+title: "Overview"
+slug: "overview-1"
+excerpt: ""
+hidden: false
+metadata: 
+  image: []
+  robots: "index"
+createdAt: "Thu Aug 03 2023 21:54:16 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Aug 25 2023 21:17:57 GMT+0000 (Coordinated Universal Time)"
+---
+## Introduction to Tokenizer
+
+Tokenizer exposes a policy-based tokenization API. It is a simple, efficient way to improve your data security & reduce your compliance workload.  Rather than rebuilding your legacy systems, Tokenizer allows you to secure the sensitive data flowing _through_ those systems, by replacing the data with secure (but usable) reference tokens. It then gives you central control over who can access data, when and why - vastly simplifying and strengthening data access governance.
+
+## What is Tokenization?
+
+When you tokenize a piece of sensitive data, you replace it with a secure (but usable) reference token. The token is then used in place of the data throughout systems. The token is associated with an access policy which controls the circumstances in which the token can be exchanged for the original raw data. When an application or employee needs the original data, it requests to exchange the token for the raw data via an HTTP request to the tokenization service. If the access policy is met, the raw data is returned. Once the purpose for which the data was retrieved is achieved, the raw data should be discarded.
+
+Tokenization offers two immediate benefits: 
+
+1. It allows you to pass data by _reference_, not by value. This allows you to retain control over raw data access even after sharing the reference token. It also trivializes data deletion. To satisfy a deletion request, all you need to do is delete the root PII, severing the link between the reference tokens and the value to which they refer. The tokens can then live on in your systems, as they’re rendered meaningless without the root PII.
+2. It allows you to obfuscate data, minimizing it for any given use case and so vastly reducing your surface area for attack or identification. For example, a phone number token can be configured to retain the final 4 digits of the phone number for identity verification, the area code for geographic analysis, or no characteristics of the original phone number for fraud or anonymized ad attribution.
+
+## This Documentation
+
+This documentation will teach you how Tokenizer can help you improve your data security and privacy posture, while reducing your privacy-related overheads. You will learn how to:
+
+- Start using Tokenizer in less than 5 minutes
+- Create tokens that secure your sensitive data, while still reflecting its structure & form
+- Centrally manage and enforce how sensitive data is accessed throughout your organization
+
+If your question isn’t answered here, don’t hesitate to ping us at [support@userclouds.com](mailto:support@userclouds.com).

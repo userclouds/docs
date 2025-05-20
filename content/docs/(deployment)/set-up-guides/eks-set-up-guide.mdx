@@ -1,0 +1,64 @@
+---
+title: "EKS Set-up Guide"
+slug: "eks-set-up-guide"
+excerpt: ""
+hidden: false
+createdAt: "Tue Jul 30 2024 18:50:39 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Jul 30 2024 19:05:55 GMT+0000 (Coordinated Universal Time)"
+---
+## Guide to Deploying UserClouds on EKS
+
+This guide provides step-by-step instructions on deploying the UserClouds software on an Amazon Elastic Kubernetes Service (EKS) cluster using a Helm chart. This setup leverages Kubernetes for managing application lifecycle, ensuring scalability and high availability.
+
+This guide assumes that you are generally familiar with helm usage and have your environment set up correctly (eg. k8s context configuration points to the right place as you are executing these commands). We plan to add more links & references to this documentation over time, but in the meantime, feel free to reach out to [support@userclouds.com](mailto:support@userclouds.com) if you have any questions and we’ll be happy to walk you through it.
+
+## Prerequisites
+
+- AWS EKS Cluster running Kubernetes 1.30 or later
+- Access to the UserClouds Helm chart
+- Helm v3.15 or higher
+
+## Steps
+
+1. **Provision an AWS RDS Aurora Postgres DB cluster**  
+   The UserClouds software uses Postgres compatible databases to store internal data (like access policies, etc)...this is distinct from the database cluster(s) that you are protecting with UserClouds  
+   Note: the DB connection parameters for this RDS instance: host, port, username & password. Store the DB the password as secrets in AWS Secrets Manager. You will need to reference that secret when configuring values.yaml
+2. **Create AWS IAM role for the UserClouds software to use.**  
+   The IAM role should use EKS IRSA  
+   The following AWS permissions are required by the Userclouds software:
+   1. Access to AWS secrets manager - for the DB password mentioned in the previous section. The Userclouds software will also write some secrets to the AWS Secrets manager (mostly DB credentials for databases created on the RDS instance)
+3. **Add the UserClouds helm chart repo**  
+   helm repo add userclouds [https://userclouds.github.io/helm-charts](https://userclouds.github.io/helm-charts)
+4. **Ensure your Kubernetes cluster has a secret to authenticate to container registry**
+5. **Configure values.yaml for the Helm chart**  
+   values.yaml file to include the necessary configurations for your deployment.  
+   Currently supported settings are:
+   1. ```
+      # internal database for UserClouds … protect database(s) 
+      # are configured in console or ucconfig
+      # note that password supports aws://secrets/[arn] notation 
+      # to resolve the password from Secrets Manager
+      db:
+        host: [HOST]
+        Port: [PORT]
+        Username: [USERNAME]
+        Password: [PASSWORD URI]
+      # AWS IAM role for UserClouds that has access to the database
+      # and a scoped set of Secrets Manager secrets 
+      # (Create/Read/Update/Delete)
+      Userclouds_service_role_arn: [ARN]
+      # an AWS CertificateManager ARN for a certificate that 
+      # matches your EKS cluster name, if you’d like to use HTTPS internally
+      certificateArn: [ARN]
+      ```
+6. **Deploy the UserClouds helm chart**
+   ```
+         helm install userclouds userclouds/userclouds –values 
+         	<path to values.yaml> –namespace <namespace> 
+   ```
+7. **Verify the deployment**  
+   Check the status of the deployment and services:
+   1. You can access http\://[yourClusterDNS]/healthcheck or http\://[yourClusterDNS]/deployed to get system information
+   2. You can log in to the UserClouds console at [http://console.[yourClusterDNS](http://console.[yourClusterDNS])
+
+By following these steps, you can successfully deploy and manage the UserClouds Docker container on an EKS cluster. This setup leverages Kubernetes' capabilities for scaling, high availability, and lifecycle management, providing a robust and scalable deployment environment.

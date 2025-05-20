@@ -1,0 +1,52 @@
+---
+title: "Purpose and consent"
+slug: "purpose-and-consent"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 19:04:43 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 28 2024 22:47:11 GMT+0000 (Coordinated Universal Time)"
+---
+## Summary
+
+Purposes are used to track, enforce and audit user consent in User Store. Purposes have names like `marketing`, `analytics` and `operations` that map to the data processing purposes described in your privacy policy and terms of service. 
+
+When users share data with you, they consent to a set of purposes for each piece of data that they share. For example, they might consent to using their email address for personalization, but not marketing. User consent is granular: it is stored per piece of data. Note that <Glossary>system column</Glossary> are not associated with purposes.
+
+Purpose checks are always enforced on data accessors to ensure that user data is never extracted from the User Store for a purpose which its owner has not consented to. For example, if an end user has not consented to an address being used for `shipping`, a purpose check will be used to filter out that user's address from an accessor like `GetAddressesForShipping`. Purpose checks filter out any users that have not consented to an accessor's purpose on all columns being retrieved and all non-<Glossary>system column</Glossary>s specified in the selector. Since <Glossary>system column</Glossary>s are not associated with purposes, they are not subject to purpose checks.
+
+## How to define your data processing purposes
+
+You can define and describe your own set of purposes in the Purposes table of the User Store page in Console. The purposes and their descriptions should correspond to the purposes listed in your Privacy Policy and Terms of Service. They will be used to enforce consent and build an auditable paper trail of that enforcement.
+
+![Name and describe your data processing purposes in the Purposes table under Access Rules.](https://files.readme.io/f9f3716-image.png)
+
+
+## How users consent to purposes
+
+Users can share and revoke consent to process their data for a particular purpose (or set of purposes) when:
+
+- They sign up for your service
+- They share a new piece of data with you
+- They complete flows authorizing or revoking authorization for particular uses of their data, e.g. a sign-up for a weekly newsletter
+
+Consent is granular: it is stored per piece of data. For example, an end user might consent to using their email address for marketing, but not their phone number. When a user consents to a particular data processing purpose for a particular piece of data, this is tracked in User Store as a **consented purpose**. 
+
+## How user consents are stored
+
+Consented purposes are stored per column, per user in User Store. For example, an email column storing two emails per user is associated with a single set of purposes for each user's email (e.g. `operations` and `marketing`).
+
+## How to edit consents via the API
+
+Consents must be specified for all mutator operations (creates, updates and deletes). Consents are passed to the User Store in the context at execution time. If a data value is authorized for multiple purposes, deleting a data value for a single specified purpose will remove that consented purpose (only).
+
+_(Coming soon)_ UserClouds is building off-the-shelf integrations with consent management solutions like OneTrust and PrivacyArc to pass consent data collected by third party services into User Store.
+
+## How user consent is enforced
+
+In UserClouds, data <Glossary>accessor</Glossary>s (read APIs) are used to retrieve a pre-specified set of columns of data for 1+ users. Every accessor is associated with a purpose at creation time.
+
+At execution time, the accessor runs a **purpose check**, which filters out all user records and all individual data values for which the user has not consented to the specified purpose. Each accessor's response will only include users that have consented to the accessor's purpose for all columns being retrieved, and all non-system columns used in the selector.
+
+If a user has consented to the specified purpose for _all columns specified in the accessor_, the purpose check will pass for that user. Assuming the accessor's access policy also passes, the accessor will return all data values in those columns for which the user has given consent. Conversely, if the user has _not_ consented to the accessor's purpose _for all values in at least one column specified in the accessor_, the purpose check will fail and the accessor will filter out that user.
+
+Note that system columns are not associated with purposes and so are not subject to purpose checks.

@@ -1,0 +1,59 @@
+---
+title: "1. Design your model"
+slug: "1-design-your-model"
+excerpt: ""
+hidden: false
+metadata: 
+  image: []
+  robots: "index"
+createdAt: "Thu Aug 03 2023 23:17:17 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Wed Aug 23 2023 21:24:52 GMT+0000 (Coordinated Universal Time)"
+---
+The first step is to define the structure of your permission system. There are four sub-steps to design a model:
+
+- (a) list the design requirements for your permissions system
+- (b) define the types of objects that your authorization logic will consider
+- (c) define the types of relationships between those types of objects. Since relationships are reflected by edges in the graph, we call this “defining your edge types”
+- (d) attach attributes to these relationships
+
+## A. List Design Requirements
+
+The first step is to scope your authorization project. Write a list of the <Glossary>permission</Glossary>s you want to model in your system. Then write a list of permission 'stories' you want the model to support, like:
+
+- A user with view access to a folder should have view access to all files inside that folder
+- Leaders in the Sales department should be able to create new deals
+- A manager should be able to view the compensation of all their reports (direct & indirect)
+
+This exercise will give you a sense of which users, groups and resources you want to model permissions on, the relationships between those <Glossary>object</Glossary>s, and how those relationships affect permissions. 
+
+## B. Define Object Types
+
+Every object in the system must have exactly one <Glossary>object type</Glossary>. Together, the object types should form a mutually exclusive representation of the core elements of your system.
+
+Simpler is always better. As a broad principle, aim to pick the smallest possible categorization. A good categorization separates object types that must be treated differently by the model, and merges object types with parallel authorization logic. For example, in Google Drive, you can use the same type for both google_sheets and google_docs, since the same authorization logic applies to both.
+
+To add an object type, go to the Authorization tab in UserClouds Console and click "add object type". Alternatively, use our Create Object Type API.
+
+## C. Define Edge Types
+
+Next, define your <Glossary>edge type</Glossary>s. Each edge type represents a possible one-way relationship two real-world objects can share. They represent a bundle of <Glossary>attribute</Glossary>s (pieces of permission logic) going from a source object type to a target object type. As such, edge types define:
+
+- A Source Object Type
+- A Target Object Type
+- A Set of Attributes
+
+Edges can only have one type, so edges of the same type share these three characteristics.
+
+Examples of Edge Types include `ObjectOwner`, `DocumentEditor`, `FolderContainsFile`, `GroupMember`.
+
+To add an edge type, go to the Authorization tab in UserClouds Console and click "add edge type". Alternatively, use our Create Edge Type API.
+
+## D. Add Attributes
+
+Attributes are defined at the edge type level, so all edges of a given type share the same attributes. Each <Glossary>attribute</Glossary> typically achieves one of the following goals:
+
+- They give a user permission on an object directly (<Glossary>direct</Glossary> attributes)
+- They pass a permission from one user or group to another (<Glossary>inherit</Glossary> attributes)
+- They propagate a permission down a hierarchy of nested objects, like folders and files (<Glossary>propagate</Glossary> attributes)
+
+For more intro on attributes, see [Modelling Hierarchy with Attribute Scopes](https://docs.userclouds.com/docs/modelling-hierarchy-with-attribute-types).

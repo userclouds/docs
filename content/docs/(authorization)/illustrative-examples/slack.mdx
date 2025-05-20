@@ -1,0 +1,130 @@
+---
+title: "Slack"
+slug: "slack"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 23:29:52 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Feb 06 2025 05:14:29 GMT+0000 (Coordinated Universal Time)"
+---
+This article explains how to design a graph-based authorization model for Slack. The article assumes you are familiar with our [Key Concepts](https://docs.userclouds.com/docs/key-concepts-1) and [Attribute Scopes](https://docs.userclouds.com/docs/modelling-hierarchy-with-attribute-types#attribute-types).
+
+There are four steps to design a model:
+
+- (a) list the design requirements for the <Glossary>permission</Glossary>s system
+- (b) define the types of <Glossary>object</Glossary>s that the authorization logic will consider
+- (c) define the types of relationships between those types of objects. Since relationships are reflected by <Glossary>edge</Glossary>s in the graph, we call this “defining the <Glossary>edge type</Glossary>s”
+- (d) attach these <Glossary>permission</Glossary>s to these relationships using attributes
+
+In general, model design is an iterative process. While this article is presented linearly, you might expect to loop through these steps until you’ve hit on the cleanest model structure. 
+
+## A. List Design Requirements
+
+For simplicity, we’ll scope down to five key permissions:
+
+- Workspace permissions:
+  - `manage_space_members`
+- Channel permissions:
+  - `join_channel`
+  - `view_messages`
+  - `send_messages`
+  - `manage_channel_members`
+
+Here are our design requirements:
+
+- **Workspace 1**: Only workspace admins can invite users to a workspace
+- **W2**: Only users who are invited to a workspace can join it
+- **Channel 1**: Each channel exists in exactly one workspace
+- **C2**: If a channel is public, only members of a channel's workspace can join that channel or view messages in that channel
+- **C3**: If a channel is private, only invited members of a channel's workspace can join that channel
+- **C4**: If a channel is private, only members of that channel can view messages in that channel
+- **C5**: Only channel members can send messages in a channel 
+
+Since our permissions are channel specific, modeling these 5 permissions with RBAC would require creating and maintaining millions of roles. With UserClouds, we can do it with just 3 object types and 6 edge types.
+
+## B. Define the types of objects to consider
+
+For Slack, we have 3 clear <Glossary>object type</Glossary>s: User, Workspace and Channel. We could add Messages as a fourth object type here, but since all messages in a channel are treated symmetrically in our scope, this extra fidelity would be redundant. 
+
+We could also have modeled private and public channels as separate object types, with separate edge types linking them to the workspace. However, this would have multiplied our number of User-Channel edge types 2x. In general, reducing the number of object types in the system is an effective way to minimize model complexity.
+
+## C. Define the edge types
+
+Now we define the <Glossary>edge type</Glossary> relationships between our objects: 
+
+### User-Workspace Relationships:
+
+A user can be either an admin of a space, a member of the space or invited to the space. Each of these relationships will imply different permissions within the space, so we’ll define them as separate “edge types”.
+
+**Relationships**: `is_space_admin`, `is_space_member`, `is_space_invited`
+
+### User-Channel Relationships:
+
+Note here we won’t include the admin or invited roles: all members have the same permissions in the channel, so we don’t need that. And users don’t get invited to slack channels - they get added directly.
+
+**Relationships**: `is_channel_member`
+
+### Channel-Workspace Relationships:
+
+We’re interested in who has the right to add people to channels and who has the right to join channels. These look different according to whether a channel is public (any channel member can join), private (invite only), or a DM (no invites).
+
+**Relationships**: `is_public`, `is_private`
+
+![](https://files.readme.io/aec9b93-Slack.jpg)
+
+
+## D. Add permissions to each of our relationships.
+
+**Space-Level Permissions**: `join-space`
+
+Only users who are invited to a space. So let’s add `join_space` as a `direct` <Glossary>permission</Glossary> to the `is_space_invited` edge.
+
+**Space-Level Permissions**: `manage_space_members`
+
+That begs the question - who can invite someone to a space? Only space admins. So let’s add manage_space_members as a direct permission to the is_space_admin edge type. We can use this to enable inviting and deleting.
+
+**Channel-Level Permissions**: `send_messages` & `manage_channel_members`
+
+Only channel members can send messages. So we’ll add a send_messages: direct permission to the is_channel_member edge type.
+
+Similarly only channel members can invite and remove users from the same spot, so we'll take the same approach with manage_channel_members. 
+
+**Channel-Level Permissions**: `join_channel` & `view_messages`
+
+Who can join a channel on Slack?
+
+- If it is public, anyone in the workspace
+- If it is private, only invited workspace participants can join
+
+We’ll model this with two permissions.
+
+- Firstly, we’ll attach a join-channel:<Glossary>direct</Glossary> permission to the is_public edge type. This means that any workspace has the right to join a public channel within it
+- Then, we’ll add a join_channel:<Glossary>inherit</Glossary> permission to any edge indicating that a user belongs to a workspace, i.e. we’ll add it to is_space_admin, is_space_member, is_space_invited
+
+This means that, if Alice is a member of Apple’s workspace, and #iphone is a public channel within Apple’s workspace, Alice will get the join_channel permission on #iphone.
+
+> Note we don’t need to add any permissions to the is_private edge, since members cannot join private channels - they can only be added to them. 
+
+Viewing messages follows the exact same rules: any workspace member can view the messages in a public channel in their workspace. However, only channel members can view messages in private channels. 
+
+## Summary
+
+We've finished our model design! Here's our list of edge types and their associated attributes:
+
+- **User-Workspace**: `is_space_admin`
+  - `manage_space_members:direct`
+  - `join_channel:inherit`
+  - `view_messages:inherit`
+- **User-Workspace**: `is_space_member`
+  - `join_channel:inherit`
+  - `view_messages:inherit`
+- **User-Workspace**: `is_space_invited`
+  - `join_space:direct`
+- **Workspace-Channel**: `is_public`
+  - `join_channel:direct`
+  - `view_messages:direct`
+- **User-Channel**: `is_channel_member`,
+  - `manage_channel_members:direct`
+  - `view_messages:direct`
+  - `send_messages:direct`
+
+We’ve designed our model and built the structure. Now we just need to populate our model and implement our permissions checks!

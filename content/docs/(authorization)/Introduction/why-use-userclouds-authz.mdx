@@ -1,0 +1,36 @@
+---
+title: "Why use UserClouds AuthZ?"
+slug: "why-use-userclouds-authz"
+excerpt: ""
+hidden: false
+metadata: 
+  image: []
+  robots: "index"
+createdAt: "Thu Aug 03 2023 23:03:26 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Wed Aug 23 2023 21:12:34 GMT+0000 (Coordinated Universal Time)"
+---
+UserClouds AuthZ improves upon home-grown, role-based and attribute-based systems in three major ways.
+
+## 1. Granularity
+
+**Reflect reality:** Unlike role-based systems, UserClouds allows you to reflect the real-world relationships that guide your authorization model - relationships like files & folders, indirect reports and B2B customer organizations.
+
+**Incorporate hierarchy**: Rather than static roles, the AuthZ model can traverse across relationships to support complex logic like “Users in Company A can view all files inside projects that are owned by their company.”
+
+**Get fine-grained**: This allows you to build exceptionally granular authorization scenarios. It makes it possible to manage access at any level - all the way from simple roles down to the individual resource-level.
+
+## 2. Simplicity
+
+**No more role explosion**: By modeling authorization as a graph, UserClouds can support even the most complex scenarios with just a handful of object types and relationship types.
+
+**Developer-friendly APIs**: Everything is managed through an API. To update your graph, call our `CreateObject` and `CreateEdge` APIs. To run an authorization check, call the `CheckAttribute` API and ask “does user X have permission Y on resource Z?”.
+
+**Central, single source of truth**: With UserClouds, your authorization model is unified in a single, callable service. This makes your authorization system simple to reason about and easy to maintain. 
+
+## 3. Scalability
+
+**Iterate as you grow**: As your business grows, product iteration and growing customer expectations will require your authorization model to evolve. With graph-based access control, evolution is straightforward: simply update existing types, or add a new type of object or relationship to your graph. This lets your model grow with your organization.
+
+**Grow to a billion users**: UserClouds uses the same authorization model as Google - from YouTube to Calendar to Drive to Photos. Google have scaled this approach to a billion users and more resources.
+
+**Speed at scale**: When it comes to your end users, a seamless, fast experience is critical. Google has shown shown graph-based authorization can support millions of authorization requests per second with a P95 latency of under 10ms.

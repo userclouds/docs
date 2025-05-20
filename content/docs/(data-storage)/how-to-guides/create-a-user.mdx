@@ -1,0 +1,11 @@
+---
+title: "Create a user"
+slug: "create-a-user"
+excerpt: ""
+hidden: false
+createdAt: "Fri Feb 09 2024 19:38:16 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Feb 09 2024 19:51:36 GMT+0000 (Coordinated Universal Time)"
+---
+Once you have defined your <Glossary>column</Glossary>s and <Glossary>purpose</Glossary>s in User Store, you are ready to begin creating users. 
+
+You can create users via the [CreateUserWithMutator API](https://docs.userclouds.com/reference/post_userstore-api-users). This endpoint optionally takes a user ID, an organization ID (for tenants with organizations enabled) and a <Glossary>mutator</Glossary> (write API). First, it creates a user record and applies the specified user ID and organization ID (if applicable). If no user ID is specified, a random ID is generated. If a mutator is specified, it then executes the mutator. If the mutator's selector is set to `{id} = ?`, the mutator will update the new record according to the consents and data values passed in at execution time. For more info, see our primers on [Mutators](https://docs.userclouds.com/docs/mutators-write-apis) and [Selectors](https://docs.userclouds.com/docs/selectors).

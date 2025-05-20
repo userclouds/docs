@@ -1,0 +1,22 @@
+---
+title: "VPC Peering Set-up Guide"
+slug: "vpc-peering-set-up-guide"
+excerpt: ""
+hidden: false
+createdAt: "Tue Jul 30 2024 18:27:37 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Tue Jul 30 2024 19:05:55 GMT+0000 (Coordinated Universal Time)"
+---
+## VPC Peering Deployment Guide
+
+Peering VPCs is currently a manual process involving several steps:
+
+1. Collect the required information to set up peering connections
+   1. Which AWS accounts and VPCs do you want to peer?
+   2. What are the CIDR block(s) dedicated to those VPCs?
+2. Contact your UserClouds team to get our AWS account and VPC ID information.
+3. Create a peering request by following the AWS instructions here.
+4. UserClouds’ infrastructure team will accept the request
+5. Configure the appropriate route tables to ensure data is routed correctly across the peering connection
+6. \_(optional) \_Configure internal DNS to point across the VPC peering connection. If you aren’t already running internal DNS, UserClouds can repoint our public DNS to make this work.
+
+For more information, please reach out to [info@userclouds.com](mailto:info@userclouds.com).

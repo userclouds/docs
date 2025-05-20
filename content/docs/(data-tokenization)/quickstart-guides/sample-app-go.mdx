@@ -1,0 +1,58 @@
+---
+title: "Sample app - Go"
+slug: "sample-app-go"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 22:02:43 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Wed Jun 05 2024 17:13:21 GMT+0000 (Coordinated Universal Time)"
+---
+This article will walk you through how to secure your sensitive data by replacing it with a secure reference token and defining an access policy that governs the circumstances in which that token can be resolved.
+
+You will achieve this using the sample app in our SDK. The sample app will introduce the key concepts of Tokenizer by prompting you to encode and decode a secret message. This will give you a strong foundational understanding of Tokenizer’s core functionality and how to use the Tokenizer SDK. It should take around 5 minutes.
+
+We recommend reading the SDK's `sample.go` file in your favorite code editor as you go through it. This is the best way to get oriented in the SDK.
+
+### 1. Download the SDK
+
+This doc assumes you are using Go 1.20+. Check you have Git and Go installed, then run the following git command to clone our SDKs:
+
+```
+git clone ssh://git@github.com/userclouds/sdk-golang.git
+```
+
+_SDKs in more languages in beta - reach out to [info@userclouds.com](mailto:info@userclouds.com) if you need help!_
+
+### 2. Run the Sample App
+
+Open your CLI and navigate to the directory you saved the SDK in. Then run the sample app file:
+
+```
+go run sample.go
+```
+
+### 3. Create an Access Policy
+
+The first step is to specify a recipient for your secret message. The sample app will then create an <Glossary>access policy</Glossary> for that recipient.
+
+Access Policies control the circumstances in which sensitive data can be accessed. For example, they might specify that a piece of data can only be accessed by an authenticated engineer, on a trusted IP address, for integrity purposes. Practically, Access Policies are functions that evaluate <Glossary>context</Glossary> from the server and the client, returning true or false according to whether access is allowed or denied.
+
+### 4. Create Your First Token
+
+Once you have created the access policy, it’s time to write your secret message. Once you’ve written it, the sample app will <Glossary>tokenize</Glossary> the data using the CreateToken call. When you tokenize sensitive data, you substitute it for a secure, randomly generated reference token.
+
+`CreateToken` is an HTTP POST request specifying four core concepts:
+
+1. **Data**: this is the raw sensitive data that you are tokenizing, in this case the secret message
+2. **A <Glossary>data transformer</Glossary>**: this transforms the raw data into the token, and controls what the token looks like, e.g. you might require a token for an email to look like an email, in order to prevent validation errors in your system.
+3. **An <Glossary>access policy</Glossary>**: this controls the conditions in which a token can be resolved, e.g. only allow resolution for fraud purposes, by an authenticated data scientist, on a trusted IP.
+4. **Attributes**: attributes allow bulk operations on tokens.
+
+Follow the prompts to create your first token. Nice job!
+
+### 5. Resolve Your Token
+
+When an application or employee needs access to the original data, they can call ResolveToken to request to exchange the token for the raw data. If the <Glossary>access policy</Glossary> for that token is met, the raw data will be returned.
+
+Now you can try to <Glossary>resolve</Glossary> your token as different users in the Sample App. If you use your intended recipient’s name, Tokenizer will return the secret message. If you use another name, the request will be rejected.
+
+Great job! You’ve protected your secret message by replacing it with a secure, randomly generated token - and configuring an access policy that governs the circumstances in which that token can be resolved. You've finished the sample app and mastered the basics of Tokenizer.

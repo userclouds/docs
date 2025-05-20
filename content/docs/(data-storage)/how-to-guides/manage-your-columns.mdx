@@ -1,0 +1,51 @@
+---
+title: "Change your data schema"
+slug: "manage-your-columns"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 19:40:38 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Jun 06 2024 15:35:22 GMT+0000 (Coordinated Universal Time)"
+---
+## Introduction
+
+The user data table is built from **columns** and populated with **user records**. Each column has a **data type** (describing what the column stores, like string or boolean). Columns can store a single data value or multiple values, in which case they are called **array columns**. 
+
+Columns can be managed via the UI, or programmatically via the API.
+
+## Managing Columns in the UI
+
+Columns can be managed in the User Store page of UserClouds Console. 
+
+![User Store Columns can be managed under User Data Storage.](https://files.readme.io/85de533-image.png)
+
+
+## Adding Columns
+
+To add a column, go to the User Store page (pictured above), click Edit Columns and then click Add Column. You will be prompted to define:
+
+- **Name**: The unique human-readable identifier for the column.
+- **Data Type**: Specifies the type of data the column holds, supporting both basic and composite data types. For more info, see our [Data Types Documentation](https://docs.userclouds.com/docs/data-types-1)
+- **Array-ness**: Determines whether the column can hold multiple values for each record
+- **Unique Values For User (formerly UniqueRequired)**: Ensures all values in the column for a single user are unique.
+- **Unique IDs For User**: Available only for composite columns, this attribute means a unique ID will be generated for each value of the column unless provided by the customer
+- **Allow Partial Updates**: Available for array columns when either "Unique IDs for User" or "Unique Values for User" is true, allowing the client to pass incremental modifications to the array (vs a comprehensive set of values). To learn more about partial vs full updates on array columns, see [Executing a Mutator](https://docs.userclouds.com/docs/execute-a-mutator).
+- **Immutable**: Indicates that once a value is set, it cannot be changed, although values can be added or removed. This is only applicable for `composite` columns with "Unique IDs for User" enabled. With this constraint, users can add or remove values but cannot modify the existing values. This is to ensure the immutability of data points associated with a unique ID.
+- **UniqueValuesWithinTenant**: Ensures that values in the column are unique across all users within the tenant. This constraint is available for data types with concrete type `string`, `int`, and `UUID`.
+
+<br />
+
+## Updating Columns
+
+The only column characteristics that are mutable are (1) whether the column is indexed and (2) the default value. To change either setting in the UI, click Edit Columns, edit the value in question in line, then click "Save Changes".
+
+## Deleting Columns
+
+Columns can be deleted inline from the Columns table. 
+
+![](https://files.readme.io/27bc25c-image.png)
+
+<br />
+
+## Managing Columns via the API
+
+To learn how to manage columns via the UserClouds API, consult our [API Reference](https://docs.userclouds.com/reference/post_userstore-config-columns).

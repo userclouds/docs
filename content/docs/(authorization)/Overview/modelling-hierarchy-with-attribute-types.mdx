@@ -1,0 +1,47 @@
+---
+title: "Modeling Hierarchy with Attribute Scopes"
+slug: "modelling-hierarchy-with-attribute-types"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 23:14:02 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 21 2024 16:55:25 GMT+0000 (Coordinated Universal Time)"
+---
+In this article, you will learn how to model relationships and arbitrarily deep hierarchy between <Glossary>object</Glossary>s in your system with attribute scopes. By the end of this article, you will understand the fundamentals of modeling:
+
+- **Folder-like structures** where objects contain other objects (ad infinitum)
+- **Organizational structures** where users can be members of different teams
+- **Social structures** like families and friends of friends
+
+The article assumes you know what <Glossary>object</Glossary>, <Glossary>edge</Glossary>s, <Glossary>attribute</Glossary>s and <Glossary>permission</Glossary>s are. For more detail, see our [Key Concepts](https://docs.userclouds.com/docs/key-concepts-1) article.
+
+## Attribute Scopes
+
+Attributes give one object permissions on another object. Each attribute has an <Glossary>attribute name</Glossary> (like `edit`) and an <Glossary>attribute scope</Glossary>. The value describes the permission and the scope describes which two objects are affected by the attribute. There are three scopes of attribute: direct, inherit and propagate. 
+
+## Direct Attributes
+
+The direct scope is the simplest attribute scope. It gives the source object the permission on the target object. It is used for non-hierarchical relationships. 
+
+![An edge with a view:direct attribute gives the source object view permissions on the target object.](https://files.readme.io/00573c8-A_Attribute_Direct.jpg)
+
+
+## Inherit Attributes
+
+The inherit attribute scope states:
+
+> Inherit: if the target <Glossary>object</Glossary> has the attribute on a third object, the source object ‘inherits’ that attribute on the third object.
+
+**Inherit attributes are used to pass a permission from one user or group to another**. In the example below, Gloria is a member of a department that owns a particular project. This is modeled by giving the department direct view access on the project, and passing that view access to Gloria with an inherit attribute. 
+
+![Inherit attributes are used to pass permissions from one user or group to another.](https://files.readme.io/1d9fe3e-A_Attribute_Inherit.jpg)
+
+
+## Propagate Attributes
+
+The propagate attribute scope states:
+
+> Propagate: if a third <Glossary>object</Glossary> has the attribute on the source object, the third object also gets the attribute on the target object
+
+**Propagate attributes are used to propagate permissions down a hierarchy of nested resources**. In the example below, Ajay owns a folder and has view access to that folder. Ajay is given view access to all files inside the folder with a propagate attribute.
+
+![Propagate attributes are used to propagate permissions down a hierarchy of nested resources, like folders.](https://files.readme.io/2d23334-A_Attribute_Propagate.jpg)

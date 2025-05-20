@@ -1,0 +1,20 @@
+---
+title: "Deployment Options"
+slug: "deployment-options"
+excerpt: ""
+hidden: false
+createdAt: "Tue Jul 30 2024 18:23:52 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Sep 19 2024 17:45:26 GMT+0000 (Coordinated Universal Time)"
+---
+## UserClouds Deployment Options
+
+UserClouds offers four deployment models to suit different needs and environments:
+
+- **SaaS Deployment**: Use UserClouds in a pure SaaS environment with minimal infrastructure configuration. Perfect for companies that prefer a fully managed service with minimal overhead for configuration and maintenance.
+- **[VPC Peering Deployment](https://docs.userclouds.com/docs/vpc-peering-set-up-guide)**: Set up UserClouds without exposing services to the internet. Best for organizations with high network security needs, who do not want to handle the complexity of running on-prem.
+- **[Docker Deployment](https://docs.userclouds.com/docs/docker-set-up-guide)**: Deploy UserClouds using Docker for quick and easy setup. Note: because this configuration provides no monitoring, automatic restarts, failover, etc, this configuration is intended ONLY for development, test, and CI environments. Do not use this configuration for production - otherwise outages and data loss may result.
+- **[On-Premise K8s Deployment](https://docs.userclouds.com/docs/eks-set-up-guide)**: Deploy UserClouds on your Kubernetes cluster for a fully managed, scalable solution. Suitable for large enterprises with existing Kubernetes infrastructure looking for a scalable and robust deployment option.
+
+## Managing Configuration with ucconfig and Terraform
+
+In addition to choosing a deployment model, you can manage UserClouds configurations across different tenants and environments using ucconfig and Terraform. ucconfig serves as a usability layer on top of Terraform, simplifying the process of generating and applying configuration manifests. These manifests describe the desired state of your UserClouds resources, enabling you to transfer configuration between environments. This method complements the deployment options by providing a robust framework for configuration management, regardless of where UserClouds is deployed. For more info, see [Managing Configuration](https://docs.userclouds.com/docs/managing-configuration).

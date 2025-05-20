@@ -1,0 +1,15 @@
+---
+title: "3. Run permissions checks"
+slug: "3-run-permissions-checks"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 23:22:50 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Thu Jun 06 2024 17:25:04 GMT+0000 (Coordinated Universal Time)"
+---
+Once you have populated UserClouds with your types, objects and edges, UserClouds is ready to be the source-of-truth for permissions. To implement <Glossary>permission</Glossary>s in your system, all you need to do is add UserClouds's [Permission Check APIs](https://docs.userclouds.com/reference/get_authz-checkattribute) in the appropriate places in your software.
+
+- **CheckAttribute** answers the question: does user X have permission Y on object Z?
+- **ListAttributes** receives a source object ID and target object ID. It returns a list of attributes that the source object has on the target object.
+- **ListObjectsReachableWithAttribute** receives an attribute and a source object ID. It returns a list of objects reachable with that attribute.
+
+For more information, check out our [Authorization API Docs](com/reference/get_authz-checkattribute).

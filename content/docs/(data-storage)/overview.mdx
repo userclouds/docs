@@ -1,0 +1,24 @@
+---
+title: "Overview"
+slug: "overview"
+excerpt: ""
+hidden: false
+createdAt: "Thu Aug 03 2023 18:35:17 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Jun 28 2024 22:46:54 GMT+0000 (Coordinated Universal Time)"
+---
+## Introduction
+
+UserClouds stores two key types of user data:
+
+- **User data**, like email address, phone numbers, names and social security numbers (national ID numbers)
+- **User consents**, indicating which data processing purposes each user has consented to, like `marketing` or `operations`
+
+The user data table is built from **columns** and populated with **user records**. Each column has a specific **data type** that defines how data within that column is interpreted, stored, and managed. These data types are pivotal in ensuring that the data adheres to a structured format, facilitating both data integrity and efficient processing. Each data type possesses an underlying **concrete type**—such as `boolean`, `string`, `integer`, or `composite`—dictating the nature and behavior of the data it holds. **Composite data types** enable aggregation of several **fields** into a single, structured entity. This capability allows for the storage of complex data objects within a column, enhancing the system's ability to handle sophisticated data models and relationships efficiently.
+
+User consents describe the **purposes** for data processing that a given user has consented to. Purposes have names like "marketing" or "analytics", and map to the data processing purposes described in your privacy policy or terms of service. You can define your own set of purposes to use in the Purposes table of the User Store page in Console.
+
+Users can give and revoke **consent** for a particular purpose for any column of their data. For example - they might consent to marketing by email, but not by phone.
+
+## High-Level Architecture
+
+![The Structure of User Store](https://files.readme.io/2cfec81-AuthZ_docs_diagrams.jpg)
