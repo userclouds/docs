@@ -9,7 +9,7 @@ metadata:
 createdAt: "Thu Aug 03 2023 22:15:59 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 25 2023 21:41:09 GMT+0000 (Coordinated Universal Time)"
 ---
-Tokenizer's SDK supports bulk operations on tokens  for CreateToken, LookupToken and ResolveToken. For more detail on using these operations, see our [API Reference for Tokenizer](https://docs.userclouds.com/reference/post_tokenizer-tokens).​​
+Tokenizer's SDK supports bulk operations on tokens  for CreateToken, LookupToken and ResolveToken. For more detail on using these operations, see our [API Reference for Tokenizer](/reference/post_tokenizer-tokens).​​
 
 Fundamentally a batch consists of an optional list of Transformers and Access Policies that can be referenced in the list of objects (for `CreateToken` and `LookupToken`), followed by an ordered list of objects (either data, attribute pairs, or tokens). Each object in the list may optionally be assigned an ID, which will be preserved in the response. The response object consists of an order-preserved list of response objects, which include the ID (if used in the request), a response object (Token or data), and/or an error for that particular object's operation.
 

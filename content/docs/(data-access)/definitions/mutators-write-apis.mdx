@@ -22,8 +22,8 @@ Writing data and consents through mutators involves several key steps:
    2. Client context data to be evaluated by the mutator's <Glossary>access policy</Glossary>
    3. User data 
    4. User consents
-2. Utilizing the provided <Glossary>SelectorValues</Glossary>, the mutator's selector identifies the relevant user records to be updated. For a detailed explanation, visit our [selector documentation](https://docs.userclouds.com/docs/selectors).
-3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies)) and the mutator's own <Glossary>access policy</Glossary> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record. 
+2. Utilizing the provided <Glossary>SelectorValues</Glossary>, the mutator's selector identifies the relevant user records to be updated. For a detailed explanation, visit our [selector documentation](/docs/selectors).
+3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](/docs/apply-global-protection-policies)) and the mutator's own <Glossary>access policy</Glossary> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record. 
 4. For those records that pass the access policy check, the mutator proceeds to validate and transform the incoming data to ensure it meets the required standards
 5. Finally, the processed data, along with the associated user consents, are securely stored in the User Store
 
@@ -40,5 +40,5 @@ At creation time, each mutator is associated with a user record <Glossary>select
 
 For more info on mutators, see:
 
-- [Creating a mutator](https://docs.userclouds.com/docs/create-a-mutator)
-- [Executing a mutator](https://docs.userclouds.com/docs/execute-a-mutator)
+- [Creating a mutator](/docs/create-a-mutator)
+- [Executing a mutator](/docs/execute-a-mutator)

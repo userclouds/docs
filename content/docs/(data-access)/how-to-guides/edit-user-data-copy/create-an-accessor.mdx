@@ -34,13 +34,13 @@ Accessor names are used in your codebase (to call the API) and in your audit log
 
 ### 2. Set the purpose of the accessor
 
-Next, select the data processing <Glossary>purpose</Glossary> for which the accessor will be called. The accessor will filter out all user records and data values where consent for this purpose has not been gathered. You can learn more about how filtering for consent works [here](https://docs.userclouds.com/docs/purpose-and-consent).
+Next, select the data processing <Glossary>purpose</Glossary> for which the accessor will be called. The accessor will filter out all user records and data values where consent for this purpose has not been gathered. You can learn more about how filtering for consent works [here](/docs/purpose-and-consent).
 
 You can select a purpose from your existing purposes in the dropdown. To add a new purpose, return to the User Store page (accessible from the sidebar) and click "Add Purpose" at the bottom of the page. 
 
 ### 3. Choose which records and columns the accessor will return data for
 
-Next, pick the user records and columns the accessor will return data for. Specify the user records by writing a <Glossary>selector</Glossary>, a SQL-like clause, like {ID} = ANY(?) OR {Email} LIKE ?. In selectors, each ? represents a parameter that is passed in an array, at execution time. This parameter can be a single value, or an array of possible values. For more info on selectors, see [Selectors](https://docs.userclouds.com/docs/selectors).
+Next, pick the user records and columns the accessor will return data for. Specify the user records by writing a <Glossary>selector</Glossary>, a SQL-like clause, like {ID} = ANY(?) OR {Email} LIKE ?. In selectors, each ? represents a parameter that is passed in an array, at execution time. This parameter can be a single value, or an array of possible values. For more info on selectors, see [Selectors](/docs/selectors).
 
 Add <Glossary>column</Glossary>s by selecting from the dropdown and clicking "Add Column".
 
@@ -76,7 +76,7 @@ The type that is finally returned by the transformer is the output type of the t
 
 Transformers should always be written to act on a single piece of data. UserClouds natively handles the case where the associated column is an array column, calling the specified transformer on each array element and recombining the results into an array.
 
-For more information on transformers, see [Transformers](https://docs.userclouds.com/docs/transformers-1). For more information on creating transformers, see our [How To Guide on Creating Transformers](https://docs.userclouds.com/docs/create-a-transformer).
+For more information on transformers, see [Transformers](/docs/transformers-1). For more information on creating transformers, see our [How To Guide on Creating Transformers](/docs/create-a-transformer).
 
 ### 5. Define the circumstances in which the accessor can be used
 
@@ -87,10 +87,10 @@ Finally, select an <Glossary>access policy</Glossary> for the accessor. The acce
 - Write and parametrize a new policy template
 - Compose a new policy by taking any of the above actions multiple times and combining those policies with `AND` or `OR` logic
 
-For more information on what access policies do, see [Access Policies](https://docs.userclouds.com/docs/access-policies-1). For more information on creating access policies, see our [How To Guide on Creating Access Policies](https://docs.userclouds.com/docs/create-an-access-policy).
+For more information on what access policies do, see [Access Policies](/docs/access-policies-1). For more information on creating access policies, see our [How To Guide on Creating Access Policies](/docs/create-an-access-policy).
 
 Nice job! You can now click Save to create your accessor. You can learn how to invoke this accessor in the next article.
 
 ## Create an Accessor via the API
 
-To learn how to create an accessor via the UserClouds API, see our [API Reference](https://docs.userclouds.com/reference/post_userstore-config-accessors) .
+To learn how to create an accessor via the UserClouds API, see our [API Reference](/reference/post_userstore-config-accessors) .

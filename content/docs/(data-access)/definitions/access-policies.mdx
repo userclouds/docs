@@ -18,8 +18,8 @@ Access Policies are executed in three places in UserClouds:
 
 In addition, two special types of access policies are available:
 
-- **Column Default Access Policies**: These policies are associated with specific columns and are applied by default to all reads that extract data from those columns. They ensure consistent application of access rules for sensitive data, such as automatically applying a role check to the SSN column. They can be overridden for individual accessors. Learn more [here](https://docs.userclouds.com/docs/protect-a-column-with-defaults).
-- **Global Baseline Access Policies**: These policies are applied by default to all reads, providing a consistent security baseline. For example, a global policy might always require a valid token or restrict access to trusted IP addresses. They cannot be overridden. Learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies).
+- **Column Default Access Policies**: These policies are associated with specific columns and are applied by default to all reads that extract data from those columns. They ensure consistent application of access rules for sensitive data, such as automatically applying a role check to the SSN column. They can be overridden for individual accessors. Learn more [here](/docs/protect-a-column-with-defaults).
+- **Global Baseline Access Policies**: These policies are applied by default to all reads, providing a consistent security baseline. For example, a global policy might always require a valid token or restrict access to trusted IP addresses. They cannot be overridden. Learn more [here](/docs/apply-global-protection-policies).
 
 Access policies provide central, fine-grained control over sensitive data access. They can evaluate purpose, identity, authorization, location, , and more. They can range from simple "always allow resolution" policies to complex evaluations.
 
@@ -190,7 +190,7 @@ const params = {};  // No specific parameters needed for this example
 
 ## checkAttribute
 
-The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](https://docs.userclouds.com/reference/get_authz-checkattribute).
+The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](/reference/get_authz-checkattribute).
 
 ### Example
 
@@ -232,7 +232,7 @@ function policy(context, params) {
 
 UserClouds has several built-in access policies for common use cases, like role-based and time-based expiration of data. However you can also create custom policies, in two ways:
 
-- Call the [CreateAccessPolicy API](https://docs.userclouds.com/reference/post_tokenizer-policies-access)
+- Call the [CreateAccessPolicy API](/reference/post_tokenizer-policies-access)
 - Compose a new policy from existing policies and parametrizable templates in the UserClouds Console
 
 To learn more about creating access policies, see our How to Guide on Creating Access Policies.

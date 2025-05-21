@@ -13,7 +13,7 @@ Once you have configured a <Glossary>mutator</Glossary>, you are ready to edit t
 There are two ways to execute a mutator:
 
 - Download and deploy your tenant's code-generated UserClouds SDK, and call the mutator indirectly using its SDK function name
-- Call the [ExecuteMutator API](https://docs.userclouds.com/reference/post_userstore-api-mutators)
+- Call the [ExecuteMutator API](/reference/post_userstore-api-mutators)
 
 When calling the ExecuteMutator API directly you pass:
 
@@ -34,7 +34,7 @@ When you execute a mutator, the following steps happen in sequence:
 
 1. The mutator validates and normalizes the inbound data for each column associated with the mutator, using the configured <Glossary>data normalizer</Glossary> for that column.
 2. The mutator finds candidate user records to update based on the mutator <Glossary>selector</Glossary> clause and the passed in <Glossary>SelectorValues</Glossary>.
-3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](https://docs.userclouds.com/docs/apply-global-protection-policies)) and the mutator's own <Glossary>access policy</Glossary> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record.
+3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](/docs/apply-global-protection-policies)) and the mutator's own <Glossary>access policy</Glossary> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record.
 4. If the access policy passes for the user, the mutator reconciles the normalized changes for each mutator column against existing user data, utilizing full mutation or partial mutation rules according to the column's configuration (see below for more detail).
 5. Any resulting changes to the user's data and associated consents are saved to the store.
 

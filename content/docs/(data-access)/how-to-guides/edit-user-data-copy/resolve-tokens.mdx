@@ -12,7 +12,7 @@ UserClouds allows you to tokenize sensitive data on its way out of the store. Th
 
 There are two ways to generate tokens in UserClouds: 
 
-- Pass raw data, a <Glossary>data transformer</Glossary> and an <Glossary>access policy</Glossary> to the [CreateToken API](https://docs.userclouds.com/docs/creating-tokens)
+- Pass raw data, a <Glossary>data transformer</Glossary> and an <Glossary>access policy</Glossary> to the [CreateToken API](/docs/creating-tokens)
 - Execute an accessor that uses a tokenizing transformer on outbound data
 
 In the latter case, you may choose to use a TokenizeByValue transformer, or a TokenizeByReference transformer.
@@ -22,7 +22,7 @@ In the latter case, you may choose to use a TokenizeByValue transformer, or a To
 
 ## Resolving tokens
 
-To resolve a token, call the [ResolveToken API](https://docs.userclouds.com/reference/post_tokenizer-tokens-actions-resolve). This API receives a token and context, evaluates the tokens access policy and returns the raw data if the access policy is met. 
+To resolve a token, call the [ResolveToken API](/reference/post_tokenizer-tokens-actions-resolve). This API receives a token and context, evaluates the tokens access policy and returns the raw data if the access policy is met. 
 
 If the token was generated with a Tokenize By Value Transformer, the token will resolve to the value of the data as it was at the time of the tokenization.
 
