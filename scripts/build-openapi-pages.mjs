@@ -7,4 +7,6 @@ void generateFiles({
   // we recommend to enable it
   // make sure your endpoint description doesn't break MDX syntax.
   includeDescription: true,
+  groupByFolder: true,
+  groupBy: true
 });
