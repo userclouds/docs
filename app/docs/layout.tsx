@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           title: 'Reference',
           text: 'Reference',
           icon: '🔍',
-          url: '/docs/reference',
+          url: '/reference',
           description: 'API reference',
         },
       ],
