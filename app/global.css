@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
-@import 'fumadocs-openapi/css/preset.css';
 
 @theme {
   --fd-sidebar-width: 0px;
@@ -58,3 +57,4 @@
   background-repeat: no-repeat;
 }
 
+@import 'fumadocs-openapi/css/preset.css';

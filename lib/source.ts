@@ -19,8 +19,8 @@ export const source = loader({
 export const openapi = createOpenAPI({
   shikiOptions: {
     themes: {
-      dark: 'vesper',
-      light: 'vitesse-light',
+      dark: 'monokai',
+      light: 'min-light',
     },
-  },
+  }
 });
