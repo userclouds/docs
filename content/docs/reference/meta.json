@@ -7,11 +7,6 @@
     "root": true,
     "pages": [
         "(API-fundamentals)",
-        "(pagination)",
-        "(userstore)",
-        "(tokenizer)",
-        "(authentication)",
-        "(authorization)",
-        "(plex)"
+        "...(generated)"
     ]
 }
