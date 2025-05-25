@@ -13,19 +13,15 @@ Global baseline policies are access policies that get applied by default to all 
 ## Example Use Cases for Global Baseline Policies
 
 1. **Always Require Valid Token**
-   1. Apply a global access policy that ensures every request includes a valid token to authenticate the user.
+   - Apply a global access policy that ensures every request includes a valid token to authenticate the user.
 2. **Always Require Trusted IP**
-   1. Apply a global access policy that restricts access to trusted IP addresses only, ensuring data can only be accessed from approved locations or VPNs.
+   - Apply a global access policy that restricts access to trusted IP addresses only, ensuring data can only be accessed from approved locations or VPNs.
 3. **Global Rate Limiting**
-   1. Apply a global access policy that enforces rate limiting on all queries to prevent abuse and ensure fair usage.
-
-<br />
+   - Apply a global access policy that enforces rate limiting on all queries to prevent abuse and ensure fair usage.
 
 ## Setting Global Baseline Policies
 
-Global baseline policies are provisioned during tenant creation. They can be found and edited on the access policies page. These policies can be composed of other policies and templates. Additionally, they can be edited via the Update Access Policy API. For more details on editing global baseline policies, see the [API reference](/reference/put_tokenizer-policies-access-id).
-
-<br />
+Global baseline policies are provisioned during tenant creation. They can be found and edited on the access policies page. These policies can be composed of other policies and templates. Additionally, they can be edited via the Update Access Policy API. For more details on editing global baseline policies, see the [API reference](/docs/reference/put_tokenizer-policies-access-id).
 
 ## Combining Policies
 

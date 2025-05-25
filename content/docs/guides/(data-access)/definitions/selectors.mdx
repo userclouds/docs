@@ -6,8 +6,6 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:28:03 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Mar 01 2024 17:20:02 GMT+0000 (Coordinated Universal Time)"
 ---
-# Introduction
-
 Selectors are SQL-like clauses that specify which records an <Glossary>accessor</Glossary> or <Glossary>mutator</Glossary> should act on. Each accessor/mutator is associated with exactly one selector. The selector is specified at accessor/mutator creation time, either as a free text input in the UI, or as a string through the API.
 
 A Selector may refer to configured Columns, specified as `{ColumnName}`, where ColumnName is the defined name of the Column. Note that non-<Glossary>system column</Glossary>s used in selectors are subject to <Glossary>purpose check</Glossary>s: each accessor's response will filter out users who have not consented to the accessor's purpose for all columns being retrieved, and all non-system columns used in the selector.

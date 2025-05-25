@@ -6,18 +6,22 @@ hidden: false
 createdAt: "Thu Aug 03 2023 23:29:52 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Thu Feb 06 2025 05:14:29 GMT+0000 (Coordinated Universal Time)"
 ---
-This article explains how to design a graph-based authorization model for Slack. The article assumes you are familiar with our [Key Concepts](/docs/key-concepts-1) and [Attribute Scopes](/docs/modelling-hierarchy-with-attribute-types#attribute-types).
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+This article explains how to design a graph-based authorization model for Slack. The article assumes you are familiar with our [Key Concepts](/docs/guides/overview/key-concepts) and [Attribute Scopes](/docs/guides/overview/modelling-hierarchy-with-attribute-types).
 
 There are four steps to design a model:
 
-- (a) list the design requirements for the <Glossary>permission</Glossary>s system
-- (b) define the types of <Glossary>object</Glossary>s that the authorization logic will consider
-- (c) define the types of relationships between those types of objects. Since relationships are reflected by <Glossary>edge</Glossary>s in the graph, we call this “defining the <Glossary>edge type</Glossary>s”
-- (d) attach these <Glossary>permission</Glossary>s to these relationships using attributes
+<Steps>
+  <Step> list the design requirements for the <Glossary>permission</Glossary>s system</Step>
+  <Step> define the types of <Glossary>object</Glossary>s that the authorization logic will consider</Step>
+  <Step> define the types of relationships between those types of objects. Since relationships are reflected by <Glossary>edge</Glossary>s in the graph, we call this “defining the <Glossary>edge type</Glossary>s”</Step>
+  <Step> attach these <Glossary>permission</Glossary>s to these relationships using attributes</Step>
+</Steps>
 
-In general, model design is an iterative process. While this article is presented linearly, you might expect to loop through these steps until you’ve hit on the cleanest model structure. 
+In general, model design is an iterative process. While this article is presented linearly, you might expect to loop through these steps until you’ve hit on the cleanest model structure.
 
-## A. List Design Requirements
+## 1. List Design Requirements
 
 For simplicity, we’ll scope down to five key permissions:
 
@@ -41,15 +45,15 @@ Here are our design requirements:
 
 Since our permissions are channel specific, modeling these 5 permissions with RBAC would require creating and maintaining millions of roles. With UserClouds, we can do it with just 3 object types and 6 edge types.
 
-## B. Define the types of objects to consider
+## 2. Define the types of objects to consider
 
-For Slack, we have 3 clear <Glossary>object type</Glossary>s: User, Workspace and Channel. We could add Messages as a fourth object type here, but since all messages in a channel are treated symmetrically in our scope, this extra fidelity would be redundant. 
+For Slack, we have 3 clear <Glossary>object type</Glossary>s: User, Workspace and Channel. We could add Messages as a fourth object type here, but since all messages in a channel are treated symmetrically in our scope, this extra fidelity would be redundant.
 
 We could also have modeled private and public channels as separate object types, with separate edge types linking them to the workspace. However, this would have multiplied our number of User-Channel edge types 2x. In general, reducing the number of object types in the system is an effective way to minimize model complexity.
 
-## C. Define the edge types
+## 3. Define the edge types
 
-Now we define the <Glossary>edge type</Glossary> relationships between our objects: 
+Now we define the <Glossary>edge type</Glossary> relationships between our objects:
 
 ### User-Workspace Relationships:
 
@@ -72,7 +76,7 @@ We’re interested in who has the right to add people to channels and who has th
 ![](https://files.readme.io/aec9b93-Slack.jpg)
 
 
-## D. Add permissions to each of our relationships.
+## 4. Add permissions to each of our relationships.
 
 **Space-Level Permissions**: `join-space`
 

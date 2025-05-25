@@ -1,0 +1,39 @@
+---
+title: "2. Populate the graph"
+slug: "2-populate-the-graph"
+excerpt: ""
+hidden: false
+metadata: 
+  image: []
+  robots: "index"
+createdAt: "Thu Aug 03 2023 23:20:03 GMT+0000 (Coordinated Universal Time)"
+updatedAt: "Fri Aug 04 2023 18:42:07 GMT+0000 (Coordinated Universal Time)"
+---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+Once you have designed the structure of your model, it's time to build your database of <Glossary>object</Glossary>s and <Glossary>edge</Glossary>s in UserClouds. This can be done in two steps:
+
+<Steps>
+  <Step>
+    Migrate over from a pre-existing identity system
+    &nbsp;
+  </Step>
+  <Step>
+    Implement UserClouds's APIs to [populate the graph with objects](/docs/reference/post_authz-objects) and [edges](/docs/reference/post_authz-edges) on an ongoing basis
+    &nbsp;
+  </Step>
+</Steps>
+
+If you are building your product or user base from scratch, you will skip straight to step 2.
+
+## 1. Migrate from a pre-existing identity system
+
+UserClouds supports mass migration from pre-existing AuthN and AuthZ systems, like Auth0 and Cognito.
+
+_Docs coming soon! For help migrating over from your existing AuthZ system, please don’t hesitate to email us at [info@userclouds.com](_mailto:info@userclouds.com) ._
+
+## 2. Implement Write APIs in your software
+
+Maintaining your authorization graph is simple with UserClouds's CRUD APIs. These allow you to [create Objects](/docs/reference/post_authz-objects) and [Edges](/docs/reference/post_authz-edges) programmatically in your application.
+
+For more information on the APIs for Authorization, check out our [Authorization API Docs](/docs/reference/post_authz-objects).

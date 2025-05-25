@@ -6,8 +6,6 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:18:00 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Sep 10 2024 18:37:33 GMT+0000 (Coordinated Universal Time)"
 ---
-## Introduction
-
 Transformers are re-usable functions that manipulate data in UserClouds. They allow you to minimize the data that you pass or store for each use case. This is key for complying with the data minimization principles in regulations like GDPR.
 
 ![Transformers can be arbitrarily smart about how they obfuscate data.](/assets/images/user-data.webp)
@@ -69,7 +67,7 @@ A transformer consists of:
 
 UserClouds has several off-the-shelf transformers for common use cases, like masking emails, national ID numbers and credit card details. However you can also create custom functions, in three ways:
 
-1. Call the [CreateTransformer API](/reference/post_tokenizer-policies-transformation)
+1. Call the [CreateTransformer API](/docs/reference/post_tokenizer-policies-transformation)
 2. Create functions in the UserClouds UI
 
 For more info on creating transformers, see our How To Guide on Creating a Transformer.

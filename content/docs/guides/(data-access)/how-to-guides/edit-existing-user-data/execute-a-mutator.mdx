@@ -6,6 +6,8 @@ hidden: false
 createdAt: "Fri Feb 09 2024 20:18:55 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Jul 30 2024 18:09:50 GMT+0000 (Coordinated Universal Time)"
 ---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
 Once you have configured a <Glossary>mutator</Glossary>, you are ready to edit the user data and consents in your store. This can be done by executing the mutator.
 
 ## How to execute a mutator
@@ -13,7 +15,7 @@ Once you have configured a <Glossary>mutator</Glossary>, you are ready to edit t
 There are two ways to execute a mutator:
 
 - Download and deploy your tenant's code-generated UserClouds SDK, and call the mutator indirectly using its SDK function name
-- Call the [ExecuteMutator API](/reference/post_userstore-api-mutators)
+- Call the [ExecuteMutator API](/docs/reference/post_userstore-api-mutators)
 
 When calling the ExecuteMutator API directly you pass:
 
@@ -26,19 +28,15 @@ When calling the ExecuteMutator API directly you pass:
   - `PurposeAdditions` - used for FullUpdates and PartialUpdates
   - `PurposeDeletions` - used for FullUpdates and PartialUpdates
 
-<br />
-
 ## What happens when you execute a mutator
 
 When you execute a mutator, the following steps happen in sequence:
 
 1. The mutator validates and normalizes the inbound data for each column associated with the mutator, using the configured <Glossary>data normalizer</Glossary> for that column.
 2. The mutator finds candidate user records to update based on the mutator <Glossary>selector</Glossary> clause and the passed in <Glossary>SelectorValues</Glossary>.
-3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](/docs/apply-global-protection-policies)) and the mutator's own <Glossary>access policy</Glossary> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record.
+3. Two access policies are applied to each selected user record: the global baseline policy for mutators (learn more [here](/docs/guides/how-to-guides/apply-global-protection-policies)) and the mutator's own <Glossary>access policy</Glossary> composition. This step may involve evaluating the provided client context or any user-specific data already present in the User Store to determine if the write operation is permitted for each selector user record.
 4. If the access policy passes for the user, the mutator reconciles the normalized changes for each mutator column against existing user data, utilizing full mutation or partial mutation rules according to the column's configuration (see below for more detail).
 5. Any resulting changes to the user's data and associated consents are saved to the store.
-
-<br />
 
 ## FullUpdate vs PartialUpdate Columns
 
@@ -48,8 +46,6 @@ UserClouds columns may either be “single value” or “array” columns (supp
 - **PartialUpdates**: any specified value changes are treated as incremental, leaving any other values for the user and column unchanged. This can be enabled for array columns that are configured to have unique values or to have unique value IDs.
 
 The choice to use full updates or partial updates must be made at column creation time.
-
-<br />
 
 ## Full Update Columns
 
@@ -63,60 +59,65 @@ If PartialUpdates are disabled for the Column, the `Value` attribute specifies a
 
 For this example, assume we are updating a column configured to be an array of strings, with PartialUpdates disabled.
 
-1. **insert value with operational and marketing consents**
+<Steps>
+   <Step>
+   **insert value with operational and marketing consents**
 
-   ```plaintext
-   ValueAndPurposes = {  
-   	Value: [“foo”, “bar”],  
-   	PurposeAdditions: [“operational”, “marketing”],  
-   }
+      ```javascript
+      ValueAndPurposes = {  
+         Value: [“foo”, “bar”],  
+         PurposeAdditions: [“operational”, “marketing”],  
+      }
 
-   Resulting value = \[  
-   	("foo", ["operational", "marketing"]),  
-   	("bar", ["operational", "marketing"]),  
-   ]
-   ```
-   
-2. **add data_science and remove marketing consents for existing values**
+      Resulting value = \[  
+         ("foo", ["operational", "marketing"]),  
+         ("bar", ["operational", "marketing"]),  
+      ]
+      ```
+   </Step>
+   <Step>
+   **add data_science and remove marketing consents for existing values**
 
-   ```
-   ValueAndPurposes = {  
-   	Value: MutatorColumnCurrentValue,  
-   	PurposeAdditions: [“data_science”],  
-   	PurposeDeletions: [“marketing”],  
-   }
+      ```javascript
+      ValueAndPurposes = {  
+         Value: MutatorColumnCurrentValue,  
+         PurposeAdditions: [“data_science”],  
+         PurposeDeletions: [“marketing”],  
+      }
 
-   Resulting value = \[  
-   	("foo", ["operational", "data_science"]),  
-   	("bar", ["operational", "data_science"]),  
-   ]
-   ```
+      Resulting value = \[  
+         ("foo", ["operational", "data_science"]),  
+         ("bar", ["operational", "data_science"]),  
+      ]
+      ```
+   </Step>
+   <Step>
+   **update values, adding fraud_prevention consent**
 
-3. **update values, adding fraud_prevention consent**
+      ```javascript
+      ValueAndPurposes = {  
+         Value: [“bar”, “baz”],  
+         PurposeAdditions: [“fraud_prevention”],  
+      }
 
-   ```
-   ValueAndPurposes = {  
-   	Value: [“bar”, “baz”],  
-   	PurposeAdditions: [“fraud_prevention”],  
-   }
+      Resulting value = \[  
+         ("bar", ["operational", “data_science”, "fraud_prevention"]),  
+         ("baz", ["operational", “data_science”, "fraud_prevention"]),  
+      ]
+      ```
+   </Step>
+   <Step>
+   **delete all values**
 
-   Resulting value = \[  
-   	("bar", ["operational", “data_science”, "fraud_prevention"]),  
-   	("baz", ["operational", “data_science”, "fraud_prevention"]),  
-   ]
-   ```
-   
-4. **delete all values**
+      ```javascript
+      ValueAndPurposes = {  
+         Value: nil,  
+      }
 
-   ```
-   ValueAndPurposes = {  
-   	Value: nil,  
-   }
-
-   Resulting value = \[]
-   ```
-
-   <br />
+      Resulting value = \[]
+      ```
+   </Step>
+</Steps>
 
 ## Partial Update Columns
 
@@ -127,8 +128,8 @@ If `PartialUpdates` is enabled for the column, any specified changes are treated
 **SPECIAL CASES**: 
 
 1. `ValueAdditions` and `ValueDeletions` can be set to the sentinel value `MutatorColumnCurrentValue`. 
-   1. If `ValueAdditions` is set to this value, consents specified in `PurposeAdditions` will be added to all current values. 
-   2. If `ValueDeletions` is set to this value, consents specified in `PurposeDeletions` will be removed from all current values. 
+   - If `ValueAdditions` is set to this value, consents specified in `PurposeAdditions` will be added to all current values. 
+   - If `ValueDeletions` is set to this value, consents specified in `PurposeDeletions` will be removed from all current values. 
 2. If `ValueAdditions` or `ValueDeletions` is set to nil, no consent additions or consent deletions will be made. 
 3. If `ValueDeletions` is set to a non-nil value, but `PurposeDeletions` is empty, all values specified in `ValueDeletions` will have all current consents removed for each value.
 
@@ -136,58 +137,66 @@ If `PartialUpdates` is enabled for the column, any specified changes are treated
 
 For this example, assume we are updating a column configured to be an array of unique strings, with partial updates enabled.
 
-1. **insert value with operation and marketing consents**
+<Steps>
+   <Step>
+   **insert value with operation and marketing consents**
 
-   ```
-   ValueAndPurposes = {  
-   	ValueAdditions: [“foo”, “bar”],  
-   	PurposeAdditions: [“operational”, “marketing”],  
-   }
+      ```javascript
+      ValueAndPurposes = {  
+         ValueAdditions: [“foo”, “bar”],  
+         PurposeAdditions: [“operational”, “marketing”],  
+      }
 
-   Resulting value = \[  
-   	("foo", ["operational", "marketing"]),  
-   	("bar", ["operational", "marketing"]),  
-   ]
-   ```
-2. **add data_science and remove marketing consents for existing values**
+      Resulting value = \[  
+         ("foo", ["operational", "marketing"]),  
+         ("bar", ["operational", "marketing"]),  
+      ]
+      ```
+   </Step>
+   <Step>
+   **add data_science and remove marketing consents for existing values**
 
-   ```
-   ValueAndPurposes = {  
-   	ValueAdditions: MutatorColumnCurrentValue,  
-   	PurposeAdditions: [“data_science”],  
-   	ValueDeletions: MutatorColumnCurrentValue,  
-   	PurposeDeletions: [“marketing”],  
-   }
+      ```javascript
+      ValueAndPurposes = {  
+         ValueAdditions: MutatorColumnCurrentValue,  
+         PurposeAdditions: [“data_science”],  
+         ValueDeletions: MutatorColumnCurrentValue,  
+         PurposeDeletions: [“marketing”],  
+      }
 
-   Resulting value = \[  
-   	("foo", ["operational", "data_science"]),  
-   	("bar", ["operational", "data_science"]),  
-   ]
-   ```
-3. **add value with fraud_prevention consent, remove value with data_science consent**
+      Resulting value = \[  
+         ("foo", ["operational", "data_science"]),  
+         ("bar", ["operational", "data_science"]),  
+      ]
+      ```
+   </Step>
+   <Step>
+   **add value with fraud_prevention consent, remove value with data_science consent**
 
-   ```
-   ValueAndPurposes = {  
-   	ValueAdditions: [“baz”],  
-   	PurposeAdditions: [“fraud_prevention”],  
-   	ValueDeletions: [“foo”],  
-   	PurposeDeletions: [“data_science”],  
-   }
+      ```javascript
+      ValueAndPurposes = {  
+         ValueAdditions: [“baz”],  
+         PurposeAdditions: [“fraud_prevention”],  
+         ValueDeletions: [“foo”],  
+         PurposeDeletions: [“data_science”],  
+      }
 
-   Resulting value = \[  
-   	("foo", ["operational"]),  
-   	("bar", ["operational", "data_science"]),  
-   	("baz", ["fraud_prevention"]),  
-   ]
-   ```
-4. **delete all values**
+      Resulting value = \[  
+         ("foo", ["operational"]),  
+         ("bar", ["operational", "data_science"]),  
+         ("baz", ["fraud_prevention"]),  
+      ]
+      ```
+   </Step>
+   <Step>
+   **delete all values**
 
-   ```
-   ValueAndPurposes = {  
-   	ValueDeletions: MutatorColumnCurrentValue,  
-   }
+      ```javascript
+      ValueAndPurposes = {  
+         ValueDeletions: MutatorColumnCurrentValue,  
+      }
 
-   Resulting value = \[]
-   ```
-
-   <br />
+      Resulting value = \[]
+      ```
+   </Step>
+</Steps>

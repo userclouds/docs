@@ -16,7 +16,7 @@ Once you have configured an <Glossary>accessor</Glossary>, you can access user d
 
 ## Execute Accessor Parameters
 
-See the [API Reference](/reference/post_userstore-api-accessors) for more detail.
+See the [API Reference](/docs/reference/post_userstore-api-accessors) for more detail.
 
 **Parameters:**
 
@@ -34,9 +34,9 @@ When you execute an accessor, the following steps occur in sequence:
 
 1. **Selection**: The accessor selects the relevant user records according to the selector values and the accessor's selector clause.
 2. **Access Policy Evaluation**: Several access policies are evaluated for each user record, using the data passed in <Glossary>context</Glossary> and data in the user object:
-   1. **Global baseline policy for accessors**: Applied to ensure baseline security. Learn more [here](/docs/apply-global-protection-policies). 
-   2. **Column-default access policies**: Column default policies for all columns accessed by the accessor are applied, unless overridden. Learn more [here](/docs/protect-a-column-with-defaults). 
-   3. **Accessor-specific access policy composition**: Applied in addition to the above policies.
+   - **Global baseline policy for accessors**: Applied to ensure baseline security. Learn more [here](/docs/apply-global-protection-policies). 
+   - **Column-default access policies**: Column default policies for all columns accessed by the accessor are applied, unless overridden. Learn more [here](/docs/protect-a-column-with-defaults). 
+   - **Accessor-specific access policy composition**: Applied in addition to the above policies.
 3. **Consent Check**: For each remaining record and column, the accessor checks the user has consented to the specified purpose of the accessor. User records without consent for the stated purpose across all columns are filtered out.
 4. **Data Transformation**: The accessor transforms the user data according to its configuration.
 5. **Response**: The accessor returns the transformed data.

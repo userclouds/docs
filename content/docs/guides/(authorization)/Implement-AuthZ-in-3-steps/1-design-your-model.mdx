@@ -9,14 +9,31 @@ metadata:
 createdAt: "Thu Aug 03 2023 23:17:17 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Wed Aug 23 2023 21:24:52 GMT+0000 (Coordinated Universal Time)"
 ---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
 The first step is to define the structure of your permission system. There are four sub-steps to design a model:
 
-- (a) list the design requirements for your permissions system
-- (b) define the types of objects that your authorization logic will consider
-- (c) define the types of relationships between those types of objects. Since relationships are reflected by edges in the graph, we call this “defining your edge types”
-- (d) attach attributes to these relationships
+<Steps>
+  <Step> 
+    List the design requirements for your permissions system
+    &nbsp;
+   </Step>
+  <Step> 
+    Define the types of objects that your authorization logic will consider 
+    &nbsp;
+  </Step>
+  <Step> 
+    Define the types of relationships between those types of objects. Since relationships are reflected by edges in the graph, we call this “defining your edge types”
+    &nbsp;
+  </Step>
+  <Step> 
+    Attach attributes to these relationships
+    &nbsp;
+  </Step>
+</Steps>
 
-## A. List Design Requirements
+## 1. List Design Requirements
 
 The first step is to scope your authorization project. Write a list of the <Glossary>permission</Glossary>s you want to model in your system. Then write a list of permission 'stories' you want the model to support, like:
 
@@ -24,9 +41,9 @@ The first step is to scope your authorization project. Write a list of the <Glos
 - Leaders in the Sales department should be able to create new deals
 - A manager should be able to view the compensation of all their reports (direct & indirect)
 
-This exercise will give you a sense of which users, groups and resources you want to model permissions on, the relationships between those <Glossary>object</Glossary>s, and how those relationships affect permissions. 
+This exercise will give you a sense of which users, groups and resources you want to model permissions on, the relationships between those <Glossary>object</Glossary>s, and how those relationships affect permissions.
 
-## B. Define Object Types
+## 2. Define Object Types
 
 Every object in the system must have exactly one <Glossary>object type</Glossary>. Together, the object types should form a mutually exclusive representation of the core elements of your system.
 
@@ -34,9 +51,9 @@ Simpler is always better. As a broad principle, aim to pick the smallest possibl
 
 To add an object type, go to the Authorization tab in UserClouds Console and click "add object type". Alternatively, use our Create Object Type API.
 
-## C. Define Edge Types
+## 3. Define Edge Types
 
-Next, define your <Glossary>edge type</Glossary>s. Each edge type represents a possible one-way relationship two real-world objects can share. They represent a bundle of <Glossary>attribute</Glossary>s (pieces of permission logic) going from a source object type to a target object type. As such, edge types define:
+Next, define your <Glossary>edge type</Glossary>s. Each edge type represents a possible one-way relationship two real-world objects can share. They represent a bundle of attributes (pieces of permission logic) going from a source object type to a target object type. As such, edge types define:
 
 - A Source Object Type
 - A Target Object Type
@@ -48,12 +65,12 @@ Examples of Edge Types include `ObjectOwner`, `DocumentEditor`, `FolderContainsF
 
 To add an edge type, go to the Authorization tab in UserClouds Console and click "add edge type". Alternatively, use our Create Edge Type API.
 
-## D. Add Attributes
+## 4. Add Attributes
 
-Attributes are defined at the edge type level, so all edges of a given type share the same attributes. Each <Glossary>attribute</Glossary> typically achieves one of the following goals:
+Attributes are defined at the edge type level, so all edges of a given type share the same attributes. Each attribute typically achieves one of the following goals:
 
 - They give a user permission on an object directly (<Glossary>direct</Glossary> attributes)
 - They pass a permission from one user or group to another (<Glossary>inherit</Glossary> attributes)
 - They propagate a permission down a hierarchy of nested objects, like folders and files (<Glossary>propagate</Glossary> attributes)
 
-For more intro on attributes, see [Modelling Hierarchy with Attribute Scopes](/docs/modelling-hierarchy-with-attribute-types).
+For more intro on attributes, see [Modelling Hierarchy with Attribute Scopes](/docs/guides/overview/modelling-hierarchy-with-attribute-types).

@@ -6,7 +6,7 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:55:03 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Wed Jun 05 2024 17:52:00 GMT+0000 (Coordinated Universal Time)"
 ---
-## Introduction
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 Access policies control the circumstances in which data can be retrieved or edited. Practically, access policies are functions that receive contextual data and return true or false according to whether access is allowed or denied.
 
@@ -22,54 +22,63 @@ Access policies and templates are managed under the Access Rules element in the 
 
 Policy templates are parametrizable functions that can be parametrized to create access policies. To create a policy template, go to the Policies page and click Create Policy Template. 
 
-**1 Create your <Glossary>access policy template</Glossary>**
+<Steps>
+    <Step>
+    **Create your <Glossary>access policy template</Glossary>**
 
-Specify a name, a description and a javascript function for your policy. The javascript function may optionally accept parameters, which you can test below. 
+    Specify a name, a description and a javascript function for your policy. The javascript function may optionally accept parameters, which you can test below. 
 
-![The Create Policy Template page.](https://files.readme.io/085e410-image_5.png)
+    ![The Create Policy Template page.](https://files.readme.io/085e410-image_5.png)
+    </Step>
+    <Step>
 
+    **Test and save your policy template**
 
-**2 Test and save your policy template**
+    Use the "Test Your Draft" card at the bottom of the page to test your policy template. You can add test parameters to simulate turning the policy template into an access policy, and then test that access policy with test context. The interface will show the result of your test as "Access Allowed" or "Access Denied".
 
-Use the "Test Your Draft" card at the bottom of the page to test your policy template. You can add test parameters to simulate turning the policy template into an access policy, and then test that access policy with test context. The interface will show the result of your test as "Access Allowed" or "Access Denied".
-
-![The "Test Your Draft" card allows you to parametrize your draft template (creating an access policy) and then test that access policy with test context.](https://files.readme.io/ef73d2e-spaces_66DzLwptb2SejhKV7Bhn_uploads_oGa62N4DTjIR8mFABEN5_image.webp)
+    ![The "Test Your Draft" card allows you to parametrize your draft template (creating an access policy) and then test that access policy with test context.](https://files.readme.io/ef73d2e-spaces_66DzLwptb2SejhKV7Bhn_uploads_oGa62N4DTjIR8mFABEN5_image.webp)
+    </Step>
+</Steps>
 
 ## Creating Access Policies in the UI
+<Steps>
+    <Step>
+    **Open the Create Access Policy Page**
 
-**1 Open the Create Access Policy Page**
+    To create a new access policy, click "Create Policy" from the Policies page, accessible from the sidebar of UserClouds Console. You can create the new policy by writing a new policy or template from scratch in this interface, by composing existing policies with AND / OR logic, or both. 
+    </Step>
+    <Step>
+    **Set your <Glossary>access policy</Glossary> name and description**
 
-To create a new access policy, click "Create Policy" from the Policies page, accessible from the sidebar of UserClouds Console. You can create the new policy by writing a new policy or template from scratch in this interface, by composing existing policies with AND / OR logic, or both. 
+    Next, add a name and a description for your policy.
 
-**2 Set your <Glossary>access policy</Glossary> name and description**
+    ![The Create Access Policy page in UserClouds Console.](https://files.readme.io/e0bf498-image_6.png)
 
-Next, add a name and a description for your policy.
+    </Step>
+    <Step>
+    **Compose your policy**
 
-![The Create Access Policy page in UserClouds Console.](https://files.readme.io/e0bf498-image_6.png)
+    ![The Compose Policy Card](https://files.readme.io/1249f6f-image_7.png)
 
+    Next, compose the policy from one or more policies and templates in the "Compose Policy" card.
 
-**3 Compose your policy**
+    Use the dropdowns and "Add policy" button to add policies or templates to add policies to your composition. When you add a template, set the parameters in the adjacent text input to turn the template into a policy. When you add a policy, the "Parameters" input will be disabled, since policy instances are already parametrized
 
-![The Compose Policy Card](https://files.readme.io/1249f6f-image_7.png)
+    If you want to add a brand new policy, you can click "Create New Policy Template" and write a new template from scratch, then parametrize it.
 
+    Once you have added two policies, choose a logical conjunction (`AND` or `OR`) for your composition.
 
-Next, compose the policy from one or more policies and templates in the "Compose Policy" card.
+    To simulate groups / parentheses, create policies for each group, then conjugate them in a separate policy. This approach allows you to
+    </Step>
+    <Step>
+    **Test and save your new policy**
 
-Use the dropdowns and "Add policy" button to add policies or templates to add policies to your composition. When you add a template, set the parameters in the adjacent text input to turn the template into a policy. When you add a policy, the "Parameters" input will be disabled, since policy instances are already parametrized
+    Finally, test your policy with different contexts in the "Test Your Draft" card. The interface will show the result of your test as "Access Allowed" or "Access Denied".
+    
+    Nice job! You created an access policy.
+    </Step>
+</Steps>
 
-If you want to add a brand new policy, you can click "Create New Policy Template" and write a new template from scratch, then parametrize it.
-
-Once you have added two policies, choose a logical conjunction (`AND` or `OR`) for your composition.
-
-To simulate groups / parentheses, create policies for each group, then conjugate them in a separate policy. This approach allows you to
-
-**4 Test and save your new policy**
-
-Finally, test your policy with different contexts in the "Test Your Draft" card. The interface will show the result of your test as "Access Allowed" or "Access Denied".
-
-Nice job! You created an access policy.
-
-<br />
 
 # Additional Context and Examples
 
@@ -92,8 +101,6 @@ function policy(context) {
     return checkAttribute(callingUserId, targetUserId, attribute);  
 }
 ```
-
-<br />
 
 ## Parametrizable Access Policy Templates
 

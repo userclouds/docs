@@ -6,6 +6,7 @@ hidden: false
 createdAt: "Tue Jul 30 2024 18:57:50 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Jul 30 2024 19:06:01 GMT+0000 (Coordinated Universal Time)"
 ---
+
 ## Overview
 
 `ucconfig` (UserClouds Config) enables declarative configuration of UserClouds resources. It is implemented as a usability layer on top of Terraform. While `ucconfig` is not as powerful or flexible as Terraform, it avoids many common frustrations such as manually writing configurations or managing Terraform state. Since `ucconfig` generates Terraform configuration and state, you can "eject" from `ucconfig` and manage UserClouds resources directly with Terraform at any point.
@@ -15,10 +16,10 @@ updatedAt: "Tue Jul 30 2024 19:06:01 GMT+0000 (Coordinated Universal Time)"
 There are two easy ways to run `ucconfig`:
 
 - **Download a Pre-packaged Binary:**
-  - Download from the Releases page. Note: On macOS, you will likely need to grant an exception to allow the binary to run.
+    - Download from the Releases page. Note: On macOS, you will likely need to grant an exception to allow the binary to run.
 - **Run with Docker:**
-  - `docker run userclouds/ucconfig [ucconfig args described below...]`
-  - Note: `docker run` may require additional flags to share environment variables or files with the container. See example commands in the Usage section.
+    - `docker run userclouds/ucconfig [ucconfig args described below...]`
+    - Note: `docker run` may require additional flags to share environment variables or files with the container. See example commands in the Usage section.
 
 For all commands, ucconfig requires `USERCLOUDS_TENANT_URL`, `USERCLOUDS_CLIENT_ID`, and `USERCLOUDS_CLIENT_SECRET` environment variables to be set. You can get these values from the UserClouds console by navigating to the Authentication page, selecting the Default App, and copying values from the Application Settings.
 
@@ -34,23 +35,19 @@ With `ucconfig`, you write a manifest that describes the complete set of desired
 
 Here is a minimal manifest describing a single User Store column for storing emails:
 
-<br />
-
 ```
 resources:
-- uc_terraform_type: userstore_column  
-  manifest_id: email_col  
-  resource_uuids:  
-    \_\_DEFAULT: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16  
-    mycompany-mytenant: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16  
-  attributes:  
-    name: email  
-    type: email  
-    index_type: none  
+- uc_terraform_type: userstore_column
+  manifest_id: email_col
+  resource_uuids:
+    \_\_DEFAULT: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16
+    mycompany-mytenant: 2c7a7c9b-90e8-47e4-8f6e-ec73bd2dec16
+  attributes:
+    name: email
+    type: email
+    index_type: none
     is_array: false
 ```
-
-- <br />
 
 ### Breakdown of the Manifest Entry
 
@@ -82,12 +79,10 @@ ucconfig gen-manifest output.yaml
 
 # Docker:
 
-docker run --rm -v "$PWD:$PWD" -w "$PWD" -i -e "USERCLOUDS_TENANT_URL=$USERCLOUDS_TENANT_URL"  
-    -e "USERCLOUDS_CLIENT_ID=$USERCLOUDS_CLIENT_ID" -e "USERCLOUDS_CLIENT_SECRET=$USERCLOUDS_CLIENT_SECRET"  
+docker run --rm -v "$PWD:$PWD" -w "$PWD" -i -e "USERCLOUDS_TENANT_URL=$USERCLOUDS_TENANT_URL"
+    -e "USERCLOUDS_CLIENT_ID=$USERCLOUDS_CLIENT_ID" -e "USERCLOUDS_CLIENT_SECRET=$USERCLOUDS_CLIENT_SECRET"
     userclouds/ucconfig gen-manifest output.yaml
 ```
-
-<br />
 
 ### Applying a Manifest
 
@@ -96,8 +91,6 @@ A manifest is a complete description of a tenant's resources. You can use the `a
 ```
 ucconfig apply <manifest-path>
 ```
-
-<br />
 
 #### Example:
 
@@ -108,8 +101,8 @@ ucconfig apply manifest.yaml
 
 # Docker:
 
-docker run --rm -v "$PWD:$PWD" -w "$PWD" -i -e "USERCLOUDS_TENANT_URL=$USERCLOUDS_TENANT_URL"  
-    -e "USERCLOUDS_CLIENT_ID=$USERCLOUDS_CLIENT_ID" -e "USERCLOUDS_CLIENT_SECRET=$USERCLOUDS_CLIENT_SECRET"  
+docker run --rm -v "$PWD:$PWD" -w "$PWD" -i -e "USERCLOUDS_TENANT_URL=$USERCLOUDS_TENANT_URL"
+    -e "USERCLOUDS_CLIENT_ID=$USERCLOUDS_CLIENT_ID" -e "USERCLOUDS_CLIENT_SECRET=$USERCLOUDS_CLIENT_SECRET"
     userclouds/ucconfig apply output.yaml
 ```
 
@@ -145,10 +138,6 @@ resources:
       selector_config:
         where_clause: '{id} = ANY(?)'
 ```
-
-<br />
-
-<br />
 
 ### Resource IDs
 

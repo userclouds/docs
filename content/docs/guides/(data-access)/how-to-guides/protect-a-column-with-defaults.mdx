@@ -19,20 +19,20 @@ Column defaults are policies that apply to every <Glossary>accessor</Glossary> e
 ### Example Use Cases for Default Transformers
 
 1. **Default Masking Transformer for SSN Column**
-   1. Automatically apply a masking transformer to the SSN column in all queries to obscure sensitive data.
+   - Automatically apply a masking transformer to the SSN column in all queries to obscure sensitive data.
 2. **Default Redaction Transformer for Patient Diagnosis Code Column**
-   1. Automatically redact the Patient Diagnosis Code column in all queries to ensure privacy.
+   - Automatically redact the Patient Diagnosis Code column in all queries to ensure privacy.
 3. **Default Tokenizing Transformer for Email Column**
-   1. Automatically tokenize the email column in all queries to secure user identities.
+   - Automatically tokenize the email column in all queries to secure user identities.
 
 ### Example Use Cases for Default Access Policies
 
 1. **Default Role Check for SSN Column**
-   1. Apply a role check access policy to the SSN column in all queries to ensure only authorized roles can access this sensitive data.
+   - Apply a role check access policy to the SSN column in all queries to ensure only authorized roles can access this sensitive data.
 2. **Default Permission Check for Patient Diagnosis Code Column**
-   1. Apply a permission check access policy to the Patient Diagnosis Code column to ensure it is only accessible by users with specific permissions.
+   - Apply a permission check access policy to the Patient Diagnosis Code column to ensure it is only accessible by users with specific permissions.
 3. **Default System Identity Check for Credit Card Number Column**
-   1. Apply a system identity check access policy to the Credit Card Number column to allow only the financial system to read the credit card number.
+   - Apply a system identity check access policy to the Credit Card Number column to allow only the financial system to read the credit card number.
 
 ## Overriding Column Defaults for an Accessor
 
@@ -46,7 +46,7 @@ You can override column defaults for an individual accessor.
 
 - Use the boolean parameter `AreColumnAccessPoliciesOverridden` to disable all default policies for the accessor. This allows you to apply custom policies specific to the accessor.
 
-For more details on how to override column defaults on an individual accessor, refer to the [API reference](/reference/put_userstore-config-accessors-id).
+For more details on how to override column defaults on an individual accessor, refer to the [API reference](/docs/reference/put_userstore-config-accessors-id).
 
 ## Combining Policies
 

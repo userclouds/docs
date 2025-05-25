@@ -32,9 +32,9 @@ updatedAt: "Thu Sep 19 2024 19:09:40 GMT+0000 (Coordinated Universal Time)"
    - **For NoSQL Proxies**: Review intercepted requests and access logs. NoSQL proxy policies are applied at the object store level. However, the access policy can consider the file path as context, allowing you to make finer-grained access decisions (e.g., considering a user ID in the file path).
    - **For API Proxies**: Review the intercepted API calls. API proxy policies and data transformers can be applied to individual endpoints to control access and transform sensitive data.
 2. **Apply a <Glossary>data transformer</Glossary> (SQL and API Proxies Only):**
-   - On any SQL query or API request, you may mask or tokenize outbound data using transformers. This can be done in the Columns table of the accessor details page for SQL queries or for API endpoints. For more info, see [Masking data in queries](/docs/masking-data-using-the-sql-shim).
+   - On any SQL query or API request, you may mask or tokenize outbound data using transformers. This can be done in the Columns table of the accessor details page for SQL queries or for API endpoints. For more info, see [Masking data in queries](/docs/guides/proxy-and-plug-in-implementation/5-unmasking-data-using-the-browser-plug-in).
 3. **Apply an <Glossary>access policy</Glossary>:**
-   - For SQL proxies, apply policies at the query or column level. For more info, see [Applying access policies to queries](/docs/applying-access-policies-to-queries).
+   - For SQL proxies, apply policies at the query or column level. For more info, see [Applying access policies to queries](/docs/guides/proxy-and-plug-in-implementation/3-applying-access-policies-to-queries).
    - For NoSQL proxies, apply policies at the object store level, considering the file path as context where necessary.
    - For API proxies, apply policies at the individual endpoint level. For more info, see Applying access policies to queries or Applying access policies to API calls.
 4. **Review Logs**: Monitor the logs for a detailed account of data access, transformations, and applied policies.

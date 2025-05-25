@@ -9,25 +9,32 @@ metadata:
 createdAt: "Thu Aug 03 2023 22:41:51 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 25 2023 21:46:36 GMT+0000 (Coordinated Universal Time)"
 ---
-## 1. Create an account
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-UserClouds is invite-only right now. If you don’t have an invite, please email [team@userclouds.com.](mailto:team@userclouds.com.) Click the link in your email invite and create a username and password. Congrats! You’ve now experienced UserClouds as an end-user.
+<Steps>
+  <Step>
+  ## Create an account
 
-## 2. Name your organization and tenant
+  UserClouds is invite-only right now. If you don’t have an invite, please email [team@userclouds.com.](mailto:team@userclouds.com.) Click the link in your email invite and create a username and password. Congrats! You’ve now experienced UserClouds as an end-user.
+  </Step>
+  <Step>
+  ## Name your organization and tenant
 
-If you’re setting up your company’s account with UserClouds, you’ll be prompted to name your organization and your first tenant.
+  If you’re setting up your company’s account with UserClouds, you’ll be prompted to name your organization and your first tenant.
 
-- **A company** is a collection of users and tenants. It allows you to group applications together and collaborate with team-mates. Typically, customers set up one organization for their company.
-- **A tenant** is a single instance of UserClouds's tech (APIs, user store etc). Each tenant can handle multiple applications. Typically, customers set up one tenant per environment (e.g.. dev / testing / production). We also see enterprise-facing companies create a separate tenant for each one of their customers if/where they need data isolation.
+  - **A company** is a collection of users and tenants. It allows you to group applications together and collaborate with team-mates. Typically, customers set up one organization for their company.
+  - **A tenant** is a single instance of UserClouds's tech (APIs, user store etc). Each tenant can handle multiple applications. Typically, customers set up one tenant per environment (e.g.. dev / testing / production). We also see enterprise-facing companies create a separate tenant for each one of their customers if/where they need data isolation.
+  </Step>
+  <Step>
+  ## Rename your application
 
-## 3. Rename your application
+  You’ll land on the Authentication Page for your Tenant in UserClouds. This is where you can configure your tenant’s applications, underlying IDPs, Social and 3rd Party IDPs and settings.
 
-You’ll land on the Authentication Page for your Tenant in UserClouds. This is where you can configure your tenant’s applications, underlying IDPs, Social and 3rd Party IDPs and settings.
+  UserClouds automatically creates a Default Application for each tenant.
 
-UserClouds automatically creates a Default Application for each tenant.
+  - **An application** is a single OAuth2 client that can call the APIs of any IDPs configured in your tenant (e.g. primary - Auth0, back-up - Plex, third party - social). It is where you will configure how authentication works for your project. For example, you might configure the application to require two factor authentication via SMS or offer passwordless login.
 
-- **An application** is a single OAuth2 client that can call the APIs of any IDPs configured in your tenant (e.g. primary - Auth0, back-up - Plex, third party - social). It is where you will configure how authentication works for your project. For example, you might configure the application to require two factor authentication via SMS or offer passwordless login.
-
-To rename your application, click into the application, hit edit, change the name, and click Save. In UserClouds, you must always click Save to commit your changes.
-
+  To rename your application, click into the application, hit edit, change the name, and click Save. In UserClouds, you must always click Save to commit your changes.
+  </Step>
+</Steps>
 Hooray! You created your first application in UserClouds. Now let’s see how to add UserClouds to your software.

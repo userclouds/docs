@@ -6,7 +6,7 @@ hidden: false
 createdAt: "Fri Aug 25 2023 22:05:45 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Thu Dec 21 2023 12:19:58 GMT+0000 (Coordinated Universal Time)"
 ---
-## Introduction
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 Transformers are re-usable functions that manipulate data in UserClouds. Transformers control how a token is generated and what it looks like. Transformers allow you to retain select structure and information from the raw data for different use cases, like sorting alphabetically, common domain analysis or simply flowing through your systems without triggering validation errors.
 
@@ -37,27 +37,31 @@ Remember to convert these strings into the JavaScript objects or primitives that
 
 To create a transformer in UserClouds, go to the Policies page, accessible from the sidebar in Console, and click Create Transformer. 
 
-**1 Name and Describe the Transformer**
+<Steps>
+    <Step>
+    **Name and Describe the Transformer**
 
-Specify a name and description for the transformer, to help your team find and use it later.
+    Specify a name and description for the transformer, to help your team find and use it later.
+    </Step>
+    <Step>
+    **Define how the transformer will change the data**
 
-**2 Define how the transformer will change the data**
+    Define how the transformer will work by stating:
 
-Define how the transformer will work by stating:
+    - **An input data type** for the transformer (string, timestamp etc)
+    - **An output data type** for the transformer (string, timestamp etc)
+    - **A transform type** - for more info on these, see
+    - **A transform function**, which will receive raw data _as a string_ and return the transformed data
+    - _(Optional)_ **A set of parameters** for that function, which allows you to rapidly create transformers with parallel logic
+    </Step>
+    <Step>
+    **Test and save your transformer**
 
-- **An input data type** for the transformer (string, timestamp etc)
-- **An output data type** for the transformer (string, timestamp etc)
-- **A transform type** - for more info on these, see
-- **A transform function**, which will receive raw data _as a string_ and return the transformed data
-- _(Optional)_ **A set of parameters** for that function, which allows you to rapidly create transformers with parallel logic
+    Finally, test your transformer by adding raw data to the "Data" field and clicking "Run Test". Once you are happy with the test results, click "Save Transformer" to finish. 
 
-**3 Test and save your transformer**
-
-Finally, test your transformer by adding raw data to the "Data" field and clicking "Run Test". Once you are happy with the test results, click "Save Transformer" to finish. 
-
-![The Create Transformer Page](https://files.readme.io/bee6a69-image_9.png)
-
-
+    ![The Create Transformer Page](https://files.readme.io/bee6a69-image_9.png)
+    </Step>
+</Steps>
 ## Creating a transformer via the API
 
-To learn how to create a transformer via the UserClouds API, see our [API Reference](/reference/post_tokenizer-policies-transformation).
+To learn how to create a transformer via the UserClouds API, see our [API Reference](/docs/reference/post_tokenizer-policies-transformation).

@@ -9,11 +9,13 @@ metadata:
 createdAt: "Tue Aug 15 2023 20:17:32 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 25 2023 21:26:25 GMT+0000 (Coordinated Universal Time)"
 ---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
 Purpose lifetimes and data deletion mechanisms play a crucial role in ensuring compliance with regulations like GDPR (General Data Protection Regulation). For example, a key principle of GDPR is storage limitation, which dictates that personal data must be kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data is processed.
 
 This articles explains the mechanisms and configurations related to data deletion in UserClouds, especially in the context of user-defined data processing purposes and purpose lifetimes. The article assumes you are familiar with:
 
-- How <Glossary>purpose</Glossary>s are used to track, enforce and audit user <Glossary>consent</Glossary> in User Store. Learn more [here](/docs/purpose-and-consent).
+- How <Glossary>purpose</Glossary>s are used to track, enforce and audit user <Glossary>consent</Glossary> in User Store. Learn more [here](/docs/guides/definitions/purpose-and-consent).
 - How the User Store is built from <Glossary>column</Glossary>s and populated with user records. Learn more [here](/docs/manage-your-columns). 
 - How <Glossary>mutator</Glossary>s and <Glossary>accessor</Glossary>s are used to write data to, and retrieve data from, the store. Learn more [here](/docs/accessors-read-apis). 
 
@@ -38,14 +40,15 @@ Purpose lifetimes are set at the purpose-column level. Developers can configure 
 Any changes to pre- or post-deletion retention durations for a purpose only apply to newly written data. Retention timeouts for existing data cannot be retroactively changed by changing the retention duration associated with that column or purpose. However, if a retention duration is updated, any newly written data after the fact will have a timeout based on the new retention duration.
 
 ## Deletion Process Flow
-
-1. End user data is saved to the store with associated purposes.
-2. Pre-deletion Retention Duration countdown begins for each associated purpose.
-3. If data is updated with the same purpose before Pre-deletion Retention Duration elapses, the purpose retention clock is reset.
-4. If the pre-deletion retention duration elapses, the data is no longer visible for that purpose as live, pre-delete data.
-5. Deletion event occurs (e.g. a value update, a value deletion, a column deletion or a user deletion) triggering the Post-deletion Retention Duration.
-6. Once Post-deletion Retention Duration elapses, the associated purpose is deleted.
-7. When all purposes are deleted for a piece of data, the data is no longer accessible by any means.
+<Steps>
+  <Step>End user data is saved to the store with associated purposes.</Step>
+  <Step>Pre-deletion Retention Duration countdown begins for each associated purpose.</Step>
+  <Step>If data is updated with the same purpose before Pre-deletion Retention Duration elapses, the purpose retention clock is reset.</Step>
+  <Step>If the pre-deletion retention duration elapses, the data is no longer visible for that purpose as live, pre-delete data.</Step>
+  <Step>Deletion event occurs (e.g. a value update, a value deletion, a column deletion or a user deletion) triggering the Post-deletion Retention Duration.</Step>
+  <Step>Once Post-deletion Retention Duration elapses, the associated purpose is deleted.</Step>
+  <Step>When all purposes are deleted for a piece of data, the data is no longer accessible by any means.</Step>
+</Steps>
 
 ## Example
 

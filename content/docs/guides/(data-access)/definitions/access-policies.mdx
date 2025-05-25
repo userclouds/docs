@@ -6,8 +6,6 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:17:40 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Sep 10 2024 18:36:12 GMT+0000 (Coordinated Universal Time)"
 ---
-## Introduction
-
 Access Policies control the circumstances under which data can be retrieved or edited. These policies are functions that receive contextual data and return true or false to determine whether access is allowed or denied. The context is generated from the server and can be combined with additional context sent from the client.
 
 Access Policies are executed in three places in UserClouds:
@@ -190,7 +188,7 @@ const params = {};  // No specific parameters needed for this example
 
 ## checkAttribute
 
-The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](/reference/get_authz-checkattribute).
+The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](/docs/reference/get_authz-checkattribute).
 
 ### Example
 
@@ -232,7 +230,7 @@ function policy(context, params) {
 
 UserClouds has several built-in access policies for common use cases, like role-based and time-based expiration of data. However you can also create custom policies, in two ways:
 
-- Call the [CreateAccessPolicy API](/reference/post_tokenizer-policies-access)
+- Call the [CreateAccessPolicy API](/docs/reference/post_tokenizer-policies-access)
 - Compose a new policy from existing policies and parametrizable templates in the UserClouds Console
 
 To learn more about creating access policies, see our How to Guide on Creating Access Policies.

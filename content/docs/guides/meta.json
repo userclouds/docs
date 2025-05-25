@@ -12,12 +12,12 @@
         "(data-access)/how-to-guides",
         "(data-access)/definitions",
         "---DATA TOKENIZATION---",
-        "(data-tokenization)/overview",
+        "(data-tokenization)/tokenization-overview",
         "(data-tokenization)/how-to-guides",
         "(data-tokenization)/definitions",
         "---DATA STORAGE---",
         "(data-storage)/data-storage-introduction",
-        "(data-storage)/overview",
+        "(data-storage)/storage-overview",
         "(data-storage)/how-to-guides",
         "(data-storage)/definitions",
         "(data-storage)/data-lifecycle",
@@ -33,8 +33,6 @@
         "---DEPLOYMENT---",
         "(deployment)/deployment-options",
         "(deployment)/set-up-guides",
-        "(deployment)/managing-configuration",
-        "---SUPPORT---",
-        "(support)/support-services"
+        "(deployment)/managing-configuration"
     ]
 }

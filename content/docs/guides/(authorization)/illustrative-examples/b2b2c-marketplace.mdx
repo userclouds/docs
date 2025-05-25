@@ -6,32 +6,35 @@ hidden: false
 createdAt: "Wed Nov 22 2023 20:16:42 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Wed Jun 19 2024 16:57:24 GMT+0000 (Coordinated Universal Time)"
 ---
-This article explains how to design a graph-based authorization model for a B2B2C marketplace. The article assumes you are familiar with our [Key Concepts](/docs/key-concepts-1) and [Attribute Scopes](/docs/modelling-hierarchy-with-attribute-types).
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+This article explains how to design a graph-based authorization model for a B2B2C marketplace. The article assumes you are familiar with our [Key Concepts](/docs/guides/overview/key-concepts) and [Attribute Scopes](/docs/guides/overview/modelling-hierarchy-with-attribute-types).
 
 There are four steps to design a model:
 
-- (a) list the design requirements for the <Glossary>permission</Glossary>s system
-- (b) define the types of <Glossary>object</Glossary>s that the authorization logic will consider
-- (c) define the types of relationships between those types of objects. Since relationships are reflected by <Glossary>edge</Glossary>s in the graph, we call this “defining the <Glossary>edge type</Glossary>s”
-- (d) attach these <Glossary>permission</Glossary>s to these relationships using attributes
-
+<Steps>
+  <Step> list the design requirements for the <Glossary>permission</Glossary>s system</Step>
+  <Step> define the types of <Glossary>object</Glossary>s that the authorization logic will consider</Step>
+  <Step> define the types of relationships between those types of objects. Since relationships are reflected by <Glossary>edge</Glossary>s in the graph, we call this “defining the <Glossary>edge type</Glossary>s”</Step>
+  <Step> attach these <Glossary>permission</Glossary>s to these relationships using attributes</Step>
+</Steps>
 In general, model design is an iterative process. While this article is presented linearly, you might expect to loop through these steps until you’ve hit on the cleanest model structure. 
 
-## A. List Design Requirements
+## 1. List Design Requirements
 
 Suppose you are an ecommerce marketplace company. Buyers and sellers transact via Orders, which are associated with a shipping address at checkout time. You might want to define permissions such that:
 
-1. Sellers can be (a) shops (groups of users) or (b) individual users 
-2. Buyers can only be individual users
-3. Users can be a "shop owner" or a "shop member"
-4. Buyers can view and edit their own orders
-5. Individual sellers can view, edit and refund orders that they sell
-6. Shop owners can edit their shop's settings (e.g. name and payout details) and manage their shop's members
-7. Both shop owners and shop members can view, edit and refund their shop's orders
+- Sellers can be (a) shops (groups of users) or (b) individual users 
+- Buyers can only be individual users
+- Users can be a "shop owner" or a "shop member"
+- Buyers can view and edit their own orders
+- Individual sellers can view, edit and refund orders that they sell
+- Shop owners can edit their shop's settings (e.g. name and payout details) and manage their shop's members
+- Both shop owners and shop members can view, edit and refund their shop's orders
 
 With GBAC, this system becomes simple to implement. GBAC can natively reflect the relationships between the users, shops and orders. This extra level of native abstraction saves you from creating shop-specific roles.
 
-## B. Define the types of objects to consider
+## 2. Define the types of objects to consider
 
 First, we define our <Glossary>object type</Glossary>s. Every <Glossary>object</Glossary> in the system must have exactly one object type. This means we should not define separate object types for shop owners, shop members and buyers.
 
@@ -41,7 +44,7 @@ Together, the following types make an effective, mutually exclusive representati
 - Shops
 - Orders (transactions)
 
-## C. Define the edge types
+## 3. Define the edge types
 
 Next, we define the <Glossary>edge type</Glossary>s. We will reference design requirements that are satisfied solely by the existence of each edge type. Each edge type represents a possible one-way relationship between two object types. Every edge must have a type, so our list of edge types should be comprehensive: any type of relationship that we use in our authorization logic should be reflected here.
 
@@ -60,9 +63,7 @@ Note that, since edges are strongly typed, we require different edge types to re
 ![](https://files.readme.io/56452c8-C2C_Marketplace.jpg)
 
 
-<br />
-
-## D. Add permissions to each of our relationships.
+## 4. Add permissions to each of our relationships.
 
 To add attributes, we'll go through our design requirements, one-by-one. DR1-DR3 define relationships and roles, so are already established by our edge types. DR4-DR6 are all satisfied by direct attributes, which give an edge's source object the <Glossary>permission</Glossary>s on the edge's target object. For example:
 

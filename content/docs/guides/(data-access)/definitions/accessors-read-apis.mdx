@@ -6,8 +6,6 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:30:50 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Sep 10 2024 16:09:30 GMT+0000 (Coordinated Universal Time)"
 ---
-## Introduction
-
 Accessors are configurable APIs that allow a client to retrieve data from the user store. Accessors are intended to be use-case specific. For example, you might configure two separate accessors `GetEmailForMarketing` and `GetEmailForAuthentication`. They enforce data usage policies and minimize outbound data from the store for their given use case.
 
 As an example of data minimization, you might configure an accessor called `GetPhoneCountryCodeForAnalytics` that returns the country code of a user's phone number when called, instead of the raw phone number. This reduces the sensitivity of the data outside your store, minimizing your surface area for an attack and simplifying compliance.
@@ -44,4 +42,4 @@ At creation time, each accessor is associated with a user record <Glossary>selec
 For more info on accessors, see:
 
 - [Creating an accessor](/docs/create-an-accessor)
-- [Executing an accessor](/reference/post_userstore-api-accessors)
+- [Executing an accessor](/docs/reference/post_userstore-api-accessors)

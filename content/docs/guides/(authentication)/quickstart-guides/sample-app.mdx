@@ -9,16 +9,21 @@ metadata:
 createdAt: "Thu Aug 03 2023 22:37:43 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 25 2023 21:46:36 GMT+0000 (Coordinated Universal Time)"
 ---
-We’ve set up a very simple sample app, so that you can demo UserClouds Authentication in less than 5 minutes. We've simplified the code to the bare minimum, so please do apply actual software engineering practices to any code you derive from this!
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-## 1. Clone the sample code / repo
+
+We’ve set up a very simple sample app, so that you can demo UserClouds Authentication in less than 5 minutes. We've simplified the code to the bare minimum, so please do apply actual software engineering practices to any code you derive from this!
+<Steps>
+  <Step>
+## Clone the sample code / repo
 
 - **Python**: `git clone ssh://git@github.com/userclouds/gettingstarted-python.git`
 - **Go**: `git clone ssh://git@github.com/userclouds/gettingstarted-golang.git`
 
 _More languages coming to our GitHub soon! To request a language or share a client you wrote, please email us at [info@userclouds.com](mailto:info@userclouds.com) ._
-
-## 2. Run the sample app locally
+  </Step>
+  <Step>
+## Run the sample app locally
 
 Make sure you have Git and Python / Go installed, then run the clone command in your Terminal. This doc assumes you are using python3 and Go 1.18+.
 
@@ -29,12 +34,14 @@ python3 -m venv .
 source bin/activate  
 pip3 install -r requirements.txt
 ```
-
-## 3. Try it out!
+</Step>
+  <Step>
+## Try it out!
 
 Point a browser at http\://localhost:8080 and click “login”. You will be redirected to a UserClouds branded login screen. Of course, this page can be customized to your branding later.
 
 ![](https://files.readme.io/ecca98e-image_21.png)
 
-
+</Step>
+</Steps>
 From here, you can create your own account, by clicking "Create an Account" below the login button. Once you’ve created your account, you’ll be automatically logged in and redirected back to your sample app. The app will display the parameters of the JWT validating your log-in. Nice work!
