@@ -24,7 +24,7 @@
         "---AUTHORIZATION---",
         "(authorization)/authorization-introduction",
         "(authorization)/overview",
-        "(authorization)/how-to-guides",
+        "(authorization)/implement-authZ-in-3-steps",
         "(authorization)/illustrative-examples",
         "---AUTHENTICATION---",
         "(authentication)/authentication-introduction",

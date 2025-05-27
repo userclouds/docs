@@ -3,12 +3,13 @@ title: "Add social login"
 slug: "authentication-methods"
 excerpt: ""
 hidden: false
-metadata: 
-  image: []
-  robots: "index"
+metadata:
+    image: []
+    robots: "index"
 createdAt: "Thu Aug 03 2023 22:51:23 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 25 2023 21:43:12 GMT+0000 (Coordinated Universal Time)"
 ---
+
 UserClouds supports every major method of authentication, such as social sign in with Google, Facebook and LinkedIn OAuth. The user's accounts will be owned by the Identity Platforms configured in “Underlying Identity Providers”.
 
 Adding a Social/Third Party Connections to a login flow can be completed in three steps:
@@ -41,8 +42,4 @@ Now your tenant is connected to the third party, you can add their authenticatio
 1. Navigate to the Application page (Select Tenant > Authentication > Application)
 2. Create social redirect and logout URIs for that application, e.g. `https://tenantname.tenant.userclouds.com/social/callback`
 3. Add these URIs to your account with the third party (see links in part 1)
-4. Select which authentication methods are enabled in the Login Settings card. You can also configure other authentication methods, like Passwordless / Magic Link, from this card. 
-
-## Setting up SAML SSO for your tenant
-
-_Docs coming soon! For help setting up SAML SSO with UserClouds, please reach out to [info@userclouds.com](mailto:info@userclouds.com)._
+4. Select which authentication methods are enabled in the Login Settings card. You can also configure other authentication methods, like Passwordless / Magic Link, from this card.

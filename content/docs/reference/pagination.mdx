@@ -6,13 +6,14 @@ hidden: false
 createdAt: "Thu Aug 10 2023 20:35:45 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Thu Aug 10 2023 20:37:52 GMT+0000 (Coordinated Universal Time)"
 ---
+
 ## Overview
 
 This documentation outlines how pagination is implemented in the UserClouds APIs.
 
 ## Why Paginate?
 
-In scenarios where datasets may be large, loading all data at once can lead to performance issues, increased latency, and memory exhaustion. Pagination addresses these challenges by dividing the data into smaller portions, allowing clients to retrieve a page of data at a time. 
+In scenarios where datasets may be large, loading all data at once can lead to performance issues, increased latency, and memory exhaustion. Pagination addresses these challenges by dividing the data into smaller portions, allowing clients to retrieve a page of data at a time.
 
 This results in:
 
@@ -31,5 +32,3 @@ Our API uses the following query parameters to facilitate pagination:
 - `sort_key`: Determines the field(s) used for sorting results.
 - `sort_order`: Sets the sort order for each field, either ascending or descending.
 - `version`: Indicates the API version to be called.
-
-_Further documentation coming soon! For more info on pagination, reach out to [info@userclouds.com.](mailto:info@userclouds.com)_
