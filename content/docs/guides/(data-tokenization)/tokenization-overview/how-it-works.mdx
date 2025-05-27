@@ -11,7 +11,7 @@ updatedAt: "Fri Jun 21 2024 16:51:26 GMT+0000 (Coordinated Universal Time)"
 
 When you tokenize a piece of sensitive data, you replace it with a secure reference <Glossary>token</Glossary>. The token can be intelligently generated to retain key characteristics of the data, such as the structure of an email address or the last 4 digits of a phone number. This allows the token to maintain compatibility with the systems that use it, so it can be used in place of the data throughout systems. The token is associated with an access policy which controls the circumstances in which the token can be exchanged for the original raw data. When an application or employee needs the original data, it requests to exchange token for the raw data. If the access policy is met, the raw data is returned.
 
-![(1) On creation, sensitive data is stored in the UserClouds vault or an owned-and-operated database. (2) Format preserving tokens propagate through system, in place of the data. (3) Each token is associated with a policy controlling raw data access. (4) If the access policy is met, the token can be exchanged for the raw data.](https://files.readme.io/d97de72-tokenizer_diagram.jpg)
+![(1) On creation, sensitive data is stored in the UserClouds vault or an owned-and-operated database. (2) Format preserving tokens propagate through system, in place of the data. (3) Each token is associated with a policy controlling raw data access. (4) If the access policy is met, the token can be exchanged for the raw data.](/assets/images/auth-flow.webp)
 
 ### Tokens in UserClouds
 

@@ -6,6 +6,7 @@ hidden: false
 createdAt: "Thu Aug 03 2023 22:02:43 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Wed Jun 05 2024 17:13:21 GMT+0000 (Coordinated Universal Time)"
 ---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 This article will walk you through how to secure your sensitive data by replacing it with a secure reference token and defining an access policy that governs the circumstances in which that token can be resolved.
 
@@ -13,28 +14,35 @@ You will achieve this using the sample app in our SDK. The sample app will intro
 
 We recommend reading the SDK's `sample.go` file in your favorite code editor as you go through it. This is the best way to get oriented in the SDK.
 
+<Steps>
+<Step>
 ### 1. Download the SDK
 
 This doc assumes you are using Go 1.20+. Check you have Git and Go installed, then run the following git command to clone our SDKs:
 
-```
+```sh
 git clone ssh://git@github.com/userclouds/sdk-golang.git
 ```
 
+</Step>
+<Step>
 ### 2. Run the Sample App
 
 Open your CLI and navigate to the directory you saved the SDK in. Then run the sample app file:
 
-```
+```sh
 go run sample.go
 ```
-
+</Step>
+<Step>
 ### 3. Create an Access Policy
 
 The first step is to specify a recipient for your secret message. The sample app will then create an <Glossary>access policy</Glossary> for that recipient.
 
 Access Policies control the circumstances in which sensitive data can be accessed. For example, they might specify that a piece of data can only be accessed by an authenticated engineer, on a trusted IP address, for integrity purposes. Practically, Access Policies are functions that evaluate <Glossary>context</Glossary> from the server and the client, returning true or false according to whether access is allowed or denied.
 
+</Step>
+<Step>
 ### 4. Create Your First Token
 
 Once you have created the access policy, it’s time to write your secret message. Once you’ve written it, the sample app will <Glossary>tokenize</Glossary> the data using the CreateToken call. When you tokenize sensitive data, you substitute it for a secure, randomly generated reference token.
@@ -48,6 +56,8 @@ Once you have created the access policy, it’s time to write your secret messag
 
 Follow the prompts to create your first token. Nice job!
 
+</Step>
+<Step>
 ### 5. Resolve Your Token
 
 When an application or employee needs access to the original data, they can call ResolveToken to request to exchange the token for the raw data. If the <Glossary>access policy</Glossary> for that token is met, the raw data will be returned.
@@ -55,3 +65,6 @@ When an application or employee needs access to the original data, they can call
 Now you can try to <Glossary>resolve</Glossary> your token as different users in the Sample App. If you use your intended recipient’s name, Tokenizer will return the secret message. If you use another name, the request will be rejected.
 
 Great job! You’ve protected your secret message by replacing it with a secure, randomly generated token - and configuring an access policy that governs the circumstances in which that token can be resolved. You've finished the sample app and mastered the basics of Tokenizer.
+
+</Step>
+</Steps>

@@ -10,12 +10,12 @@ Transformers control how a token is generated and what it looks like. Practicall
 
 They allow you to retain select structure and information from the raw data for different use cases, like sorting alphabetically, common domain analysis or simply allowing tokens to flow through your systems without triggering validation errors. 
 
-![Transformers can be arbitrarily smart about how they preserve and obscure the information and structure of the data they encode. Noise can be removed, granularity can be reduced and categories can be created and mapped.](https://files.readme.io/a087ff8-Frame_1006.png)
+![Transformers can be arbitrarily smart about how they preserve and obscure the information and structure of the data they encode. Noise can be removed, granularity can be reduced and categories can be created and mapped.](/assets/images/user-data.webp)
 
 
 Transformers range from the simplest UUID function that replaces any given data with a unique identifier, to custom-written Javascript that runs in a carefully-controlled sandbox. A well-formed transformer retains the minimum viable information to complete the intended data use case for the token, and no more. For example, it might retain the final 4 digits of a phone number for identity verification, but obfuscate the other digits.
 
-![One simple transformer receives raw data, and creates a UUID token.](https://files.readme.io/92ec15d-spaces_66DzLwptb2SejhKV7Bhn_uploads_QrLi9YP9CtHG5gAgEQrd_image_1.webp)
+![One simple transformer receives raw data, and creates a UUID token.](/assets/images/uuid-input.webp)
 
 ## Examples of Transformers
 
