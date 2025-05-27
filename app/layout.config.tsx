@@ -9,11 +9,12 @@ import Image from 'next/image';
  * Docs Layout: app/docs/layout.tsx
  */
 export const baseOptions: BaseLayoutProps = {
+  githubUrl: 'https://github.com/userclouds/userclouds-oss',
   nav: {
     title: (
       <>
         <Image src="/logo.png" width={160} height={22} alt="UserClouds logo" className="dark:saturate-200"/>
       </>
     ),
-  },
+  }
 };
