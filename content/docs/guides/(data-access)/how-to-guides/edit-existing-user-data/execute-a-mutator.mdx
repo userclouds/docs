@@ -6,7 +6,8 @@ hidden: false
 createdAt: "Fri Feb 09 2024 20:18:55 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Jul 30 2024 18:09:50 GMT+0000 (Coordinated Universal Time)"
 ---
-import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 Once you have configured a <Glossary>mutator</Glossary>, you are ready to edit the user data and consents in your store. This can be done by executing the mutator.
 
@@ -15,7 +16,7 @@ Once you have configured a <Glossary>mutator</Glossary>, you are ready to edit t
 There are two ways to execute a mutator:
 
 - Download and deploy your tenant's code-generated UserClouds SDK, and call the mutator indirectly using its SDK function name
-- Call the [ExecuteMutator API](/docs/reference/post_userstore-api-mutators)
+- Call the [ExecuteMutator API](/docs/reference/userstore/api/mutators)
 
 When calling the ExecuteMutator API directly you pass:
 
@@ -64,58 +65,62 @@ For this example, assume we are updating a column configured to be an array of s
    **insert value with operational and marketing consents**
 
       ```javascript
-      ValueAndPurposes = {  
-         Value: [“foo”, “bar”],  
-         PurposeAdditions: [“operational”, “marketing”],  
+      ValueAndPurposes = {
+         Value: [“foo”, “bar”],
+         PurposeAdditions: [“operational”, “marketing”],
       }
 
-      Resulting value = \[  
-         ("foo", ["operational", "marketing"]),  
-         ("bar", ["operational", "marketing"]),  
+      Resulting value = \[
+         ("foo", ["operational", "marketing"]),
+         ("bar", ["operational", "marketing"]),
       ]
       ```
+
    </Step>
    <Step>
    **add data_science and remove marketing consents for existing values**
 
       ```javascript
-      ValueAndPurposes = {  
-         Value: MutatorColumnCurrentValue,  
-         PurposeAdditions: [“data_science”],  
-         PurposeDeletions: [“marketing”],  
+      ValueAndPurposes = {
+         Value: MutatorColumnCurrentValue,
+         PurposeAdditions: [“data_science”],
+         PurposeDeletions: [“marketing”],
       }
 
-      Resulting value = \[  
-         ("foo", ["operational", "data_science"]),  
-         ("bar", ["operational", "data_science"]),  
+      Resulting value = \[
+         ("foo", ["operational", "data_science"]),
+         ("bar", ["operational", "data_science"]),
       ]
       ```
+
    </Step>
    <Step>
    **update values, adding fraud_prevention consent**
 
       ```javascript
-      ValueAndPurposes = {  
-         Value: [“bar”, “baz”],  
-         PurposeAdditions: [“fraud_prevention”],  
+      ValueAndPurposes = {
+         Value: [“bar”, “baz”],
+         PurposeAdditions: [“fraud_prevention”],
       }
 
-      Resulting value = \[  
-         ("bar", ["operational", “data_science”, "fraud_prevention"]),  
-         ("baz", ["operational", “data_science”, "fraud_prevention"]),  
+      Resulting value = \[
+         ("bar", ["operational", “data_science”, "fraud_prevention"]),
+         ("baz", ["operational", “data_science”, "fraud_prevention"]),
       ]
       ```
+
    </Step>
    <Step>
    **delete all values**
 
       ```javascript
-      ValueAndPurposes = {  
-         Value: nil,  
+      ValueAndPurposes = {
+         Value: nil,
       }
 
       Resulting value = \[]
       ```
+
    </Step>
 </Steps>
 
@@ -125,12 +130,12 @@ If `PartialUpdates` is enabled for the column, any specified changes are treated
 
 **NOTE**: Any existing values and associated consents that are not specified to be added or removed by `ValueAndPurposes` for a partial update column will remain unchanged. As such, different values may have different associated consents for a partial update column.
 
-**SPECIAL CASES**: 
+**SPECIAL CASES**:
 
-1. `ValueAdditions` and `ValueDeletions` can be set to the sentinel value `MutatorColumnCurrentValue`. 
-   - If `ValueAdditions` is set to this value, consents specified in `PurposeAdditions` will be added to all current values. 
-   - If `ValueDeletions` is set to this value, consents specified in `PurposeDeletions` will be removed from all current values. 
-2. If `ValueAdditions` or `ValueDeletions` is set to nil, no consent additions or consent deletions will be made. 
+1. `ValueAdditions` and `ValueDeletions` can be set to the sentinel value `MutatorColumnCurrentValue`.
+   - If `ValueAdditions` is set to this value, consents specified in `PurposeAdditions` will be added to all current values.
+   - If `ValueDeletions` is set to this value, consents specified in `PurposeDeletions` will be removed from all current values.
+2. If `ValueAdditions` or `ValueDeletions` is set to nil, no consent additions or consent deletions will be made.
 3. If `ValueDeletions` is set to a non-nil value, but `PurposeDeletions` is empty, all values specified in `ValueDeletions` will have all current consents removed for each value.
 
 ### Example Update Sequence
@@ -142,61 +147,65 @@ For this example, assume we are updating a column configured to be an array of u
    **insert value with operation and marketing consents**
 
       ```javascript
-      ValueAndPurposes = {  
-         ValueAdditions: [“foo”, “bar”],  
-         PurposeAdditions: [“operational”, “marketing”],  
+      ValueAndPurposes = {
+         ValueAdditions: [“foo”, “bar”],
+         PurposeAdditions: [“operational”, “marketing”],
       }
 
-      Resulting value = \[  
-         ("foo", ["operational", "marketing"]),  
-         ("bar", ["operational", "marketing"]),  
+      Resulting value = \[
+         ("foo", ["operational", "marketing"]),
+         ("bar", ["operational", "marketing"]),
       ]
       ```
+
    </Step>
    <Step>
    **add data_science and remove marketing consents for existing values**
 
       ```javascript
-      ValueAndPurposes = {  
-         ValueAdditions: MutatorColumnCurrentValue,  
-         PurposeAdditions: [“data_science”],  
-         ValueDeletions: MutatorColumnCurrentValue,  
-         PurposeDeletions: [“marketing”],  
+      ValueAndPurposes = {
+         ValueAdditions: MutatorColumnCurrentValue,
+         PurposeAdditions: [“data_science”],
+         ValueDeletions: MutatorColumnCurrentValue,
+         PurposeDeletions: [“marketing”],
       }
 
-      Resulting value = \[  
-         ("foo", ["operational", "data_science"]),  
-         ("bar", ["operational", "data_science"]),  
+      Resulting value = \[
+         ("foo", ["operational", "data_science"]),
+         ("bar", ["operational", "data_science"]),
       ]
       ```
+
    </Step>
    <Step>
    **add value with fraud_prevention consent, remove value with data_science consent**
 
       ```javascript
-      ValueAndPurposes = {  
-         ValueAdditions: [“baz”],  
-         PurposeAdditions: [“fraud_prevention”],  
-         ValueDeletions: [“foo”],  
-         PurposeDeletions: [“data_science”],  
+      ValueAndPurposes = {
+         ValueAdditions: [“baz”],
+         PurposeAdditions: [“fraud_prevention”],
+         ValueDeletions: [“foo”],
+         PurposeDeletions: [“data_science”],
       }
 
-      Resulting value = \[  
-         ("foo", ["operational"]),  
-         ("bar", ["operational", "data_science"]),  
-         ("baz", ["fraud_prevention"]),  
+      Resulting value = \[
+         ("foo", ["operational"]),
+         ("bar", ["operational", "data_science"]),
+         ("baz", ["fraud_prevention"]),
       ]
       ```
+
    </Step>
    <Step>
    **delete all values**
 
       ```javascript
-      ValueAndPurposes = {  
-         ValueDeletions: MutatorColumnCurrentValue,  
+      ValueAndPurposes = {
+         ValueDeletions: MutatorColumnCurrentValue,
       }
 
       Resulting value = \[]
       ```
+
    </Step>
 </Steps>

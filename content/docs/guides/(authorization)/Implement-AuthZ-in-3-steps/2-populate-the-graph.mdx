@@ -4,8 +4,8 @@ slug: "2-populate-the-graph"
 excerpt: ""
 hidden: false
 metadata:
-    image: []
-    robots: "index"
+  image: []
+  robots: "index"
 createdAt: "Thu Aug 03 2023 23:20:03 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 04 2023 18:42:07 GMT+0000 (Coordinated Universal Time)"
 ---
@@ -15,12 +15,12 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
 Once you have designed the structure of your model, it's time to build your database of <Glossary>object</Glossary>s and <Glossary>edge</Glossary>s in UserClouds. This can be done in two steps:
 
 <Steps>
-    <Step>Migrate over from a pre-existing identity system &nbsp;</Step>
-    <Step>
-        Implement UserClouds's APIs to [populate the graph with
-        objects](/docs/reference/post_authz-objects) and
-        [edges](/docs/reference/post_authz-edges) on an ongoing basis &nbsp;
-    </Step>
+  <Step>Migrate over from a pre-existing identity system &nbsp;</Step>
+  <Step>
+    Implement UserClouds's APIs to [populate the graph with
+    objects](/docs/reference/authz/objects/post) and
+    [edges](/docs/reference/authz/edges/post) on an ongoing basis &nbsp;
+  </Step>
 </Steps>
 
 If you are building your product or user base from scratch, you will skip straight to step 2.
@@ -31,6 +31,6 @@ UserClouds supports mass migration from pre-existing AuthN and AuthZ systems, li
 
 ## 2. Implement Write APIs in your software
 
-Maintaining your authorization graph is simple with UserClouds's CRUD APIs. These allow you to [create Objects](/docs/reference/post_authz-objects) and [Edges](/docs/reference/post_authz-edges) programmatically in your application.
+Maintaining your authorization graph is simple with UserClouds's CRUD APIs. These allow you to [create Objects](/docs/reference/authz/objects/post) and [Edges](/docs/reference/authz/edges/post) programmatically in your application.
 
-For more information on the APIs for Authorization, check out our [Authorization API Docs](/docs/reference/post_authz-objects).
+For more information on the APIs for Authorization, check out our [Authorization API Docs](/docs/reference/authz/objects/post).

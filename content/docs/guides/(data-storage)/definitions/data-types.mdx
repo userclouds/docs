@@ -6,6 +6,7 @@ hidden: false
 createdAt: "Fri Apr 05 2024 20:14:17 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue May 14 2024 01:36:01 GMT+0000 (Coordinated Universal Time)"
 ---
+
 In UserClouds, data types play a crucial role in defining how data is structured, stored, and manipulated within the system. This documentation provides an overview of data types, their significance, and how they interact with columns and transformers, ensuring efficient data management and integrity. Examples of data types include Boolean, String, Int, Address, SSN and E.164 phone number.
 
 ## The Role of Data Types
@@ -23,13 +24,13 @@ Data types define the nature of data that can be stored in a column, influencing
 
 ## Data Type Definitions
 
-Each column and transformer within UserClouds is associated with a data type. These data types come with specific attributes that define their behavior and interaction within the system. For a full list of attributes of data types, see our API Reference on [Creating a Data Type](/docs/reference/post_userstore-config-datatypes). 
+Each column and transformer within UserClouds is associated with a data type. These data types come with specific attributes that define their behavior and interaction within the system. For a full list of attributes of data types, see our API Reference on [Creating a Data Type](/docs/reference/post_userstore-config-datatypes).
 
-Each data type is associated with a Concrete Type, which specifies the actual data structure of the type. The options are `boolean`, `composite`, `date`,`int`,`string`,`timestamp` and `uuid`. Composite data types are complex types that consist of one or more fields, each with its own data type and set of attributes. Composite types allow for the creation of structured, multi-attribute data types, enabling the storage and management of complex data sets within a single column. For a full list of attributes of fields, see our API Reference on [Creating a Data Type](/docs/reference/post_userstore-config-datatypes).
+Each data type is associated with a Concrete Type, which specifies the actual data structure of the type. The options are `boolean`, `composite`, `date`,`int`,`string`,`timestamp` and `uuid`. Composite data types are complex types that consist of one or more fields, each with its own data type and set of attributes. Composite types allow for the creation of structured, multi-attribute data types, enabling the storage and management of complex data sets within a single column. For a full list of attributes of fields, see our API Reference on [Creating a Data Type](/docs/reference/userstore/config/datatypes/post).
 
 ## Customization and Mutability
 
-UserClouds supports both provisioned (default) and custom data types. While provisioned data types offer a standard set of structures for common data needs, custom data types provide flexibility to define unique data structures tailored to specific requirements. 
+UserClouds supports both provisioned (default) and custom data types. While provisioned data types offer a standard set of structures for common data needs, custom data types provide flexibility to define unique data structures tailored to specific requirements.
 
 The mutability of these types is as follows:
 

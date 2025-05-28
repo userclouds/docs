@@ -6,7 +6,8 @@ hidden: false
 createdAt: "Thu Aug 03 2023 21:19:11 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Thu Jun 06 2024 16:41:05 GMT+0000 (Coordinated Universal Time)"
 ---
-import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 Accessors are configurable APIs that allow a client to retrieve data from the user store. Accessors are intended to be use-case specific. For example, you might configure two separate accessors **GetEmailForMarketing** and **GetEmailForAuthentication**. Accessors enforce data usage policies and minimize outbound data from the store for their given use case
 
@@ -15,26 +16,16 @@ Accessors are configurable APIs that allow a client to retrieve data from the us
 You can set up an accessor via the User Store page in the UserClouds Console, or using the CreateAccessor API. There are five steps to define an accessor:
 
 <Steps>
-    <Step>
-    Name and describe the accessor
-    </Step>
-    <Step>
-    Set the purpose of the accessor
-    </Step>
-    <Step>
-    Choose which records and columns it will return data for
-    </Step>
-    <Step>
-    Define how it will transform outbound data
-    </Step>
-    <Step>
-    Define the circumstances in which the accessor can be used
-    </Step>
+  <Step>Name and describe the accessor</Step>
+  <Step>Set the purpose of the accessor</Step>
+  <Step>Choose which records and columns it will return data for</Step>
+  <Step>Define how it will transform outbound data</Step>
+  <Step>Define the circumstances in which the accessor can be used</Step>
 </Steps>
 
 ## Create an Accessor in UserClouds Console
 
-To create an accessor, go the User Store page (accessible from the sidebar in UserClouds Console) and click Create Accessor. 
+To create an accessor, go the User Store page (accessible from the sidebar in UserClouds Console) and click Create Accessor.
 
 <Steps>
     <Step>
@@ -72,7 +63,7 @@ To create an accessor, go the User Store page (accessible from the sidebar in Us
 
     #### Matching data types
 
-    Only transformers with an input type that _can_ represent the data type of the column may be used. As such, the input type of the transformer must either exactly match the data type of the column, or be a more generalized form of that data type. For example: 
+    Only transformers with an input type that _can_ represent the data type of the column may be used. As such, the input type of the transformer must either exactly match the data type of the column, or be a more generalized form of that data type. For example:
 
     - A transformer with the same input type as the column data type can be used
     - A transformer with an input type of `string` can be used for a column with any valid data type, since we can always represent a data type as a string.
@@ -86,6 +77,7 @@ To create an accessor, go the User Store page (accessible from the sidebar in Us
     Transformers should always be written to act on a single piece of data. UserClouds natively handles the case where the associated column is an array column, calling the specified transformer on each array element and recombining the results into an array.
 
     For more information on transformers, see [Transformers](/docs/guides/definitions/transformers). For more information on creating transformers, see our [How To Guide on Creating Transformers](/docs/guides/how-to-guides/create-a-transformer).
+
 </Step>
 <Step>
     ### 5. Define the circumstances in which the accessor can be used
@@ -98,12 +90,13 @@ To create an accessor, go the User Store page (accessible from the sidebar in Us
     - Compose a new policy by taking any of the above actions multiple times and combining those policies with `AND` or `OR` logic
 
     For more information on what access policies do, see [Access Policies](/docs/guides/definitions/access-policies). For more information on creating access policies, see our [How To Guide on Creating Access Policies](/docs/guides/how-to-guides/create-an-access-policy).
-    
+
     </Step>
+
 </Steps>
 
 Nice job! You can now click Save to create your accessor. You can learn how to invoke this accessor in the next article.
 
 ## Create an Accessor via the API
 
-To learn how to create an accessor via the UserClouds API, see our [API Reference](/docs/reference/post_userstore-config-accessors) .
+To learn how to create an accessor via the UserClouds API, see our [API Reference](/docs/reference/userstore/config/accessors/post) .

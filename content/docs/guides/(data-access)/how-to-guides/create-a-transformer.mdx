@@ -6,7 +6,8 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:57:13 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Thu Dec 21 2023 12:26:53 GMT+0000 (Coordinated Universal Time)"
 ---
-import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 Transformers are re-usable JavaScript functions that manipulate data in UserClouds. They allow you to minimize the data that you pass or store for each use case. Transformers allow you to retain select structure and information from the raw data for different use cases, like sorting alphabetically, common domain analysis or simply flowing through your systems without triggering validation errors.
 
@@ -40,7 +41,7 @@ To create a transformer in UserClouds, go to the Policies page, accessible from 
 
     Specify a name and description for the transformer, to help your team find and use it later.
     </Step>
-    <Step>  
+    <Step>
     **Define how the transformer will change the data**
 
     Define how the transformer will work by stating:
@@ -56,10 +57,11 @@ To create a transformer in UserClouds, go to the Policies page, accessible from 
     <Step>
     **Test and save your transformer**
 
-    Finally, test your transformer by adding raw data to the "Data" field and clicking "Run Test". Once you are happy with the test results, click "Save Transformer" to finish. 
+    Finally, test your transformer by adding raw data to the "Data" field and clicking "Run Test". Once you are happy with the test results, click "Save Transformer" to finish.
     </Step>
+
 </Steps>
 
 ## Creating a transformer via the API
 
-To learn how to create a transformer via the UserClouds API, see our [API Reference](/docs/reference/post_tokenizer-policies-transformation).
+To learn how to create a transformer via the UserClouds API, see our [API Reference](/docs/reference/tokenizer/policies/transformation/post).

@@ -6,6 +6,7 @@ hidden: false
 createdAt: "Tue Jul 30 2024 16:34:20 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Jul 30 2024 18:11:04 GMT+0000 (Coordinated Universal Time)"
 ---
+
 This guide explains how to protect columns using default settings, including transformers, access policies, and token access policies (in cases where the default transformer is tokenizing).
 
 ## Column Defaults Overview
@@ -40,13 +41,13 @@ You can override column defaults for an individual accessor.
 
 **For Transformers:**
 
-- Set a specific transformer on the column on the relevant accessor. 
+- Set a specific transformer on the column on the relevant accessor.
 
 **For Access Policies and Token Access Policies:**
 
 - Use the boolean parameter `AreColumnAccessPoliciesOverridden` to disable all default policies for the accessor. This allows you to apply custom policies specific to the accessor.
 
-For more details on how to override column defaults on an individual accessor, refer to the [API reference](/docs/reference/put_userstore-config-accessors-id).
+For more details on how to override column defaults on an individual accessor, refer to the [API reference](/docs/reference/userstore/config/accessors/id/put).
 
 ## Combining Policies
 

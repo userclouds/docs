@@ -6,6 +6,7 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:17:40 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Tue Sep 10 2024 18:36:12 GMT+0000 (Coordinated Universal Time)"
 ---
+
 Access Policies control the circumstances under which data can be retrieved or edited. These policies are functions that receive contextual data and return true or false to determine whether access is allowed or denied. The context is generated from the server and can be combined with additional context sent from the client.
 
 Access Policies are executed in three places in UserClouds:
@@ -43,7 +44,7 @@ Access policies evaluate claims and key/value pairs in the provided context. The
   - **context.server.purpose_names**: the purposes specified on an accessor to which this access policy is attached (does not apply in all cases)
   - **context.server.ip_address**: the IP address of the user or system initiating the request
 - **context.client**: This context contains key/value pairs specified in the request comments by the client and is not considered trusted. It includes data such as user-specified parameters that are not verified by the server.
-- **context.user**: Information about data for the user whose data is row being accessed.  
+- **context.user**: Information about data for the user whose data is row being accessed.
   evaluated by the access policy
 - **context.query**: Specific query parameters relevant to the request.
 - **context.row_data**: Specific Column data for the user row data values related to being evaluated by the request.
@@ -57,19 +58,19 @@ Access Policies are composed from Access Policy Templates. Templates are paramet
 ### Template function
 
 ```javascript
-function getAge(DOB) {  
-    const today = new Date();  
-    const birthDate = new Date(DOB);  
-    let age = today.getFullYear() - birthDate.getFullYear();  
-    const m = today.getMonth() - birthDate.getMonth();  
-    if (m \< 0 || (m === 0 && today.getDate() \< birthDate.getDate())) {  
-        age--;  
-    }  
-    return age;  
+function getAge(DOB) {
+    const today = new Date();
+    const birthDate = new Date(DOB);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m \< 0 || (m === 0 && today.getDate() \< birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
 
-function policy(context, params) {  
-  return getAge(context.user[params.column_name]) >= params.expected_years_old;  
+function policy(context, params) {
+  return getAge(context.user[params.column_name]) >= params.expected_years_old;
 }
 ```
 
@@ -87,10 +88,10 @@ Here is an example of how you can create a policy to check if the country claim 
 ### Template function
 
 ```javascript
-function policy(context, params) {  
-    const country = context.server.claims.country;  
-    const specifiedCountry = params.specified_country;  
-    return country === specifiedCountry;  
+function policy(context, params) {
+  const country = context.server.claims.country;
+  const specifiedCountry = params.specified_country;
+  return country === specifiedCountry;
 }
 ```
 
@@ -108,10 +109,10 @@ If the country information is not in the JWT but in the client context, the poli
 ### Template function
 
 ```javascript
-function policy(context, params) {  
-    const country = context.client.country;  
-    const specifiedCountry = params.specified_country;  
-    return country === specifiedCountry;  
+function policy(context, params) {
+  const country = context.client.country;
+  const specifiedCountry = params.specified_country;
+  return country === specifiedCountry;
 }
 ```
 
@@ -139,13 +140,16 @@ The built-in `networkRequest` function allows you to reach external services via
 This example shows how to make a network request to verify the user's country based on their IP address. Note that the interface for `networkRequest` is synchronous, as in the example below:
 
 ```javascript
-function policy(context, params) {  
-  let countryCode = null;  
-  const resp = networkRequest({url: `https://api.iplocation.net/?ip=${context.server.ip_address}`, method: 'GET' });  
-  if (resp) {  
-    countryCode = JSON.parse(resp).country_code2;  
-  }  
-  return countryCode === "US";  
+function policy(context, params) {
+  let countryCode = null;
+  const resp = networkRequest({
+    url: `https://api.iplocation.net/?ip=${context.server.ip_address}`,
+    method: "GET",
+  });
+  if (resp) {
+    countryCode = JSON.parse(resp).country_code2;
+  }
+  return countryCode === "US";
 }
 ```
 
@@ -156,24 +160,24 @@ This example shows how to verify an employee is active in a private employee dir
 #### Template Function
 
 ```javascript
-function policy(context, params) {  
+function policy(context, params) {
   let isActiveEmployee = false;
 
-  const resp = networkRequest({  
-    url: `https://api.company.com/employees/${context.user.id}/status`,  
-    method: 'GET',  
-    headers: {  
-      'Authorization': 'Basic ' + btoa('username:password'),  
-      'Content-Type': 'application/json'  
-    }  
+  const resp = networkRequest({
+    url: `https://api.company.com/employees/${context.user.id}/status`,
+    method: "GET",
+    headers: {
+      Authorization: "Basic " + btoa("username:password"),
+      "Content-Type": "application/json",
+    },
   });
 
-  if (resp) {  
-    const employeeData = JSON.parse(resp);  
-    isActiveEmployee = employeeData.status === "active";  
+  if (resp) {
+    const employeeData = JSON.parse(resp);
+    isActiveEmployee = employeeData.status === "active";
   }
 
-  return isActiveEmployee;  
+  return isActiveEmployee;
 }
 ```
 
@@ -181,12 +185,12 @@ function policy(context, params) {
 
 ```javascript
 // Example Policy Parameters (not specified in the template function)
-const params = {};  // No specific parameters needed for this example
+const params = {}; // No specific parameters needed for this example
 ```
 
 ## checkAttribute
 
-The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](/docs/reference/get_authz-checkattribute).
+The `checkAttribute` function runs a permission check against the UserClouds authorization graph. If you are using UserClouds for authorization as a service, this can verify if a user has the necessary permissions. In short, it asks whether a given object (usually a user) has an attribute (e.g. "can-read" or "is-admin") on another object (which could be just about any entity in your system). You can read more about this in the [Authorization Documentation](/docs/reference/authz/checkattribute).
 
 ### Example
 
@@ -194,13 +198,13 @@ The `checkAttribute` function runs a permission check against the UserClouds aut
 
 ```javascript
 function policy(context) {
-    const callingUserId = context.user.id;
-    const targetUserId = context.params.targetUserId;
-    const attribute = "viewPermission";
-    if (!callingUserId || !targetUserId || !attribute) {
-        return false;
-    }
-    return checkAttribute(callingUserId, targetUserId, attribute);
+  const callingUserId = context.user.id;
+  const targetUserId = context.params.targetUserId;
+  const attribute = "viewPermission";
+  if (!callingUserId || !targetUserId || !attribute) {
+    return false;
+  }
+  return checkAttribute(callingUserId, targetUserId, attribute);
 }
 ```
 
@@ -216,11 +220,11 @@ function policy(context) {
 ### Example
 
 ```javascript
-function policy(context, params) {  
+function policy(context, params) {
   let { phone_numer } = params; // e.g. "+12065551234"
-  const country = getCountryNameForPhoneNumber(phone_number);  
-   
-  return country.alpha_2 === "US";  
+  const country = getCountryNameForPhoneNumber(phone_number);
+
+  return country.alpha_2 === "US";
 }
 ```
 
@@ -228,7 +232,7 @@ function policy(context, params) {
 
 UserClouds has several built-in access policies for common use cases, like role-based and time-based expiration of data. However you can also create custom policies, in two ways:
 
-- Call the [CreateAccessPolicy API](/docs/reference/post_tokenizer-policies-access)
+- Call the [CreateAccessPolicy API](/docs/reference/tokenizer/policies/access/post)
 - Compose a new policy from existing policies and parametrizable templates in the UserClouds Console
 
 To learn more about creating access policies, see our How to Guide on Creating Access Policies.
