@@ -1,20 +1,15 @@
-import { createMDX } from 'fumadocs-mdx/next';
+import { createMDX } from "fumadocs-mdx/next";
 
 const withMDX = createMDX();
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === "development";
 
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  output: 'export',
+  output: "export",
   images: {
     unoptimized: isDev,
-    remotePatterns: [
-      {
-        hostname: 'files.readme.io',
-      },
-    ],
   },
 };
 
