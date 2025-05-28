@@ -1,6 +1,38 @@
 import "./global.css";
 import { RootProvider } from "fumadocs-ui/provider";
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | UserClouds",
+    default: "UserClouds Documentation",
+  },
+  description: "Official documentation for UserClouds",
+  metadataBase: new URL("https://docs.userclouds.com"),
+  icons: {
+    icon: [{ url: "/favicon.ico" }, { url: "/favicon.png" }],
+    apple: { url: "/icon.png" },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://docs.userclouds.com",
+    siteName: "UserClouds Documentation",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "UserClouds Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/logo.png"],
+  },
+};
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
