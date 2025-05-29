@@ -11,6 +11,8 @@ const config = {
   images: {
     unoptimized: isDev,
   },
+  // Static exports don't support rewrites
+  // We'll handle this using static file generation instead
 };
 
 export default withMDX(config);
