@@ -38,7 +38,7 @@
   --color-fd-popover-foreground: hsl(220, 60%, 94%);
   --color-fd-card: hsla(220, 56%, 15%, 0.4);
   --color-fd-card-foreground: hsl(220, 60%, 94%);
-  --color-fd-border: hsla(220, 50%, 50%, 0.2);
+  --color-fd-border: hsla(220, 50%, 50%, 0.5);
   --color-fd-primary: hsl(203, 100%, 50%);
   --color-fd-primary-foreground: hsl(0, 0%, 20%);
   --color-fd-secondary: hsl(220, 50%, 20%);
