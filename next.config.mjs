@@ -2,8 +2,9 @@ import { createMDX } from "fumadocs-mdx/next";
 const withMDX = createMDX();
 
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
+const isProduction = process.env.NODE_ENV === "production";
 
-let assetPrefix = "./";
+let assetPrefix = isProduction ? "./" : "";
 let basePath = "";
 
 if (isGithubActions) {

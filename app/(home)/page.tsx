@@ -24,7 +24,7 @@ export default function HomePage() {
 
       <div className="flex flex-col sm:flex-row gap-4">
         <Link
-          href="/docs"
+          href={`${process.env.basePath}/docs`}
           className="inline-flex items-center justify-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-white hover:bg-fd-primary/90 transition-colors"
         >
           Read Documentation
