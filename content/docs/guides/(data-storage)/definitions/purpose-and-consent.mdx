@@ -6,9 +6,10 @@ hidden: false
 createdAt: "Thu Aug 03 2023 19:04:43 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Jun 28 2024 22:47:11 GMT+0000 (Coordinated Universal Time)"
 ---
+
 ## Summary
 
-Purposes are used to track, enforce and audit user consent in User Store. Purposes have names like `marketing`, `analytics` and `operations` that map to the data processing purposes described in your privacy policy and terms of service. 
+Purposes are used to track, enforce and audit user consent in User Store. Purposes have names like `marketing`, `analytics` and `operations` that map to the data processing purposes described in your privacy policy and terms of service.
 
 When users share data with you, they consent to a set of purposes for each piece of data that they share. For example, they might consent to using their email address for personalization, but not marketing. User consent is granular: it is stored per piece of data. Note that <Glossary>system column</Glossary> are not associated with purposes.
 
@@ -20,7 +21,6 @@ You can define and describe your own set of purposes in the Purposes table of th
 
 ![Name and describe your data processing purposes in the Purposes table under Access Rules.](/assets/images/purposes.webp)
 
-
 ## How users consent to purposes
 
 Users can share and revoke consent to process their data for a particular purpose (or set of purposes) when:
@@ -29,7 +29,7 @@ Users can share and revoke consent to process their data for a particular purpos
 - They share a new piece of data with you
 - They complete flows authorizing or revoking authorization for particular uses of their data, e.g. a sign-up for a weekly newsletter
 
-Consent is granular: it is stored per piece of data. For example, an end user might consent to using their email address for marketing, but not their phone number. When a user consents to a particular data processing purpose for a particular piece of data, this is tracked in User Store as a **consented purpose**. 
+Consent is granular: it is stored per piece of data. For example, an end user might consent to using their email address for marketing, but not their phone number. When a user consents to a particular data processing purpose for a particular piece of data, this is tracked in User Store as a **consented purpose**.
 
 ## How user consents are stored
 
@@ -38,8 +38,6 @@ Consented purposes are stored per column, per user in User Store. For example, a
 ## How to edit consents via the API
 
 Consents must be specified for all mutator operations (creates, updates and deletes). Consents are passed to the User Store in the context at execution time. If a data value is authorized for multiple purposes, deleting a data value for a single specified purpose will remove that consented purpose (only).
-
-_(Coming soon)_ UserClouds is building off-the-shelf integrations with consent management solutions like OneTrust and PrivacyArc to pass consent data collected by third party services into User Store.
 
 ## How user consent is enforced
 
