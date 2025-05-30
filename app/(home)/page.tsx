@@ -1,22 +1,23 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center py-20 text-center px-4">
       <div className="mb-10 flex flex-col items-center gap-y-6">
-        <Image 
-          src="/logo.png" 
-          alt="UserClouds Logo" 
-          width={240} 
-          height={33} 
+        <Image
+          src={`${process.env.assetPrefix}/logo.png`}
+          alt="UserClouds Logo"
+          width={240}
+          height={33}
           className="dark:saturate-200"
           priority
         />
 
         <p className="text-xl text-fd-muted-foreground max-w-3xl">
-          An open-source identity management platform that simplifies authentication, authorization, 
-          and user data handling for modern applications.
+          An open-source identity management platform that simplifies
+          authentication, authorization, and user data handling for modern
+          applications.
         </p>
       </div>
 
@@ -54,31 +55,71 @@ export default function HomePage() {
 
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl">
         <div className="flex flex-col items-center p-6 bg-fd-card rounded-lg border border-fd-border">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-4 text-fd-primary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mb-4 text-fd-primary"
+          >
             <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
           <h3 className="text-lg font-semibold mb-2">Authentication</h3>
-          <p className="text-fd-muted-foreground text-center">Secure, flexible user authentication system with multiple identity providers</p>
+          <p className="text-fd-muted-foreground text-center">
+            Secure, flexible user authentication system with multiple identity
+            providers
+          </p>
         </div>
-        
+
         <div className="flex flex-col items-center p-6 bg-fd-card rounded-lg border border-fd-border">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-4 text-fd-primary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mb-4 text-fd-primary"
+          >
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
           </svg>
           <h3 className="text-lg font-semibold mb-2">Authorization</h3>
-          <p className="text-fd-muted-foreground text-center">Fine-grained access control with easy-to-implement permission models</p>
+          <p className="text-fd-muted-foreground text-center">
+            Fine-grained access control with easy-to-implement permission models
+          </p>
         </div>
-        
+
         <div className="flex flex-col items-center p-6 bg-fd-card rounded-lg border border-fd-border">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-4 text-fd-primary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mb-4 text-fd-primary"
+          >
             <path d="M21 5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2" />
             <path d="M16 2v4" />
             <path d="M8 2v4" />
             <path d="M2 10h20" />
           </svg>
           <h3 className="text-lg font-semibold mb-2">User Data Management</h3>
-          <p className="text-fd-muted-foreground text-center">Centralized user data storage with privacy-preserving tokenization</p>
+          <p className="text-fd-muted-foreground text-center">
+            Centralized user data storage with privacy-preserving tokenization
+          </p>
         </div>
       </div>
     </main>

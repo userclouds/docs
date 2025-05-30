@@ -1,5 +1,5 @@
-import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import Image from 'next/image';
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import Image from "next/image";
 
 /**
  * Shared layout configurations
@@ -9,12 +9,18 @@ import Image from 'next/image';
  * Docs Layout: app/docs/layout.tsx
  */
 export const baseOptions: BaseLayoutProps = {
-  githubUrl: 'https://github.com/userclouds/userclouds-oss',
+  githubUrl: "https://github.com/userclouds/userclouds-oss",
   nav: {
     title: (
       <>
-        <Image src="/logo.png" width={160} height={22} alt="UserClouds logo" className="dark:saturate-200"/>
+        <Image
+          src={`${process.env.assetPrefix}/logo.png`}
+          width={160}
+          height={22}
+          alt="UserClouds logo"
+          className="dark:saturate-200"
+        />
       </>
     ),
-  }
+  },
 };
