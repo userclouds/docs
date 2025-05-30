@@ -1,6 +1,6 @@
-@import 'tailwindcss';
-@import 'fumadocs-ui/css/neutral.css';
-@import 'fumadocs-ui/css/preset.css';
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 
 @theme {
   --fd-sidebar-width: 0px;
@@ -39,7 +39,7 @@
   --color-fd-card: hsla(220, 56%, 15%, 0.4);
   --color-fd-card-foreground: hsl(220, 60%, 94%);
   --color-fd-border: hsla(220, 50%, 50%, 0.2);
-  --color-fd-primary: hsl(205, 100%, 85%);
+  --color-fd-primary: hsl(203, 100%, 50%);
   --color-fd-primary-foreground: hsl(0, 0%, 20%);
   --color-fd-secondary: hsl(220, 50%, 20%);
   --color-fd-secondary-foreground: hsl(220, 80%, 90%);
@@ -57,4 +57,4 @@
   background-repeat: no-repeat;
 }
 
-@import 'fumadocs-openapi/css/preset.css';
+@import "fumadocs-openapi/css/preset.css";
