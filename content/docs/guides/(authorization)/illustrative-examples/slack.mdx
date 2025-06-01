@@ -35,13 +35,13 @@ For simplicity, we’ll scope down to five key permissions:
 
 Here are our design requirements:
 
-- **Workspace 1**: Only workspace admins can invite users to a workspace
-- **W2**: Only users who are invited to a workspace can join it
-- **Channel 1**: Each channel exists in exactly one workspace
-- **C2**: If a channel is public, only members of a channel's workspace can join that channel or view messages in that channel
-- **C3**: If a channel is private, only invited members of a channel's workspace can join that channel
-- **C4**: If a channel is private, only members of that channel can view messages in that channel
-- **C5**: Only channel members can send messages in a channel 
+- **Workspace 1**: Only workspace admins can invite users to a workspace.
+- **W2**: Only users who are invited to a workspace can join it.
+- **Channel 1**: Each channel exists in exactly one workspace.
+- **C2**: If a channel is public, only members of a channel's workspace can join that channel or view messages in that channel.
+- **C3**: If a channel is private, only invited members of a channel's workspace can join that channel.
+- **C4**: If a channel is private, only members of that channel can view messages in that channel.
+- **C5**: Only channel members can send messages in a channel.
 
 Since our permissions are channel specific, modeling these 5 permissions with RBAC would require creating and maintaining millions of roles. With UserClouds, we can do it with just 3 object types and 6 edge types.
 
