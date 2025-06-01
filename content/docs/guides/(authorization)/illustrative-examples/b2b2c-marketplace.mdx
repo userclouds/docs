@@ -24,13 +24,13 @@ In general, model design is an iterative process. While this article is presente
 
 Suppose you are an ecommerce marketplace company. Buyers and sellers transact via Orders, which are associated with a shipping address at checkout time. You might want to define permissions such that:
 
-- Sellers can be (a) shops (groups of users) or (b) individual users 
-- Buyers can only be individual users
-- Users can be a "shop owner" or a "shop member"
-- Buyers can view and edit their own orders
-- Individual sellers can view, edit and refund orders that they sell
-- Shop owners can edit their shop's settings (e.g. name and payout details) and manage their shop's members
-- Both shop owners and shop members can view, edit and refund their shop's orders
+- Sellers can be (a) shops (groups of users) or (b) individual users.
+- Buyers can only be individual users.
+- Users can be a "shop owner" or a "shop member".
+- Buyers can view and edit their own orders.
+- Individual sellers can view, edit and refund orders that they sell.
+- Shop owners can edit their shop's settings (e.g. name and payout details) and manage their shop's members.
+- Both shop owners and shop members can view, edit and refund their shop's orders.
 
 With GBAC, this system becomes simple to implement. GBAC can natively reflect the relationships between the users, shops and orders. This extra level of native abstraction saves you from creating shop-specific roles.
 
