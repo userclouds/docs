@@ -7,24 +7,34 @@ createdAt: "Thu Aug 03 2023 22:43:44 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Mon Nov 04 2024 20:08:29 GMT+0000 (Coordinated Universal Time)"
 ---
 
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
 You’ve already created your first application in UserClouds. Nice job! This page shows how to set up UserClouds Authentication on your software.
 
-## 1. Specify your allowed Redirect and Logout URLs
+<Steps>
+    <Step>
 
-In the UserClouds Console, select your tenant, then navigate to Authentication > Login Apps via the sidebar. Select your Default Application to access this Application’s Settings page. From here, you can specify the exact URLs you want to allow as:
+    ## Specify your allowed Redirect and Logout URLs
 
-- OIDC/OAuth2 callback URLs: this is where UserClouds will redirect your user to after they authenticate.
-- Auth logout URLs: this is where UserClouds will redirect your user to after they log out.
+    In the UserClouds Console, select your tenant, then navigate to Authentication > Login Apps via the sidebar. Select your Default Application to access this Application’s Settings page. From here, you can specify the exact URLs you want to allow as:
 
-Remember to click Save to apply this change!
+    - OIDC/OAuth2 callback URLs: this is where UserClouds will redirect your user to after they authenticate.
+    - Auth logout URLs: this is where UserClouds will redirect your user to after they log out.
 
-## 2. Cut and paste your UserClouds settings into the sample app code
+    Remember to click Save to apply this change!
 
-Each UserClouds application has four key attributes: an application ID, an application name, a client ID and a client secret. You will need your Client ID and Client Secret, when you use your TenantURL to call UserClouds's APIs.
-Before you use the sample code elsewhere, make sure you replace the sample app’s instances of these variables with your application’s attributes. You can find these on your Application’s Settings page.
+    </Step>
+    <Step>
+    ## Cut and paste your UserClouds settings into the sample app code
 
-## 3. Implement UserClouds in your software
+    Each UserClouds application has four key attributes: an application ID, an application name, a client ID and a client secret. You will need your Client ID and Client Secret, when you use your TenantURL to call UserClouds's APIs.
+    Before you use the sample code elsewhere, make sure you replace the sample app’s instances of these variables with your application’s attributes. You can find these on your Application’s Settings page.
+    </Step>
+    <Step>
+    ## Implement UserClouds in your software
 
-Use the sample code (or any other OIDC library you like) as a template to add UserClouds to your application.
+    Use the sample code (or any other OIDC library you like) as a template to add UserClouds to your application.
+    </Step>
+    </Steps>
 
 Great job! You’re all set up.
