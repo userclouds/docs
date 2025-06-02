@@ -27,7 +27,7 @@ This guide assumes that you are generally familiar with helm usage and have your
 2. **Create AWS IAM role for the UserClouds software to use.**
    The IAM role should use EKS IRSA
    The following AWS permissions are required by the Userclouds software:
-    1. Access to AWS secrets manager - for the DB password mentioned in the previous section. The Userclouds software will also write some secrets to the AWS Secrets manager (mostly DB credentials for databases created on the RDS instance)
+    1. Access to AWS secrets manager: for the DB password mentioned in the previous section. The Userclouds software will also write some secrets to the AWS Secrets manager (mostly DB credentials for databases created on the RDS instance)
 3. **Add the UserClouds helm chart repo**
    helm repo add userclouds [https://userclouds.github.io/helm-charts](https://userclouds.github.io/helm-charts)
 4. **Ensure your Kubernetes cluster has a secret to authenticate to container registry**

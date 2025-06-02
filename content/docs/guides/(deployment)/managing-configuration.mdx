@@ -16,7 +16,7 @@ updatedAt: "Tue Jul 30 2024 19:06:01 GMT+0000 (Coordinated Universal Time)"
 There are two easy ways to run `ucconfig`:
 
 - **Download a Pre-packaged Binary:**
-    - Download from the Releases page. Note: On macOS, you will likely need to grant an exception to allow the binary to run.
+    - Download from the Releases page. _Note: On macOS, you will likely need to grant an exception to allow the binary to run._
 - **Run with Docker:**
     - `docker run userclouds/ucconfig [ucconfig args described below...]`
     - Note: `docker run` may require additional flags to share environment variables or files with the container. See example commands in the Usage section.
@@ -155,10 +155,10 @@ resources:
 
 ```
 
-- If a resource has the same UUID in all of your tenants (e.g., you used `ucconfig` to create all resources in all your tenants), then specifying **`__DEFAULT` is sufficient, and you do not need to specify the ID for every tenant. `ucconfig` will use the **`__DEFAULT` key to match live tenant resources to manifest entries.
+- If a resource has the same UUID in all of your tenants (e.g., you used `ucconfig` to create all resources in all your tenants), then specifying `__DEFAULT` is sufficient, and you do not need to specify the ID for every tenant. `ucconfig` will use the `__DEFAULT` key to match live tenant resources to manifest entries.
 - However, if a resource exists with different UUIDs in different tenants (e.g., you already manually created an email column in your staging and production tenants, so they ended up with different IDs), you should list each ID here to ensure that `ucconfig` will match the correct live resources.
 
-When creating a new resource, `ucconfig` will create it with the`__DEFAULT` UUID.
+When creating a new resource, `ucconfig` will create it with the `__DEFAULT` UUID.
 
 ### Functions
 

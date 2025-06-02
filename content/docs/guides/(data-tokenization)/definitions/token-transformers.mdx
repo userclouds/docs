@@ -32,9 +32,9 @@ Let’s look at four possible transformers, to see how transformers work.
 
 A transformer consists of a tuple of (ID, function, parameters)
 
-- `id` - a unique transformer identifier, which can be used as a reference when creating tokens
-- `function` - a transform function with the signature `func(data Object, parameters Object) (Token | error)`
-- `parameters` - a static JSON object (not containing un-encoded PII) that is available at runtime, allowing you to parameterize and reuse functions like "obfuscate all but the first X letters of these emails"
+- `id`: a unique transformer identifier, which can be used as a reference when creating tokens
+- `function`: a transform function with the signature `func(data Object, parameters Object) (Token | error)`
+- `parameters`: a static JSON object (not containing un-encoded PII) that is available at runtime, allowing you to parameterize and reuse functions like "obfuscate all but the first X letters of these emails"
 
 ## Managing transformers
 
