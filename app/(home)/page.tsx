@@ -7,7 +7,7 @@ export default function HomePage() {
     <main className="flex flex-1 flex-col items-center justify-center py-20 text-center px-4">
       <div className="mb-10 flex flex-col items-center gap-y-6">
         <Image
-          src={`${process.env.assetPrefix}/logo.png`}
+          src={"logo.png"}
           alt="UserClouds Logo"
           width={240}
           height={33}

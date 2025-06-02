@@ -14,7 +14,7 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <>
         <Image
-          src={`${process.env.assetPrefix}/logo.png`}
+          src={"logo.png"}
           width={160}
           height={22}
           alt="UserClouds logo"
