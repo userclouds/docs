@@ -21,11 +21,11 @@ Access policies are evaluated per row of returned data from the database. Theref
 2. **Select and Edit the Query, Blob Store, or API Call:**
     1. **For SQL Proxies:** In the UserClouds Console, go to Accessors (under Access Methods), find the relevant query in your list of data accessors, and click "Edit".
     2. **For NoSQL Proxies:** In the UserClouds Console, navigate to Object Stores under User Data Storage in the side navigation, select the object store, and click "Edit".
-    3. **For API Proxies:** In the UserClouds Console, navigate to API connections under User Data Storage in the side navigation, select the API connection, and click "Edit".
+    3. **For API Proxies:** This is not yet implemented.
 3. **Add Access Policies**: Scroll down to the access policy section and add one or more access policies.
     1. **For SQL Proxies:** Apply policies at the query level.
     2. **For NoSQL Proxies:** Apply policies at the object store level, but you can also consider the file path as context (e.g., a user ID in the file path) for finer-grained access control.
-    3. **For API Proxies**: Apply policies at the individual endpoint level.
+    3. **For API Proxies**: This is not yet implemented.
 4. **Define Policy Logic**: If adding two or more access policies, define whether all policies or one policy must be true for the overall policy to pass, by ANDing or ORing the policies together.
 5. **Save**: Click "Save".
 
