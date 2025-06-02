@@ -16,8 +16,8 @@ The proxy approach is just one of several ways to apply the safety layer in your
 UserClouds offers three broad types of proxies, each of which can be used to control access and apply policies to your data:
 
 1. **SQL Proxies** – Applied to structured databases like RDS, these proxies intercept SQL queries, allowing you to enforce access policies, mask or tokenize sensitive data, and log query activity.
-2. **NoSQL Proxies** – Used with NoSQL databases like S3, MongoDB or DynamoDB, these proxies manage unstructured or semi-structured data, applying access policies and logging access, without transforming the data.
-3. **API Proxies** – Used for REST or GraphQL APIs, these proxies sit between the application and external services or microservices, controlling and logging data access, and applying policies to API calls.
+2. **NoSQL Proxies** – Used with Object Stores like S3 or NoSQL databases like MongoDB or DynamoDB, these proxies manage unstructured or semi-structured data, applying access policies and logging access, without transforming the data. Currently only S3 is supported.
+3. **API Proxies** – Used for REST or GraphQL APIs, these proxies sit between the application and external services or microservices, controlling and logging data access, and applying policies to API calls. Not yet supported.
 
 Each of these proxies sits between the application and data source, intercepting requests to ensure secure, controlled access, with minimal code changes required.
 
