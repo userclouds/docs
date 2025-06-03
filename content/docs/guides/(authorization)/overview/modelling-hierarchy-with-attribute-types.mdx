@@ -1,11 +1,12 @@
 ---
-title: "Modeling Hierarchy with Attribute Scopes"
+title: "Modeling hierarchy with attribute scopes"
 slug: "modelling-hierarchy-with-attribute-types"
 excerpt: ""
 hidden: false
 createdAt: "Thu Aug 03 2023 23:14:02 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Jun 21 2024 16:55:25 GMT+0000 (Coordinated Universal Time)"
 ---
+
 In this article, you will learn how to model relationships and arbitrarily deep hierarchy between <Glossary>object</Glossary>s in your system with attribute scopes. By the end of this article, you will understand the fundamentals of modeling:
 
 - **Folder-like structures** where objects contain other objects (ad infinitum)
@@ -16,14 +17,13 @@ The article assumes you know what <Glossary>object</Glossary>, <Glossary>edge</G
 
 ## Attribute Scopes
 
-Attributes give one object permissions on another object. Each attribute has an <Glossary>attribute name</Glossary> (like `edit`) and an <Glossary>attribute scope</Glossary>. The value describes the permission and the scope describes which two objects are affected by the attribute. There are three scopes of attribute: direct, inherit and propagate. 
+Attributes give one object permissions on another object. Each attribute has an <Glossary>attribute name</Glossary> (like `edit`) and an <Glossary>attribute scope</Glossary>. The value describes the permission and the scope describes which two objects are affected by the attribute. There are three scopes of attribute: direct, inherit and propagate.
 
 ## Direct Attributes
 
-The direct scope is the simplest attribute scope. It gives the source object the permission on the target object. It is used for non-hierarchical relationships. 
+The direct scope is the simplest attribute scope. It gives the source object the permission on the target object. It is used for non-hierarchical relationships.
 
 ![An edge with a view:direct attribute gives the source object view permissions on the target object.](/assets/images/Attribute_Direct.webp)
-
 
 ## Inherit Attributes
 
@@ -31,10 +31,9 @@ The inherit attribute scope states:
 
 > Inherit: if the target <Glossary>object</Glossary> has the attribute on a third object, the source object ‘inherits’ that attribute on the third object.
 
-**Inherit attributes are used to pass a permission from one user or group to another**. In the example below, Gloria is a member of a department that owns a particular project. This is modeled by giving the department direct view access on the project, and passing that view access to Gloria with an inherit attribute. 
+**Inherit attributes are used to pass a permission from one user or group to another**. In the example below, Gloria is a member of a department that owns a particular project. This is modeled by giving the department direct view access on the project, and passing that view access to Gloria with an inherit attribute.
 
 ![Inherit attributes are used to pass permissions from one user or group to another.](/assets/images/Attribute_Inherit.webp)
-
 
 ## Propagate Attributes
 
