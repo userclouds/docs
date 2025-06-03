@@ -20,7 +20,7 @@ In addition, two special types of access policies are available:
 - **Column Default Access Policies**: These policies are associated with specific columns and are applied by default to all reads that extract data from those columns. They ensure consistent application of access rules for sensitive data, such as automatically applying a role check to the SSN column. They can be overridden for individual accessors. Learn more [here](/docs/protect-a-column-with-defaults).
 - **Global Baseline Access Policies**: These policies are applied by default to all reads, providing a consistent security baseline. For example, a global policy might always require a valid token or restrict access to trusted IP addresses. They cannot be overridden. Learn more [here](/docs/apply-global-protection-policies).
 
-Access policies provide central, fine-grained control over sensitive data access. They can evaluate purpose, identity, authorization, location, , and more. They can range from simple "always allow resolution" policies to complex evaluations.
+Access policies provide central, fine-grained control over sensitive data access. They can evaluate purpose, identity, authorization, location, and more. They can range from simple "always allow resolution" policies to complex evaluations.
 
 ![Access policies give you central, fine-grained control over sensitive data access. Policies can evaluate purpose, identity, permissions, location, expiration timelines, rate limits and more.](/assets/images/flow-chart.webp)
 

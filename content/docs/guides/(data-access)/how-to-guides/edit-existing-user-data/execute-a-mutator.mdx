@@ -23,11 +23,11 @@ When calling the ExecuteMutator API directly you pass:
 - An array of <Glossary>SelectorValues</Glossary>, which are used to parameterize the mutator's <Glossary>selector</Glossary> to define which users should be edited
 - Optional client <Glossary>context</Glossary> data, which may be referred to by the mutator access policy
 - `RowData`, a mapping from mutator column name to a `ValueAndPurposes` record, which captures any requested data or consent changes for that column. `ValueAndPurposes` contains the following attributes, each of which will be explained more fully in the context of FullUpdates and PartialUpdates below:
-  - `Value` - used for FullUpdates
-  - `ValueAdditions` - used for PartialUpdates
-  - `ValueDeletions` - used for PartialUpdates
-  - `PurposeAdditions` - used for FullUpdates and PartialUpdates
-  - `PurposeDeletions` - used for FullUpdates and PartialUpdates
+  - `Value`: used for FullUpdates
+  - `ValueAdditions`: used for PartialUpdates
+  - `ValueDeletions`: used for PartialUpdates
+  - `PurposeAdditions`: used for FullUpdates and PartialUpdates
+  - `PurposeDeletions`: used for FullUpdates and PartialUpdates
 
 ## What happens when you execute a mutator
 

@@ -4,11 +4,13 @@ slug: "authentication-methods"
 excerpt: ""
 hidden: false
 metadata:
-    image: []
-    robots: "index"
+  image: []
+  robots: "index"
 createdAt: "Thu Aug 03 2023 22:51:23 GMT+0000 (Coordinated Universal Time)"
 updatedAt: "Fri Aug 25 2023 21:43:12 GMT+0000 (Coordinated Universal Time)"
 ---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 UserClouds supports every major method of authentication, such as social sign in with Google, Facebook and LinkedIn OAuth. The user's accounts will be owned by the Identity Platforms configured in “Underlying Identity Providers”.
 
@@ -18,28 +20,39 @@ Adding a Social/Third Party Connection to a login flow can be completed in three
 2. Connect your tenant to your third party account
 3. Turn on that authentication method in your application
 
-## 1. Configure your account with the third party.
+<Steps>
+<Step>
+    ## Configure your account with the third party.
 
-To set up third party OAuth for the first time, you'll need to create your account with the third party providers directly. For more info on this, see the articles below:
+    To set up third party OAuth for the first time, you'll need to create your account with the third party providers directly. For more info on this, see the articles below:
 
-- [Setting up Google OAuth](https://support.google.com/cloud/answer/6158849?hl=en)
-- [Setting up Facebook OAuth](https://developers.facebook.com/docs/facebook-login)
-- [Setting up Apple OAuth](https://developer.apple.com/sign-in-with-apple/get-started/)
+    - [Setting up Google OAuth](https://support.google.com/cloud/answer/6158849?hl=en)
+    - [Setting up Facebook OAuth](https://developers.facebook.com/docs/facebook-login)
+    - [Setting up Apple OAuth](https://developer.apple.com/sign-in-with-apple/get-started/)
 
-## 2. Connect your tenant to the third party.
+</Step>
+<Step>
+    ## Connect your tenant to the third party.
 
-Once you have set up your relationship with the third party OAuth provider, it's time to connect your tenant to that provider:
+    Once you have set up your relationship with the third party OAuth provider, it's time to connect your tenant to that provider:
 
-- Go to your Tenant’s Authentication page.
-- Select the relevant provider in the Social & 3rd Party Identity Providers card
-- Copy over your OAuth Client ID and Client Secret
-- Click Save!
+    - Go to your Tenant’s Authentication page.
+    - Select the relevant provider in the Social & 3rd Party Identity Providers card
+    - Copy over your OAuth Client ID and Client Secret
+    - Click Save!
 
-## 3. Turn on the authentication method in your application.
+</Step>
+<Step>
 
-Now your tenant is connected to the third party, you can add their authentication method to any applications within that tenant. This allows you to serve different login experiences to different users within the same tenant. For example, Uber might prefer to have drivers and riders served by the same tenant, since a driver wants their password to work for both apps. But Uber might also require 2FA for the driver app, since drivers payouts are configured through the driver app.
+    ## Turn on the authentication method in your application.
 
-1. Navigate to the Application page (Select Tenant > Authentication > Application).
-2. Create social redirect and logout URIs for that application, e.g. `https://tenantname.tenant.userclouds.com/social/callback`
-3. Add these URIs to your account with the third party (see links in part 1).
-4. Select which authentication methods are enabled in the Login Settings card. You can also configure other authentication methods, like Passwordless / Magic Link, from this card.
+    Now your tenant is connected to the third party, you can add their authentication method to any applications within that tenant. This allows you to serve different login experiences to different users within the same tenant. For example, Uber might prefer to have drivers and riders served by the same tenant, since a driver wants their password to work for both apps. But Uber might also require 2FA for the driver app, since drivers payouts are configured through the driver app.
+
+    1. Navigate to the Application page (Select Tenant > Authentication > Application).
+    2. Create social redirect and logout URIs for that application, e.g. `https://tenantname.tenant.userclouds.com/social/callback`
+    3. Add these URIs to your account with the third party (see links in part 1).
+    4. Select which authentication methods are enabled in the Login Settings card. You can also configure other authentication methods, like Passwordless / Magic Link, from this card.
+
+    </Step>
+
+</Steps>
