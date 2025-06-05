@@ -1,13 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LockIcon, ShieldIcon, UsersIcon } from "lucide-react";
+import { Banner } from "fumadocs-ui/components/banner";
 
 export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center py-20 text-center px-4">
+      <Banner className="fixed top-0 left-0 right-0">
+        UserClouds is now open-source!{" "}
+        <Link href="/about" className="text-fd-primary underline ml-2">
+          Read our announcement.
+        </Link>
+      </Banner>
       <div className="mb-10 flex flex-col items-center gap-y-6">
         <Image
-          src={"logo.png"}
+          src="logo.png"
           alt="UserClouds Logo"
           width={240}
           height={33}
@@ -15,10 +22,17 @@ export default function HomePage() {
           priority
         />
 
-        <p className="text-xl text-fd-muted-foreground max-w-3xl">
-          An open-source identity management platform that simplifies
-          authentication, authorization, and user data handling for modern
-          applications.
+        <p className="text-xl text-fd-muted-foreground max-w-3xl text-pretty">
+          An{" "}
+          <Link
+            href="https://github.com/userclouds/userclouds-oss"
+            className="text-fd-primary hover:underline"
+          >
+            open-source identity management platform
+          </Link>{" "}
+          that simplifies authentication, authorization, and user data handling
+          for modern applications.
+          <br />
         </p>
       </div>
 
