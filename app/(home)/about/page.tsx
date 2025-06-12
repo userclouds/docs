@@ -198,12 +198,6 @@ export default function AboutPage() {
             <span className="font-semibold text-foreground">GitHub Issues</span>
             : For bugs or feature requests.
           </li>
-          <li className="text-fd-muted-foreground">
-            <span className="font-semibold text-foreground">
-              GitHub Discussions
-            </span>
-            : Engage with other users and contributors.
-          </li>
         </ul>
         <p className="mt-4">
           By open-sourcing UserClouds, we hope to contribute meaningfully to the
